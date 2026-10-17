@@ -5,7 +5,7 @@ import unittest
 from unittest.mock import patch
 import pygame
 from casa.config import ROOT,ROOMS,PLAYER_SIZE
-from casa.game import House
+from support import exploration_house as House
 from casa.collision_data import save,load
 from casa.interactions import nearest
 

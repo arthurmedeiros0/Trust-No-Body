@@ -9,6 +9,8 @@ VIEWPORT = (20, 65, 1240, 610)
 FPS = 60
 SPEED = 220
 FRAME_TIME = .14
+PLAYER_ASSET_ROOT = ROOT/'personagens/protagonista/classicos'
+PLAYER_LATERAL_CYCLE = (0, None, 1, None, 2, None)
 # Escala de exibicao comum; art_scale normaliza unidades da arte, nao o jogador.
 SCENE_SCALE = 1.0
 PLAYER_SIZE = (64, 96)
@@ -36,15 +38,15 @@ ROOMS = {
   'source_size': (747,561), 'art_scale': .88,
   'spawn': (403,452),
   'interactions': [dict(label='Voltar ao corredor',point=(403,482),action='exit',direction='frente'),
-    dict(label='Televisao',point=(110,267),action='message',text='Noticiario: a cidade segue em silencio. Novas noticias em breve.'),
-    dict(label='Cama',point=(299,339),action='sleep')],
+    dict(label='Televisao',point=(110,267),action='television'),
+    dict(label='Cama',point=(299,339),region=(232,125,131,215),action='sleep')],
  },
  'cozinha': {
   'images': {'dia':'cozinha_dia.png','noite':'cozinha_noite.png'},
   'source_size': (747,561), 'art_scale': .90,
   'spawn': (379,488),
   'interactions': [dict(label='Voltar ao corredor',point=(379,519),action='exit',direction='frente'),
-    dict(label='Geladeira',point=(668,237),action='message',text='Estoque: verificacao de alimentos ainda nao implementada.')],
+    dict(label='Geladeira',point=(668,237),action='fridge')],
  },
  'banheiro': {
   'images': {'dia':'banheiro_dia.png','noite':'banheiro_noite.png'},

@@ -1,24 +1,37 @@
 {
   "intro": [
-    "Meu nome é Ricardo. Sou médico. Estava trabalhando no hospital quando tudo começou.",
-    "As coisas saíram do controle rapidamente. Preciso de um lugar seguro para passar a noite."
+    "Boa tarde. Meu nome é Ricardo. Sou médico.",
+    "Sei que não deveria estar andando pelas ruas, mas não tenho para onde ir.",
+    "Não estou pedindo que confie em mim. Só preciso de um teto por esta noite."
   ],
   "questions": [
     {
       "question": "Em qual hospital você trabalhava?",
-      "answer": "No Hospital Municipal São Lucas, no pronto atendimento. Marina, uma enfermeira da equipe, ajudou a organizar a retirada dos pacientes."
+      "answer": "No Hospital Municipal São Lucas. Ele foi isolado quando eu estava fora. Marina, uma enfermeira da equipe, ficou tentando ajudar os pacientes."
     },
     {
       "question": "Há quanto tempo está procurando abrigo?",
-      "answer": "Saí do hospital nesta manhã. Passei o dia procurando um lugar seguro e evitando as avenidas bloqueadas."
+      "answer": "Desde que encontrei o hospital bloqueado e meu bairro evacuado. Depois tentei um abrigo do governo, mas não consegui uma vaga."
     },
     {
       "question": "Você teve contato com pessoas infectadas?",
       "answer": "Atendi pacientes durante os primeiros dias. Usei os equipamentos que havia, mas não tenho como garantir o que aconteceu depois."
     },
     {
-      "question": "Você possui comida ou água?",
-      "answer": "Tenho {food} latas de comida e {water} garrafas de água comigo."
+      "question": "Você possui suprimentos?",
+      "answer": "Tenho um pouco de comida e água comigo. Posso dividir com você se me deixar ficar. São {food} latas de comida e {water} garrafas de água."
+    },
+    {
+      "question": "Por que você não está no hospital?",
+      "answer": "O hospital onde eu trabalhava foi isolado. Encontraram casos entre pacientes e funcionários. Eu estava fora quando fecharam a unidade. Ninguém mais pode entrar."
+    },
+    {
+      "question": "E sua casa?",
+      "answer": "Minha região foi classificada como Zona Vermelha. Quando tentei voltar, os militares já tinham fechado todas as ruas."
+    },
+    {
+      "question": "Por que está procurando abrigo?",
+      "answer": "Os abrigos estão lotados. Alguns foram fechados depois de novos casos. Não tenho outro lugar para ir."
     }
   ]
 }

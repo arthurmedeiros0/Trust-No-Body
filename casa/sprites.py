@@ -1,9 +1,9 @@
 """Carregamento explicito dos 16 sprites organizados."""
 import pygame
-from .config import ROOT, PLAYER_SIZE
+from .config import PLAYER_ASSET_ROOT, PLAYER_SIZE
 
 def load_sprites():
-    base = ROOT/'personagens/protagonista/processados'
+    base = PLAYER_ASSET_ROOT
     idle, walk = {}, {}
     for direction in ('frente','costas','direita','esquerda'):
         idle[direction] = pygame.image.load(str(base/f'parado/{direction}.png')).convert_alpha()

@@ -81,13 +81,22 @@ class Resident:
                     point=self.feet+delta/steps
                     if not self._allowed(point,collisions):
                         self.rest();break
-                    self.feet.update(point)
-                    self.moving=True
-                    self.animation_elapsed+=chunk/steps
+                    if point.distance_squared_to(self.feet)>1e-12:
+                        self.feet.update(point)
+                        self.moving=True
+                        self.animation_elapsed+=chunk/steps
             self.remaining-=chunk;remaining-=chunk
+        if self.walking and self.remaining<=1e-8:
+            self.rest()
+        if not self.walking or not self.moving:
+            self.moving=False;self.animation_elapsed=0.
+
+    @property
+    def animation_state(self):
+        return 'walk' if self.walking and self.moving else 'idle'
 
     def image(self,assets):
         frames=assets.cycles.get(self.direction,())
-        if self.moving and frames:
+        if self.animation_state=='walk' and frames:
             return frames[int(self.animation_elapsed/self.frame_seconds)%len(frames)]
         return assets.sprites[self.direction]

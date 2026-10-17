@@ -7,7 +7,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 import pygame
-from casa.game import House
+from support import exploration_house as House
 from casa.config import ROOT,ROOMS
 from casa.collision_data import load,save,validate
 from casa.collisions import feet_rect
@@ -111,7 +111,16 @@ class EditorTests(unittest.TestCase):
                 if key=='interactions':
                     # Apenas a orientacao de chegada mudou nesta etapa.
                     actual=[{k:v for k,v in item.items() if k!='direction'} for item in actual]
-                self.assertEqual(actual,legacy[key])
+                expected=copy.deepcopy(legacy[key])
+                if name=='quarto' and key=='interactions':
+                    # A TV ganhou interface; pontos, portas e cama nao mudaram.
+                    tv=next(item for item in expected if item['label']=='Televisao')
+                    tv['action']='television';tv.pop('text',None)
+                    next(item for item in expected if item['label']=='Cama')['region']=(232,125,131,215)
+                if name=='cozinha' and key=='interactions':
+                    fridge=next(item for item in expected if item['label']=='Geladeira')
+                    fridge['action']='fridge';fridge.pop('text',None)
+                self.assertEqual(actual,expected)
             original=json.loads((ROOT/f'backups/colisoes_antes_editor/{name}.json').read_text(encoding='utf-8'))
             current=load(name,cfg['source_size'])
             if name not in ('banheiro','sala'):self.assertEqual(current,original)

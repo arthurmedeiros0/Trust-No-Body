@@ -1,5 +1,7 @@
 # Trust No Body — exploração da casa
 
+**Regras atuais de fome e sede:** a HUD inclui a previsão do dia atual; dias completos são registrados somente ao dormir. Sem água desde o início, o dia 3 começa com sede 2/2 e pode ser explorado inteiro, mas dormir sem água causa derrota sem iniciar o dia 4. Com água suficiente e sem comida, o equivalente ocorre no dia 4 com fome 3/3. Conseguir e consumir a ração no dia crítico zera a privação. O dia 1 continua de tolerância. Veja [previsão e encerramento diário](docs/previsao_privacao.md), que substitui as descrições anteriores dos limites.
+
 No terminal do VS Code, aberto na raiz do projeto:
 
 ```powershell
@@ -13,15 +15,20 @@ Janela de 1280 × 720. Dependências verificadas: Python 3.12.10, Pillow 12.2.0 
 |---|---|
 | WASD / setas | Andar |
 | E | Interagir com a porta ou objeto mais próximo |
+| I | Abrir/fechar suprimentos (ESC tamb?m fecha) |
 | F6 | Alternar dia/noite sem mudar a posição |
 | F3 | Alternar depuração de colisões, interações, posição e escala |
-| S / N | Confirmar / cancelar a opção de dormir |
+| S ou Enter / N ou ESC | Dormir / cancelar na confirmação da cama |
 | Enter / Espaço | Fechar mensagem |
-| ESC | Encerrar |
+| ESC | Voltar/fechar interfaces; encerrar durante a exploração |
 
 O corredor conecta Sala, Quarto, Cozinha e Banheiro, nessa ordem da esquerda para a direita. Com a câmera horizontal, caminhe para os lados para ver as quatro portas. O retorno ocorre diante da mesma porta, com fade de 220 ms para escurecer e 220 ms para clarear.
 
-No quarto, interaja com a TV e a cama; na cozinha, com a geladeira. Dormir apenas apresenta uma confirmação. Mensagens pausam a movimentação. Ricardo é o primeiro visitante de teste, com conversa, investigação visual e decisões. Sobrevivência e diagnóstico não estão implementados.
+No quarto, use E pelas bordas acessíveis da cama para dormir e avançar um dia, ou perto da TV para assistir ao noticiário. A partida começa no quarto, no dia 1, com comida e água zeradas e sanidade 8/8. O dia não avança por tempo real nem pela tecla F6. Assista ao boletim inicial e resolva visitantes aguardando na porta antes de dormir. A TV oferece o boletim atual e um histórico apenas das transmissões assistidas. Interfaces pausam a movimentação. Ricardo mantém conversa, investigação visual, decisões e estado entre os dias.
+
+A HUD superior mostra dia, sanidade e a privação prevista incluindo o dia atual sem ração disponível. I ou a geladeira abre SUPRIMENTOS DA CASA, somente com comida e água armazenadas; I/ESC fecha. O dia 1 não consome recursos nem acumula fome ou sede para nenhum morador. A partir do dia 2, cada morador vivo consome 0,5 de cada recurso ao encerrar o dia. Sem água desde o início, o dia 3 começa com sede prevista 2/2: é possível explorar e obter recursos, mas dormir sem a ração causa derrota sem avançar. Com água suficiente e sem comida, o equivalente ocorre no dia 4 com fome prevista 3/3. Conseguir recursos atualiza a previsão; somente consumir ao dormir zera os dias completos registrados. Desde o dia 1, um dia inteiro sozinho reduz a sanidade em 1; companhia recupera 1, entre 0 e 8. Solidão continua causando derrota após cinco dias consecutivos sozinho. Consulte [previsão e contadores](docs/previsao_privacao.md), [sobrevivência](docs/sobrevivencia.md) e [cama e HUD](docs/cama_hud.md). A lógica de infecção permanece reservada ao grupo.
+
+Controles, estrutura e validação do calendário: [dias, sono e televisão](docs/dias_sono_tv.md).
 
 ## Movimento e animação
 
@@ -57,9 +64,9 @@ A Entrada usa escala 0,50, com imagem original de 1536 × 1024 exibida em 768 ×
 
 ## Ricardo: conversar, investigar e decidir
 
-Ao iniciar o jogo, Ricardo aguarda na porta no primeiro dia. Acesse corredor → sala → porta superior → Entrada → porta principal. Conversar apresenta sua história e quatro perguntas; a resposta sobre comida e água usa as quantidades sorteadas. Investigar permite examinar mãos, dentes, olhos, pescoço, palidez e tremores. As características já examinadas recebem `[visto]`; podem ser abertas novamente. ESC volta uma tela por vez.
+Ricardo chega à porta no primeiro dia depois de assistir ao boletim inicial na televisão. Acesse corredor → sala → porta superior → Entrada → porta principal. Conversar apresenta sua história e sete perguntas; a resposta sobre comida e água usa as quantidades sorteadas. Investigar permite examinar mãos, dentes, olhos, pescoço, palidez e tremores. As características já examinadas recebem `[visto]`; podem ser abertas novamente. ESC volta uma tela por vez.
 
-Os seis sintomas booleanos e os suprimentos de 0 a 3 são sorteados uma única vez por partida, com `random`. Abrir menus, alternar dia/noite e sair/voltar ao olho mágico não sorteiam novamente. Reiniciar o programa inicia uma nova partida. Não há gravação da partida em disco.
+Os seis sintomas booleanos e os suprimentos de Ricardo, de 2 a 3 unidades de cada recurso, são sorteados uma única vez por partida, com `random`. Abrir menus, alternar dia/noite e sair/voltar ao olho mágico não sorteiam novamente. Aceitar transfere seus recursos uma vez ao estoque compartilhado e o torna morador permanente. Reiniciar inicia uma nova partida. Não há gravação da partida em disco.
 
 Após conversar ou examinar, Aceitar/Rejeitar abre uma confirmação. Confirmar o acolhimento remove o retrato da rua e coloca Ricardo em uma posição livre da sala, mais afastada das portas. Ele pausa de 2 a 4 segundos, escolhe uma direção e anda lentamente por 0,7 a 1,4 segundo, restrito a uma área próxima ao ponto inicial. A caminhada usa três quadros por direção, a cada 180 ms; ao descansar, aparece a pose parada correspondente. Seus pés colidem com móveis e protagonista; o protagonista também é bloqueado por ele. Confirmar a rejeição registra a decisão e remove o retrato. Nenhuma opção pode ser aplicada duas vezes ao mesmo visitante, e os valores sorteados são preservados.
 

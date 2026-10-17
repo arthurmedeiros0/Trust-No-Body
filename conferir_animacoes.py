@@ -1,18 +1,18 @@
 """Conferencias ampliadas e GIFs com a ordem real dos quadros usados pelo jogo."""
 from PIL import Image, ImageDraw
 from preparar_sheets import ROOT
-from casa.animation import animation_cycles
+from casa.animation import animation_cycles, resident_animation_cycles
 
 
 def main():
-    backup=ROOT/(ROOT/'dados/sheets/backup_antes_limpeza.txt').read_text(encoding='utf-8')
+    backup=ROOT/(ROOT/'dados/sheets/backup_restauracao.txt').read_text(encoding='utf-8')
     for character in ('protagonista','ricardo'):
         base=ROOT/('personagens/protagonista/processados' if character=='protagonista' else 'personagens/visitantes/ricardo')
         prefix='parado' if character=='protagonista' else 'sprites'
         directions=('frente','costas','esquerda','direita')
         idle={d:Image.open(base/f'{prefix}/{d}.png').convert('RGBA') for d in directions}
         walk={d:[Image.open(base/f'andando/{d}/{n}.png').convert('RGBA') for n in (1,2,3)] for d in directions}
-        cycles=animation_cycles(idle,walk)
+        cycles=(animation_cycles if character=='protagonista' else resident_animation_cycles)(idle,walk)
         sheet=Image.new('RGB',(1200,1370),'#243342');draw=ImageDraw.Draw(sheet)
         draw.text((12,8),character+' | antes / idle atual / ciclo real | ampliacao 3x NEAREST',fill='white')
         def tile(canvas,im,x,y,label):

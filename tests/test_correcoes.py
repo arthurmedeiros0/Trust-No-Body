@@ -4,7 +4,7 @@ import json
 import unittest
 import pygame
 from casa.config import ROOT,ROOMS,SCENE_SCALE,FRAME_TIME,PLAYER_SIZE
-from casa.game import House
+from support import exploration_house as House
 from casa.interactions import nearest
 
 class CorrectionTests(unittest.TestCase):
@@ -16,9 +16,9 @@ class CorrectionTests(unittest.TestCase):
         for direction,vector in [('esquerda',(-1,0)),('direita',(1,0))]:
             player.feet=self.game.scene.point((650,246))
             player.update(vector,.01,self.game.scene.collisions)
-            first=1 if direction=='esquerda' else 0
-            expected=[player.idle[direction],player.walk[direction][first],
-                      player.idle[direction],player.walk[direction][2]]
+            expected=[player.walk[direction][0],player.idle[direction],
+                      player.walk[direction][1],player.idle[direction],
+                      player.walk[direction][2],player.idle[direction]]
             for frame,image in enumerate(expected*2):
                 player.elapsed=frame*FRAME_TIME+.001
                 self.assertIs(player.image,image)
@@ -30,7 +30,7 @@ class CorrectionTests(unittest.TestCase):
         # A mudanca de direcao reinicia a animacao sem reaproveitar fase anterior.
         player.elapsed=.57
         player.update((-1,0),.01,self.game.scene.collisions)
-        self.assertIs(player.image,player.idle['esquerda'])
+        self.assertIs(player.image,player.walk['esquerda'][0])
 
     def test_corridor_lower_corners_in_both_periods(self):
         game=self.game;scene=game.scene

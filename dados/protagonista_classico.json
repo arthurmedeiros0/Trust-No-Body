@@ -1,0 +1,32 @@
+{
+  "origem": "backups\\sheets_20261017_150406_128619\\personagens\\protagonista\\processados",
+  "ativos": "personagens\\protagonista\\classicos",
+  "backup_validacao": "backups\\protagonista_classico_20261017_155757",
+  "frame_seconds": 0.14,
+  "ciclo_lateral": [
+    0,
+    null,
+    1,
+    null,
+    2,
+    null
+  ],
+  "sprites": {
+    "personagens\\protagonista\\classicos\\parado\\costas.png": "f973d5f112290cec8c8e98da10edf81b996e4ba404ba4bf31e6f3ba5d4a7c0c1",
+    "personagens\\protagonista\\classicos\\parado\\direita.png": "09bc7447c733599c304de37bb70aeb23f6b187ad1e4c13643540845b3411f159",
+    "personagens\\protagonista\\classicos\\parado\\esquerda.png": "d4d78815fe3c64c6f53c8ce660745d12228c810b19fee7c066f7129efde7ff79",
+    "personagens\\protagonista\\classicos\\parado\\frente.png": "8fe7057a4e80c5d92a5a8066b75397f0360e78507e20ba4858c1f1110ceb5fe5",
+    "personagens\\protagonista\\classicos\\andando\\costas\\1.png": "8f288959dc29a266350d377fb95435453c6d1531606a86b18c133d59f71c1a52",
+    "personagens\\protagonista\\classicos\\andando\\costas\\2.png": "81bf596c2e394ad7e6b733fb28f1a6d94ec63482d1f8e2b397fad81b9721b0a4",
+    "personagens\\protagonista\\classicos\\andando\\costas\\3.png": "02faa895e06c2740ed793ac609839c55fd6e7a9d60876ca1871258b2eb837b2c",
+    "personagens\\protagonista\\classicos\\andando\\direita\\1.png": "9bf5d82c52bd946a724ccfe17651bcc80205435d904e6aeb8ff8784c7090d376",
+    "personagens\\protagonista\\classicos\\andando\\direita\\2.png": "22a476c7545220da98438d4d3c95775e9801892f81b7494d20635dff6027c02a",
+    "personagens\\protagonista\\classicos\\andando\\direita\\3.png": "922353b99536f2301b927221386d7c9faa182113f492bc08f33b3aeccfe5e2b8",
+    "personagens\\protagonista\\classicos\\andando\\esquerda\\1.png": "3c8a72ed96eace9dda5331487ece805f131a6abddcdc0816276b1e428d06bdd8",
+    "personagens\\protagonista\\classicos\\andando\\esquerda\\2.png": "ee72f5f187411b8170c68d33178892fb4bcefa77c4062ac94dff220fd64aedc3",
+    "personagens\\protagonista\\classicos\\andando\\esquerda\\3.png": "2144ca2656b2d43da26c7a8bb4cb1944a7b4a03b2db85c9c63c4f19ff21e2f0d",
+    "personagens\\protagonista\\classicos\\andando\\frente\\1.png": "2b7825ccbc1c0dc56fcf9fe16c19f9d2aa36d49f42a1e6d3a4a5d369a932b92a",
+    "personagens\\protagonista\\classicos\\andando\\frente\\2.png": "ae136003eec98f0720ec28afcd2e9e86c5f75100fc78ef31ff38c95d2775da58",
+    "personagens\\protagonista\\classicos\\andando\\frente\\3.png": "38dca2d4976edf7aecf71c254331439348acd090e60bd163fb4929667ae236a1"
+  }
+}

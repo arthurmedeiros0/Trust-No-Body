@@ -22,7 +22,9 @@ class VisitorUI:
             labels=[(key,item['label']+(' [visto]' if key in self.visitor.examined else '')) for key,item in self.visitor.definition['investigation'].items()]
             return {**{key:(pygame.Rect(410,195+i*57,460,46),label) for i,(key,label) in enumerate(labels)},'back':(pygame.Rect(540,600,200,42),'Voltar')}
         if self.page=='talk':
-            return {**{str(i):(pygame.Rect(210,386+i*48,860,40),item['question']) for i,item in enumerate(self.dialogue.data['questions'])},'back':(pygame.Rect(540,620,200,42),'Voltar')}
+            count=len(self.dialogue.data['questions'])
+            step=min(48,280//max(1,count))
+            return {**{str(i):(pygame.Rect(210,335+i*step,860,step-4),item['question']) for i,item in enumerate(self.dialogue.data['questions'])},'back':(pygame.Rect(540,635,200,42),'Voltar')}
         if self.page=='confirm':
             return {'confirm':(pygame.Rect(420,410,200,48),'Confirmar'),'back':(pygame.Rect(660,410,200,48),'Cancelar')}
         return {'back':(pygame.Rect(540,645,200,44),'Voltar')}

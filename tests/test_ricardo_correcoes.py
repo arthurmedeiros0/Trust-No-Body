@@ -4,7 +4,7 @@ import random
 import unittest
 from PIL import Image,ImageDraw
 import pygame
-from casa.game import House
+from support import exploration_house as House
 from casa.collisions import feet_rect
 from casa.resident import ActorCollisions,Resident
 from casa.visitor_image_processing import remove_white,EXAM_SIZE,EXAM_BACKGROUND

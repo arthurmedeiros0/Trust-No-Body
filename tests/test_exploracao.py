@@ -6,7 +6,7 @@ from collections import deque
 from PIL import Image,ImageChops,ImageOps
 import pygame
 from casa.config import ROOT,ROOMS,DOOR_X,FRAME_TIME,SPEED
-from casa.game import House
+from support import exploration_house as House
 from casa.interactions import nearest
 
 class ExplorationTests(unittest.TestCase):
@@ -115,9 +115,9 @@ class ExplorationTests(unittest.TestCase):
                 game.player.feet=next(p for p in points if nearest(game.scene.interactions,p) is item)
                 game.interact();self.assertTrue(game.dialog)
                 if item.action=='sleep':
-                    self.assertTrue(game.sleep_option)
+                    self.assertFalse(game.sleep_option) # Ricardo ainda aguarda na porta.
                     game.handle_event(pygame.event.Event(pygame.KEYDOWN,key=pygame.K_s))
-                    self.assertFalse(game.sleep_option);self.assertIn('Descanso',game.dialog)
+                    self.assertEqual(game.days.day,1);self.assertIn('visitante',game.dialog)
                 game.handle_event(pygame.event.Event(pygame.KEYDOWN,key=pygame.K_RETURN))
                 self.assertFalse(game.dialog)
         for room in ROOMS:

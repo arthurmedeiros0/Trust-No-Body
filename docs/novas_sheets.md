@@ -1,5 +1,17 @@
 # Novas sheets do protagonista e do Ricardo
 
+Ricardo agora usa [os novos sprites individuais e ciclos com idle](ricardo_individual.md).
+As secoes anteriores sobre a sheet do Ricardo sao historicas.
+
+**Estado atual:** o protagonista voltou aos [sprites e ciclos classicos](protagonista_classico.md).
+As novas sheets, retratos, expressoes e sprites desta integracao foram preservados
+para uso futuro. Ricardo permanece na versao atual.
+
+**Revisao mais recente:** [restauracao da arte e idle do Ricardo](restauracao_sprites_idle.md).
+
+Estado atual: [idle lateral oficial e revisao do Ricardo](ajuste_lateral_ricardo.md).
+Essa revisao substitui o idle reconstruido pela nova referencia fornecida.
+
 **Atualizacao:** os recortes e ciclos foram refinados posteriormente. Consulte
 [limpeza e animacoes](limpeza_animacoes.md) para o estado atual, idle lateral
 reconstruido, novas conferencias e validacao de 59 testes. As limitacoes e ciclos

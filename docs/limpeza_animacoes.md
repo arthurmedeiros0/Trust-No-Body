@@ -1,5 +1,8 @@
 # Limpeza dos sprites e revisao da caminhada
 
+Revisao posterior: [novo idle oficial e ajustes do Ricardo](ajuste_lateral_ricardo.md).
+O texto abaixo registra a etapa anterior, com idle reconstruido.
+
 Foram revisados os 32 sprites ativos (quatro parados e doze quadros por personagem).
 Eles continuam em RGBA 64x96, com apoio dos pes em y=94 e altura visual de 88 px.
 

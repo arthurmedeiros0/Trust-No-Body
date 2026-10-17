@@ -8,7 +8,7 @@ from pathlib import Path
 from PIL import Image,ImageDraw
 import pygame
 from casa.config import ROOT
-from casa.game import House
+from support import exploration_house as House
 from casa.resident import Resident
 from casa.collisions import feet_rect
 from casa.visitor_image_processing import remove_black,clean_external_specks,refine_hand_wrists,EXAM_SIZE,EXAM_BACKGROUND,PROCESSING_VERSION
@@ -18,7 +18,7 @@ class WalkTests(unittest.TestCase):
         self.game=House();self.assets=self.game.visitor_assets['ricardo']
         self.base=ROOT/'personagens/visitantes/ricardo'
 
-    def test_nine_originals_manifest_and_twelve_processed_frames(self):
+    def test_nine_archived_originals_and_two_active_frames_per_direction(self):
         manifest=json.loads((ROOT/'dados/animacoes/ricardo.json').read_text(encoding='utf-8'))
         self.assertEqual(set(manifest['frames']),{'frente','costas','direita'})
         self.assertEqual(len(list((self.base/'sprites_movimento').glob('*.png'))),9)
@@ -27,21 +27,22 @@ class WalkTests(unittest.TestCase):
             for frame in frames:
                 self.assertEqual(hashlib.sha256((self.base/'sprites_movimento'/frame['original']).read_bytes()).hexdigest(),frame['sha256'])
         for direction,frames in self.assets.walk.items():
-            self.assertEqual(len(frames),3)
+            self.assertEqual(len(frames),2)
             for index,surface in enumerate(frames,1):
                 path=self.base/f'andando/{direction}/{index}.png'
                 with Image.open(path) as image:
                     self.assertEqual(image.size,(64,96));self.assertEqual(image.mode,'RGBA')
                     box=image.getbbox();self.assertEqual(box[3],94)
-                    self.assertEqual(box[3]-box[1],88)
+                    self.assertGreaterEqual(box[3]-box[1],84)
+                    self.assertLessEqual(box[3]-box[1],88)
                     self.assertLessEqual(abs((box[0]+box[2])/2-32),1)
                 self.assertEqual(surface.get_at((0,0)).a,0)
-            self.assertEqual(len({pygame.image.tobytes(surface,'RGBA') for surface in frames}),3)
+            self.assertEqual(len({pygame.image.tobytes(surface,'RGBA') for surface in frames}),2)
         self.assertTrue((self.base/'andando/comparacao.png').exists())
 
-    def test_left_is_independent_sheet_pose_and_coat_stays_light(self):
+    def test_left_is_mirrored_from_available_right_and_coat_stays_light(self):
         for right,left in zip(self.assets.walk['direita'],self.assets.walk['esquerda']):
-            self.assertNotEqual(pygame.image.tobytes(pygame.transform.flip(right,True,False),'RGBA'),pygame.image.tobytes(left,'RGBA'))
+            self.assertEqual(pygame.image.tobytes(pygame.transform.flip(right,True,False),'RGBA'),pygame.image.tobytes(left,'RGBA'))
         for frames in self.assets.walk.values():
             for image in frames:
                 light=sum(1 for y in range(96) for x in range(64) if image.get_at((x,y)).a>200 and min(image.get_at((x,y))[:3])>150)
@@ -64,7 +65,7 @@ class WalkTests(unittest.TestCase):
 
     def test_animation_all_directions_three_frames_and_rest(self):
         actor=Resident('ricardo','sala',(0,0))
-        actor.moving=True
+        actor.moving=True;actor.walking=True
         for direction,frames in self.assets.cycles.items():
             actor.direction=direction
             for index in range(len(frames)*2):

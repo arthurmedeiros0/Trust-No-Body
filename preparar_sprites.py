@@ -34,6 +34,9 @@ def remove_background(path):
 
 
 def main():
+    if (BASE/'classicos').exists():
+        print('Protagonista classico ativo: PNGs restaurados sem filtros em personagens/protagonista/classicos. Nenhum asset alterado.')
+        return
     if (BASE/'referencias/novo_design.png').exists():
         from preparar_sheets import main as prepare_sheets
         prepare_sheets()

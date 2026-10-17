@@ -13,7 +13,8 @@ SPEED = 220
 
 
 def load_sprites(pygame):
-    base = ROOT / 'personagens/protagonista/processados'
+    from casa.config import PLAYER_ASSET_ROOT
+    base = PLAYER_ASSET_ROOT
     idle, walk = {}, {}
     for direction in ('frente','costas','direita','esquerda'):
         idle[direction] = pygame.image.load(str(base/f'parado/{direction}.png')).convert_alpha()

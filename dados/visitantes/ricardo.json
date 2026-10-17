@@ -4,7 +4,7 @@
   "age": 42,
   "profession": "médico",
   "personality": "Inteligente, reservado e aparentemente confiável.",
-  "history": "Trabalhou em um hospital nos primeiros dias da epidemia e procura abrigo.",
+  "history": "O hospital foi isolado enquanto Ricardo estava fora. Sem autorização para retornar, descobriu seu bairro bloqueado como Zona Vermelha. Os abrigos estavam superlotados ou fechados por suspeita de contaminação; ele procura um teto na casa do protagonista.",
   "narrative_link": "Possível ligação com Marina, enfermeira.",
   "asset_root": "personagens/visitantes/ricardo",
   "portrait": "retratos/porta.png",
@@ -71,5 +71,16 @@
     "frame_seconds": 0.18
   },
   "walk_manifest": "dados/animacoes/ricardo.json",
-  "sheet_sprites": true
+  "sheet_sprites": true,
+  "internal_sprite_manifest": "dados/animacoes/ricardo_individual.json",
+  "initial_supplies": {
+    "food": [
+      2,
+      3
+    ],
+    "water": [
+      2,
+      3
+    ]
+  }
 }

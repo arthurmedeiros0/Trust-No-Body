@@ -5,7 +5,7 @@ import json
 import shutil
 from datetime import datetime
 from PIL import Image, ImageDraw, ImageOps
-from casa.sprite_cleanup import clean_sprite, lateral_idle
+from casa.sprite_cleanup import clean_sprite, reference_idle, stable_walk
 
 ROOT = Path(__file__).resolve().parent
 DIRECTIONS = ('frente', 'costas', 'esquerda', 'direita')
@@ -86,6 +86,11 @@ def extract(character):
     def save(name,box,movement=False):
         image=transparent(sheet.crop(box),movement)
         if movement:image=clean_sprite(sprite(image))
+        if character=='protagonista' and name=='parado/frente':
+            # Residuo em forma de gancho preso a sola esquerda, conferido a 3x.
+            image.paste((0,0,0,0),(0,86,17,94))
+        if character=='protagonista' and name=='andando/frente/2':
+            image.paste((0,0,0,0),(0,86,20,94))
         target=out/(name+'.png');target.parent.mkdir(parents=True,exist_ok=True);image.save(target)
         records.append(dict(destino=str(target.relative_to(ROOT)),recorte=box,sha256=digest(target)))
         images.append((name,image))
@@ -98,13 +103,39 @@ def extract(character):
         for index,x in enumerate((150,273,395),1):
             save(f'andando/{direction}/{index}',(x,top,x+83,bottom),True)
     if character=='protagonista':
-        right=lateral_idle(Image.open(out/'parado/esquerda.png'))
+        idle_source=base/'referencias/protagonista_parado_lado.png'
+        right=reference_idle(idle_source)
         for direction,image in (('direita',right),('esquerda',ImageOps.mirror(right))):
             target=out/f'parado/{direction}.png';image.save(target)
             images[:]=[(name,image if name=='parado/'+direction else old) for name,old in images]
             for row in records:
                 if row['destino']==str(target.relative_to(ROOT)):
-                    row.update(sha256=digest(target),edicao='Idle lateral reconstruido da pose esquerda: pernas apoiadas; esquerda espelhada.')
+                    row.update(sha256=digest(target),edicao='Referencia lateral oficial; esquerda espelhada.',
+                               fonte=str(idle_source.relative_to(ROOT)),fonte_sha256=digest(idle_source))
+        # O novo idle tem rosto/proporcoes diferentes da sheet antiga. Mantem
+        # sua parte superior tambem nos passos laterais para evitar metamorfose.
+        for direction in ('direita','esquerda'):
+            resting=Image.open(out/f'parado/{direction}.png')
+            for n in (1,2,3):
+                target=out/f'andando/{direction}/{n}.png'
+                image=stable_walk(resting,Image.open(target));image.save(target)
+                images[:]=[(name,image if name==f'andando/{direction}/{n}' else old) for name,old in images]
+                for row in records:
+                    if row['destino']==str(target.relative_to(ROOT)):
+                        row.update(sha256=digest(target),edicao='Tronco da referencia lateral oficial; pernas da sheet.')
+    else:
+        # Passo direito alternado vindo da perna elevada esquerda; bolsa fica no tronco original.
+        alternate=ImageOps.mirror(Image.open(out/'andando/esquerda/2.png'))
+        for direction in DIRECTIONS:
+            resting=Image.open(out/f'sprites/{direction}.png')
+            for n in (1,2,3):
+                target=out/f'andando/{direction}/{n}.png'
+                step=alternate if direction=='direita' and n==3 else Image.open(target)
+                image=stable_walk(resting,step);image.save(target)
+                images[:]=[(name,image if name==f'andando/{direction}/{n}' else old) for name,old in images]
+                for row in records:
+                    if row['destino']==str(target.relative_to(ROOT)):
+                        row.update(sha256=digest(target),edicao='Tronco estabilizado pelo idle; pernas alternadas.')
     portraits='retratos' if character=='protagonista' else 'dialogo'
     save(portraits+'/principal',(733,69,1117,535))
     for expression,box in zip(('normal','surpreso','preocupado','determinado'),
@@ -114,7 +145,7 @@ def extract(character):
         for detail,box in zip(('olhos','costas','mao','sapato'),((750,624,948,739),(978,615,1160,757),(760,791,935,946),(973,806,1152,946))):
             save('dialogo/detalhes/'+detail,box)
     report=dict(source=str(source.relative_to(ROOT)),source_sha256=digest(source),assets=records,
-                observacao='Caminhada: tres primeiros quadros por linha, laterais independentes. Sprites limpos por componente principal e espuroes de mascara. Protagonista: idle lateral reconstruido com apoio neutro; esquerda espelhada.')
+                observacao='Protagonista: idle lateral da referencia protagonista_parado_lado.png, esquerda espelhada. Ricardo: tronco do idle estabilizado, pernas alternadas. Mascaras limpas com protecao das ligacoes do corpo.')
     report_path=ROOT/'dados/sheets'/f'{character}.json';report_path.parent.mkdir(parents=True,exist_ok=True)
     report_path.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     preview=Image.new('RGB',(1000,1790),'#263645');draw=ImageDraw.Draw(preview)
@@ -134,9 +165,9 @@ def extract(character):
     preview.save(out/'conferencia_sheet.png')
 
 def main():
-    previous=protected();saved=backup()
-    for character in ('protagonista','ricardo'):extract(character)
-    assert previous==protected(), 'Assets protegidos foram alterados'
-    print('Sheets extraidas. Backup:',saved.relative_to(ROOT))
+    # O fluxo oficial preserva os quadros integros. Nao reaplica as composicoes
+    # e erosoes experimentais da integracao anterior.
+    from restaurar_sprites_integros import main as restore
+    restore()
 
 if __name__=='__main__':main()

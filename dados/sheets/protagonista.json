@@ -10,7 +10,9 @@
         276,
         221
       ],
-      "sha256": "7318ccd00aceb4d036c3feb7ae15b164af907b307762d892d2dba5338004785a"
+      "sha256": "6cb48f9bada3e2d9849c093c86177054f3e0e4e77cf2453707eca335f8bfc47d",
+      "edicao": "Arte restaurada do backup anterior a erosao; sem composicao de tronco/pernas.",
+      "restaurado_de": "backups\\sheets_20261017_152232_838869\\personagens\\protagonista\\processados\\parado\\frente.png"
     },
     {
       "destino": "personagens\\protagonista\\processados\\parado\\costas.png",
@@ -20,29 +22,35 @@
         384,
         225
       ],
-      "sha256": "69300438154b523348d81317a2420c68e5550cc475634243e375901aa3344022"
+      "sha256": "6f6e0086205c249d3ad18e86135289d24ba70ac76de9982c061ffa587c0f0293",
+      "edicao": "Arte restaurada do backup anterior a erosao; sem composicao de tronco/pernas.",
+      "restaurado_de": "backups\\sheets_20261017_152232_838869\\personagens\\protagonista\\processados\\parado\\costas.png"
     },
     {
       "destino": "personagens\\protagonista\\processados\\parado\\esquerda.png",
       "recorte": [
-        160,
-        697,
-        234,
-        818
+        420,
+        205,
+        825,
+        1033
       ],
-      "sha256": "6bf08c928ae51ff45aae52c2abf1d09e54075583ab172c7ae7a73fdc8d0895e2",
-      "edicao": "Idle lateral reconstruido da pose esquerda: pernas apoiadas; esquerda espelhada."
+      "sha256": "9bf7aae00565cf81d27042f03fe2c3874ea6d3c242ac00d0e56fc1bef219f15d",
+      "edicao": "Referencia lateral oficial intacta; esquerda espelhada.",
+      "fonte": "personagens\\protagonista\\referencias\\protagonista_parado_lado.png",
+      "fonte_sha256": "2320b54f46546a7c8cb18b260c6a30a48ca22dbb4c0ba2c2b4b615b94be292b3"
     },
     {
       "destino": "personagens\\protagonista\\processados\\parado\\direita.png",
       "recorte": [
-        530,
-        89,
-        606,
-        225
+        420,
+        205,
+        825,
+        1033
       ],
-      "sha256": "1ea9ac8d3c1299650580f7ed2bcfa1a505a060e370a52b68f9f3888c9213c199",
-      "edicao": "Idle lateral reconstruido da pose esquerda: pernas apoiadas; esquerda espelhada."
+      "sha256": "edce6b1622c0f47409f486027b8e5a52fd06c1edf0a3ecbc465133c74a4c70fd",
+      "edicao": "Referencia lateral oficial intacta; esquerda espelhada.",
+      "fonte": "personagens\\protagonista\\referencias\\protagonista_parado_lado.png",
+      "fonte_sha256": "2320b54f46546a7c8cb18b260c6a30a48ca22dbb4c0ba2c2b4b615b94be292b3"
     },
     {
       "destino": "personagens\\protagonista\\processados\\andando\\frente\\1.png",
@@ -52,7 +60,9 @@
         233,
         532
       ],
-      "sha256": "4b920d9856b4b2bc23a770bc35176010e6e9d6662ea82c6f44cb0977baa1d191"
+      "sha256": "0791ec5a3d6552d649a2e474ca8977d0e37a0974f7f87500cafef221d5490588",
+      "edicao": "Arte restaurada do backup anterior a erosao; sem composicao de tronco/pernas.",
+      "restaurado_de": "backups\\sheets_20261017_152232_838869\\personagens\\protagonista\\processados\\andando\\frente\\1.png"
     },
     {
       "destino": "personagens\\protagonista\\processados\\andando\\frente\\2.png",
@@ -62,7 +72,9 @@
         356,
         532
       ],
-      "sha256": "9b75575bb6ae7efbf4b2636559e3a57714e9c34edb91bfbf6e427034894919ea"
+      "sha256": "5dbeb7932d3b4cdc7a8edda00d7510f184fc537a613222fb939cd97993fa8eb4",
+      "edicao": "Arte restaurada do backup anterior a erosao; sem composicao de tronco/pernas.",
+      "restaurado_de": "backups\\sheets_20261017_152232_838869\\personagens\\protagonista\\processados\\andando\\frente\\2.png"
     },
     {
       "destino": "personagens\\protagonista\\processados\\andando\\frente\\3.png",
@@ -72,7 +84,9 @@
         478,
         532
       ],
-      "sha256": "6d6a93a24df1e8dc0d1d29ff4b0e762eb0d3acbfc04850e7b3d77481d3ae007e"
+      "sha256": "d7d09ea48823080a254040ec6d1af8b21491d45e7f69c2aec982f34e70ee021d",
+      "edicao": "Arte restaurada do backup anterior a erosao; sem composicao de tronco/pernas.",
+      "restaurado_de": "backups\\sheets_20261017_152232_838869\\personagens\\protagonista\\processados\\andando\\frente\\3.png"
     },
     {
       "destino": "personagens\\protagonista\\processados\\andando\\costas\\1.png",
@@ -82,7 +96,9 @@
         233,
         674
       ],
-      "sha256": "bee26b008609270c57fcd604ff02535c09de62af62bf34b9a0ce1597f62fdd1e"
+      "sha256": "674ce158996e1dae42cc3f9b132fbedbfe1aef003a7d4e5d1a86a932182147ed",
+      "edicao": "Arte restaurada do backup anterior a erosao; sem composicao de tronco/pernas.",
+      "restaurado_de": "backups\\sheets_20261017_152232_838869\\personagens\\protagonista\\processados\\andando\\costas\\1.png"
     },
     {
       "destino": "personagens\\protagonista\\processados\\andando\\costas\\2.png",
@@ -92,7 +108,9 @@
         356,
         674
       ],
-      "sha256": "cedc3c71ed50cd194a81c14c7e12590a3473ede9bafb351f839302bf8d7837aa"
+      "sha256": "4c89065c4e2cb8c3046e957ddce81dae348bfcd519d21ed84df20540c6d2adc4",
+      "edicao": "Arte restaurada do backup anterior a erosao; sem composicao de tronco/pernas.",
+      "restaurado_de": "backups\\sheets_20261017_152232_838869\\personagens\\protagonista\\processados\\andando\\costas\\2.png"
     },
     {
       "destino": "personagens\\protagonista\\processados\\andando\\costas\\3.png",
@@ -102,7 +120,9 @@
         478,
         674
       ],
-      "sha256": "1411b841f7d92190380d43ec3d29316f9fa08c2e90a63e130c7f40db6a6a0924"
+      "sha256": "edbebb0f6978788bf0a68e78649a7bd77e6c8d73323f4e85a116c10ed9b58a08",
+      "edicao": "Arte restaurada do backup anterior a erosao; sem composicao de tronco/pernas.",
+      "restaurado_de": "backups\\sheets_20261017_152232_838869\\personagens\\protagonista\\processados\\andando\\costas\\3.png"
     },
     {
       "destino": "personagens\\protagonista\\processados\\andando\\esquerda\\1.png",
@@ -112,7 +132,9 @@
         233,
         819
       ],
-      "sha256": "c178447bb622e9037311c525bf7cae0b350f9a0f2abe87dea92df236315a4c14"
+      "sha256": "9fe37fb97dff58cfa4a0f40b214162bf48f7005c73917073f0670e0fed952a3d",
+      "edicao": "Arte restaurada do backup anterior a erosao; sem composicao de tronco/pernas.",
+      "restaurado_de": "backups\\sheets_20261017_152232_838869\\personagens\\protagonista\\processados\\andando\\esquerda\\1.png"
     },
     {
       "destino": "personagens\\protagonista\\processados\\andando\\esquerda\\2.png",
@@ -122,7 +144,9 @@
         356,
         819
       ],
-      "sha256": "781816b452743ac1c843e134f0557231b1e50c1bbb504677888a3bb4ccb60be1"
+      "sha256": "1e6fd82cb4fd94a4275b8eec50a4fc0f5f398ad252255950856a5f50271e80ba",
+      "edicao": "Arte restaurada do backup anterior a erosao; sem composicao de tronco/pernas.",
+      "restaurado_de": "backups\\sheets_20261017_152232_838869\\personagens\\protagonista\\processados\\andando\\esquerda\\2.png"
     },
     {
       "destino": "personagens\\protagonista\\processados\\andando\\esquerda\\3.png",
@@ -132,7 +156,9 @@
         478,
         819
       ],
-      "sha256": "2ee8c5571dff2ca3cb81686dc1e1b7702026e5d04d77d02c6ed1575353fa9250"
+      "sha256": "1e95c4ba781c10458f56118cb1adfa03610436dea64e1f371e2dfac010a1728d",
+      "edicao": "Arte restaurada do backup anterior a erosao; sem composicao de tronco/pernas.",
+      "restaurado_de": "backups\\sheets_20261017_152232_838869\\personagens\\protagonista\\processados\\andando\\esquerda\\3.png"
     },
     {
       "destino": "personagens\\protagonista\\processados\\andando\\direita\\1.png",
@@ -142,7 +168,9 @@
         233,
         973
       ],
-      "sha256": "323283ad25f2d6c00e046f27b97d5f5846ee7493c43412924bc1e6c8d87afb4c"
+      "sha256": "fa693baa61aef6035c0e64af6a892c950f2f4dc34ca8a1f41e521a9dc28ddef5",
+      "edicao": "Arte restaurada do backup anterior a erosao; sem composicao de tronco/pernas.",
+      "restaurado_de": "backups\\sheets_20261017_152232_838869\\personagens\\protagonista\\processados\\andando\\direita\\1.png"
     },
     {
       "destino": "personagens\\protagonista\\processados\\andando\\direita\\2.png",
@@ -152,7 +180,9 @@
         356,
         973
       ],
-      "sha256": "7a5f5aaca16516b83ffe3713fdf5dc4a65964734cbd31eeec4e0adc3cffcc35f"
+      "sha256": "737c5843bb539386738115a6167f186442e2ec7a93f85befd614fc1d7c97c7ab",
+      "edicao": "Arte restaurada do backup anterior a erosao; sem composicao de tronco/pernas.",
+      "restaurado_de": "backups\\sheets_20261017_152232_838869\\personagens\\protagonista\\processados\\andando\\direita\\2.png"
     },
     {
       "destino": "personagens\\protagonista\\processados\\andando\\direita\\3.png",
@@ -162,7 +192,9 @@
         478,
         973
       ],
-      "sha256": "abb469f54e24fa93ff53579aaa40eb657712ec4a1cd96afa2f2d5ea7075f5c09"
+      "sha256": "bad5dffe51a912063ecb42286547fa9a3d1f77d004d75f7a570da82bc386ed52",
+      "edicao": "Arte restaurada do backup anterior a erosao; sem composicao de tronco/pernas.",
+      "restaurado_de": "backups\\sheets_20261017_152232_838869\\personagens\\protagonista\\processados\\andando\\direita\\3.png"
     },
     {
       "destino": "personagens\\protagonista\\processados\\retratos\\principal.png",
@@ -215,5 +247,5 @@
       "sha256": "a0a969fbde3df59002f136ab66fd5ba416f389e6d832bb4ba023d84612f5b440"
     }
   ],
-  "observacao": "Caminhada: tres primeiros quadros por linha, laterais independentes. Sprites limpos por componente principal e espuroes de mascara. Protagonista: idle lateral reconstruido com apoio neutro; esquerda espelhada."
+  "observacao": "Movimento restaurado integralmente; idle lateral protagonista da referencia oficial; idle esquerdo Ricardo espelhado do parado direito. Somente dois retoques externos na sola do protagonista."
 }

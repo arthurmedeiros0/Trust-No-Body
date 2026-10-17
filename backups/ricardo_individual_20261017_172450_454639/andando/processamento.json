@@ -1,0 +1,98 @@
+{
+  "signature": "ba8b512a615f11160a758170f670a3892035a5729396bca9b1394ff011332967",
+  "version": "v7",
+  "reference_height": 88,
+  "feet": 94,
+  "frames": [
+    {
+      "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_11-1.png",
+      "direction": "direita",
+      "frame": 1,
+      "size": [
+        49,
+        88
+      ],
+      "scale": 0.08201304753028892
+    },
+    {
+      "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_13-2.png",
+      "direction": "direita",
+      "frame": 2,
+      "size": [
+        42,
+        88
+      ],
+      "scale": 0.08140610545790934
+    },
+    {
+      "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_14-3.png",
+      "direction": "direita",
+      "frame": 3,
+      "size": [
+        48,
+        88
+      ],
+      "scale": 0.08216619981325864
+    },
+    {
+      "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_15-4.png",
+      "direction": "frente",
+      "frame": 1,
+      "size": [
+        36,
+        88
+      ],
+      "scale": 0.07612456747404844
+    },
+    {
+      "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_16-5.png",
+      "direction": "frente",
+      "frame": 2,
+      "size": [
+        32,
+        88
+      ],
+      "scale": 0.0773286467486819
+    },
+    {
+      "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_17-6.png",
+      "direction": "frente",
+      "frame": 3,
+      "size": [
+        36,
+        88
+      ],
+      "scale": 0.0728476821192053
+    },
+    {
+      "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_18-7.png",
+      "direction": "costas",
+      "frame": 1,
+      "size": [
+        33,
+        88
+      ],
+      "scale": 0.07801418439716312
+    },
+    {
+      "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_20-8.png",
+      "direction": "costas",
+      "frame": 2,
+      "size": [
+        32,
+        88
+      ],
+      "scale": 0.08341232227488152
+    },
+    {
+      "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_21-9.png",
+      "direction": "costas",
+      "frame": 3,
+      "size": [
+        35,
+        88
+      ],
+      "scale": 0.08208955223880597
+    }
+  ]
+}

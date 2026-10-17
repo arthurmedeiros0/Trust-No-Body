@@ -1,6 +1,6 @@
 ﻿"""Orientacao e pose parada de chegada em todas as passagens."""
 import unittest
-from casa.game import House
+from support import exploration_house as House
 from casa.config import DOOR_X,CORRIDOR_RETURN_Y
 
 class ArrivalDirectionTests(unittest.TestCase):

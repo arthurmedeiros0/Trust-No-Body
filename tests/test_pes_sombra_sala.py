@@ -1,7 +1,7 @@
 """Regressoes de sala inferior, hitbox, banheiro e sombra."""
 import unittest
 import pygame
-from casa.game import House
+from support import exploration_house as House
 from casa.collisions import feet_rect
 from casa.config import ROOMS,PLAYER_HITBOX,SHADOW_SIZE,SHADOW_OPACITY,SHADOW_OFFSET_Y
 

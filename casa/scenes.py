@@ -23,6 +23,7 @@ class Scene:
         self.collision_data=load(name,self.source_size)
         self.rebuild_collisions()
         self.interactions=[Interaction(**{**item,'point':self.point(item['point']),
+                                          'region':pygame.Rect(self.transform_rect(item['region'])) if item.get('region') else None,
                                           'radius':INTERACTION_RADIUS})
                            for item in self.config['interactions']]
         self.spawn=self.point(self.config['spawn'])
@@ -61,6 +62,10 @@ class Scene:
         if debug:
             self.collisions.draw(screen,camera)
             for item in self.interactions:
+                if item.region is not None:
+                    rect=item.region.move(-round(camera.x),-round(camera.y))
+                    pygame.draw.rect(screen,'#edcf65',rect,2)
+                    continue
                 point=item.point-camera
                 pygame.draw.circle(screen,'#edcf65',point,round(item.radius),1)
                 pygame.draw.circle(screen,'#edcf65',point,4)

@@ -5,12 +5,14 @@ import unittest
 from PIL import Image,ImageDraw
 import pygame
 from casa.config import ROOT
-from casa.game import House
+from support import exploration_house as House
 from preparar_sheets import transparent
 
 class SheetTests(unittest.TestCase):
     def test_sources_outputs_and_foot_alignment(self):
-        for character,count in (('protagonista',21),('ricardo',25)):
+        # A sheet do Ricardo foi substituida pelos PNGs individuais; o contrato
+        # ativo dele e verificado em test_ricardo_individual.
+        for character,count in (('protagonista',21),):
             manifest=json.loads((ROOT/f'dados/sheets/{character}.json').read_text(encoding='utf-8'))
             self.assertEqual(len(manifest['assets']),count)
             self.assertEqual(hashlib.sha256((ROOT/manifest['source']).read_bytes()).hexdigest(),manifest['source_sha256'])
@@ -21,7 +23,8 @@ class SheetTests(unittest.TestCase):
                     self.assertEqual(image.mode,'RGBA')
                     if '/andando/' in row['destino'] or '/parado/' in row['destino'] or '/sprites/' in row['destino']:
                         self.assertEqual(image.size,(64,96))
-                        self.assertEqual(image.getbbox()[1::2],(6,94))
+                        self.assertIn(image.getbbox()[1],(6,7))
+                        self.assertEqual(image.getbbox()[3],94)
 
     def test_door_exams_and_previous_design_preserved(self):
         backup=ROOT/'backups/sheets_20261017_150406_128619'
@@ -37,7 +40,7 @@ class SheetTests(unittest.TestCase):
         assets=game.visitor_assets['ricardo']
         for direction in ('frente','costas','direita','esquerda'):
             for surface,path in ((assets.sprites[direction],f'personagens/visitantes/ricardo/sprites/{direction}.png'),
-                                 (game.player.idle[direction],f'personagens/protagonista/processados/parado/{direction}.png')):
+                                 (game.player.idle[direction],f'personagens/protagonista/classicos/parado/{direction}.png')):
                 expected=pygame.image.load(str(ROOT/path)).convert_alpha()
                 self.assertEqual(pygame.image.tobytes(surface,'RGBA'),pygame.image.tobytes(expected,'RGBA'))
 

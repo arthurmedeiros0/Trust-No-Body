@@ -1,0 +1,83 @@
+[
+  {
+    "t": 0.0,
+    "state": "idle",
+    "direction": "esquerda",
+    "feet": [
+      866.8000000000001,
+      515.0
+    ]
+  },
+  {
+    "t": 0.1,
+    "state": "walk",
+    "direction": "direita",
+    "feet": [
+      870.086666666667,
+      515.0
+    ]
+  },
+  {
+    "t": 0.8,
+    "state": "idle",
+    "direction": "direita",
+    "feet": [
+      892.32398362269,
+      515.0
+    ]
+  },
+  {
+    "t": 3.9,
+    "state": "walk",
+    "direction": "costas",
+    "feet": [
+      892.32398362269,
+      512.4772932488756
+    ]
+  },
+  {
+    "t": 5.2,
+    "state": "idle",
+    "direction": "costas",
+    "feet": [
+      892.32398362269,
+      469.5490432971942
+    ]
+  },
+  {
+    "t": 7.6,
+    "state": "walk",
+    "direction": "esquerda",
+    "feet": [
+      892.0517098711969,
+      469.5490432971942
+    ]
+  },
+  {
+    "t": 8.4,
+    "state": "idle",
+    "direction": "esquerda",
+    "feet": [
+      866.8614245416118,
+      469.5490432971942
+    ]
+  },
+  {
+    "t": 10.6,
+    "state": "walk",
+    "direction": "costas",
+    "feet": [
+      866.8614245416118,
+      466.9078135341599
+    ]
+  },
+  {
+    "t": 11.4,
+    "state": "idle",
+    "direction": "costas",
+    "feet": [
+      866.8614245416118,
+      443.1078135341601
+    ]
+  }
+]

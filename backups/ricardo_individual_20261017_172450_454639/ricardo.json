@@ -1,0 +1,75 @@
+{
+  "id": "ricardo",
+  "name": "Ricardo",
+  "age": 42,
+  "profession": "médico",
+  "personality": "Inteligente, reservado e aparentemente confiável.",
+  "history": "Trabalhou em um hospital nos primeiros dias da epidemia e procura abrigo.",
+  "narrative_link": "Possível ligação com Marina, enfermeira.",
+  "asset_root": "personagens/visitantes/ricardo",
+  "portrait": "retratos/porta.png",
+  "sprites": {
+    "frente": "sprites/frente.png",
+    "costas": "sprites/costas.png",
+    "direita": "sprites/direita.png",
+    "esquerda": "sprites/esquerda.png"
+  },
+  "portrait_height": 490,
+  "portrait_anchor": [
+    640,
+    625
+  ],
+  "room": "sala",
+  "room_position": [
+    860,
+    575
+  ],
+  "room_direction": "frente",
+  "investigation": {
+    "manchas_maos": {
+      "label": "Examinar mãos",
+      "normal": "investigacao/maos/ricardo_mao_normal.png",
+      "alterado": "investigacao/maos/ricardo_mao_anormal.png"
+    },
+    "dentes_deteriorados": {
+      "label": "Examinar dentes",
+      "normal": "investigacao/dentes/ricardo_dente_normal.png",
+      "alterado": "investigacao/dentes/ricardo_dente_amarelo.png"
+    },
+    "olhos_alterados": {
+      "label": "Examinar olhos",
+      "normal": "investigacao/olhos/ricardo_olho_normal.png",
+      "alterado": "investigacao/olhos/ricardo_olho_vermelho.png"
+    },
+    "veias_escurecidas": {
+      "label": "Examinar pescoço",
+      "normal": "investigacao/pescoco/ricardo_pescoco_normal.png",
+      "alterado": "investigacao/pescoco/ricardo_pescoco_anormal.png"
+    },
+    "palidez_anormal": {
+      "label": "Examinar palidez",
+      "normal": "investigacao/palidez/ricardo_nao_palido.png",
+      "alterado": "investigacao/palidez/ricardo_palido.png"
+    },
+    "tremores_involuntarios": {
+      "label": "Observar tremores",
+      "normal": "investigacao/tremores/ricardo_sem_tremor.png",
+      "alterado": "investigacao/tremores/ricardo_tremendo.png"
+    }
+  },
+  "resident": {
+    "speed": 34,
+    "radius": 72,
+    "wait_seconds": [
+      2,
+      4
+    ],
+    "walk_seconds": [
+      0.7,
+      1.4
+    ],
+    "frame_seconds": 0.18
+  },
+  "walk_manifest": "dados/animacoes/ricardo.json",
+  "sheet_sprites": true
+}

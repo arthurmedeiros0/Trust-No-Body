@@ -1,0 +1,271 @@
+{
+  "version": 1,
+  "backup": "backups\\ricardo_individual_20261017_172450_454639",
+  "canvas": [
+    64,
+    96
+  ],
+  "foot_line": 94,
+  "common_scale": 0.2222222222222222,
+  "frames": {
+    "frente": [
+      "andando/frente/1.png",
+      "andando/frente/2.png"
+    ],
+    "costas": [
+      "andando/costas/1.png",
+      "andando/costas/2.png"
+    ],
+    "direita": [
+      "andando/direita/1.png",
+      "andando/direita/2.png"
+    ],
+    "esquerda": [
+      "andando/esquerda/1.png",
+      "andando/esquerda/2.png"
+    ]
+  },
+  "assets": [
+    {
+      "destino": "sprites/frente.png",
+      "original": "frente.png",
+      "sha256_original": "b3141f58106bcdf9e80b86a7ffadea87b69fa43d8cfb16f8d95653bed378c201",
+      "recorte": [
+        197,
+        93,
+        370,
+        485
+      ],
+      "escala": 0.2222222222222222,
+      "resize": [
+        38,
+        87
+      ],
+      "offset": [
+        13,
+        7
+      ],
+      "visual": [
+        38,
+        87
+      ],
+      "sha256": "6a0852bef4a97ad30adbeec76ffca8ea6db2ec5ec4adddca08c478cb6521ef7e"
+    },
+    {
+      "destino": "andando/frente/1.png",
+      "original": "andandofrente1.png",
+      "sha256_original": "c86b2246b0cd3c3bfc4b63f0f000e967911d68ec6b9b78d79e6a0f3884717bc3",
+      "recorte": [
+        197,
+        95,
+        374,
+        491
+      ],
+      "escala": 0.2222222222222222,
+      "resize": [
+        39,
+        88
+      ],
+      "offset": [
+        12,
+        6
+      ],
+      "visual": [
+        39,
+        88
+      ],
+      "sha256": "a2bffbaa6aaf52def86c43922fee0433b3264a36263010824085892c639cd793"
+    },
+    {
+      "destino": "andando/frente/2.png",
+      "original": "andandofrente2.png",
+      "sha256_original": "2616929593348791032619e142e0b41ab3ebdb8f04328b88c6f66ae5ca2b8364",
+      "recorte": [
+        201,
+        95,
+        376,
+        490
+      ],
+      "escala": 0.2222222222222222,
+      "resize": [
+        39,
+        88
+      ],
+      "offset": [
+        12,
+        6
+      ],
+      "visual": [
+        39,
+        88
+      ],
+      "sha256": "28584ae77af31073bff501a4207420d34f82bfb9cae263c7334633f8e4ea3e55"
+    },
+    {
+      "destino": "sprites/costas.png",
+      "original": "costas.png",
+      "sha256_original": "8a1354a95666a1d95ec5b636ef50b5f39ab6fdb1f612fe1721b331fc8cda5d91",
+      "recorte": [
+        207,
+        93,
+        371,
+        484
+      ],
+      "escala": 0.2222222222222222,
+      "resize": [
+        36,
+        87
+      ],
+      "offset": [
+        14,
+        7
+      ],
+      "visual": [
+        36,
+        87
+      ],
+      "sha256": "6212ae9edb1ec189c6dfe5d501f5e6ac8a008c1f8b1aca8f84e5a2ead08c1bb5"
+    },
+    {
+      "destino": "andando/costas/1.png",
+      "original": "andandocostas1.png",
+      "sha256_original": "cc2f0161baddb19b85cbbfe7317bdb8a7c24adad2d5028801a62fee439296044",
+      "recorte": [
+        208,
+        92,
+        376,
+        479
+      ],
+      "escala": 0.2222222222222222,
+      "resize": [
+        37,
+        86
+      ],
+      "offset": [
+        13,
+        8
+      ],
+      "visual": [
+        37,
+        86
+      ],
+      "sha256": "a2bffe154c3e89b4a35412ec52157675ce32a7eccd947c965586008fcf38b5f0"
+    },
+    {
+      "destino": "andando/costas/2.png",
+      "original": "andandocostas2.png",
+      "sha256_original": "46737bbfd35d3b74a9dfb641de392fdf35fad6e5de0483621d6da0f41a9fd5a4",
+      "recorte": [
+        208,
+        92,
+        375,
+        479
+      ],
+      "escala": 0.2222222222222222,
+      "resize": [
+        37,
+        86
+      ],
+      "offset": [
+        13,
+        8
+      ],
+      "visual": [
+        37,
+        86
+      ],
+      "sha256": "bb1d0109cb454acf401122e27062f0d0eb19a3837e8889b06aef589d7dc9251e"
+    },
+    {
+      "destino": "sprites/direita.png",
+      "original": "lado.png",
+      "sha256_original": "01651aa75142242a0b8d8248792b339f20f0bf470bd37eb3deb834c93e9f0e73",
+      "recorte": [
+        217,
+        93,
+        369,
+        485
+      ],
+      "escala": 0.2222222222222222,
+      "resize": [
+        34,
+        87
+      ],
+      "offset": [
+        15,
+        7
+      ],
+      "visual": [
+        34,
+        87
+      ],
+      "sha256": "a8f3c2ede2bc0deed16682d563b1f4e0b3fd0ac7d5a036d2e08d887ee425f805"
+    },
+    {
+      "destino": "andando/direita/1.png",
+      "original": "andandolado1.png",
+      "sha256_original": "e5f2164429a30818d9cf6652ef841496de78ec89b3e5cffffeed48bb966cda98",
+      "recorte": [
+        197,
+        97,
+        382,
+        476
+      ],
+      "escala": 0.2222222222222222,
+      "resize": [
+        41,
+        84
+      ],
+      "offset": [
+        11,
+        10
+      ],
+      "visual": [
+        41,
+        84
+      ],
+      "sha256": "3bf2c6881953742df4c315fd163ffc51751b599798d697a16112b3dba8c5af7c"
+    },
+    {
+      "destino": "andando/direita/2.png",
+      "original": "andandolado2.png",
+      "sha256_original": "f900c0ab4d847a6431a5d4b287729b6312cbbb6ba829ee18c541b1e603ec8a7b",
+      "recorte": [
+        197,
+        95,
+        397,
+        474
+      ],
+      "escala": 0.2222222222222222,
+      "resize": [
+        44,
+        84
+      ],
+      "offset": [
+        10,
+        10
+      ],
+      "visual": [
+        44,
+        84
+      ],
+      "sha256": "0139a95a583ed7bb589ff42b0d471553b2654432105b916b64d25c5a1d7a5c81"
+    },
+    {
+      "destino": "sprites/esquerda.png",
+      "espelhado_de": "sprites/direita.png",
+      "sha256": "d75356ee1c552fdcde30e0d017db8bbd19d2f7b62f3668042c35e6f269e31784"
+    },
+    {
+      "destino": "andando/esquerda/1.png",
+      "espelhado_de": "andando/direita/1.png",
+      "sha256": "f45f3b4f7d72048c6eca1d7181106bcbb55a051bde72c0b78922a265f6ba71a4"
+    },
+    {
+      "destino": "andando/esquerda/2.png",
+      "espelhado_de": "andando/direita/2.png",
+      "sha256": "446f16829dad324ae2794778aa545e6f96870624abd5f739639e4da7393130d5"
+    }
+  ],
+  "notes": "Fontes RGBA ja transparentes: alpha preservado. Dois laterais direitos similares; esquerda espelhada por ausencia de fonte esquerda."
+}

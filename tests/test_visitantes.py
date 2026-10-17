@@ -9,7 +9,7 @@ from unittest.mock import patch
 from PIL import Image
 import pygame
 from casa.config import ROOT
-from casa.game import House
+from support import exploration_house as House
 from casa.visitors import VisitorSession
 from casa.visitor_assets import remove_border_white
 
@@ -69,7 +69,7 @@ class VisitorTests(unittest.TestCase):
         self.click('talk')
         self.assertTrue(self.visitor.talked)
         self.assertIn('Ricardo',self.ui.response)
-        self.assertIn('hospital',self.ui.response)
+        self.assertIn('médico',self.ui.response)
         for index in range(4):
             self.click(str(index));self.assertTrue(self.ui.response)
             self.game.draw(pygame.display.get_surface())
