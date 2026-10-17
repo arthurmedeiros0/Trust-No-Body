@@ -10,7 +10,7 @@
         274,
         226
       ],
-      "sha256": "93cada3da36ec9423bf1014f136dbd1cbb4fe85ba22955c0ddbeab2533d54773"
+      "sha256": "c818134cd6b8bc1d0407bf03bd17b92bf7f41d9f077cb2035860adc6ae11bfb9"
     },
     {
       "destino": "personagens\\visitantes\\ricardo\\sprites\\costas.png",
@@ -20,7 +20,7 @@
         384,
         227
       ],
-      "sha256": "4b8a0dea038fc498c9892192170a2b86eb8edf2281a649dbb03cfd78874438f9"
+      "sha256": "c8f71c01cf6dfe979acf3433b706b778ef1f77f7a4dc01162b226d297189ff6e"
     },
     {
       "destino": "personagens\\visitantes\\ricardo\\sprites\\esquerda.png",
@@ -30,7 +30,7 @@
         236,
         819
       ],
-      "sha256": "974b407292728f56c6f828dec4c7918acf373ab9b74ef53627dea48663b3f576"
+      "sha256": "967a08c6dfed347dee786819ec3a02071aeed17b823c2d11b92406a5306dce6d"
     },
     {
       "destino": "personagens\\visitantes\\ricardo\\sprites\\direita.png",
@@ -40,7 +40,7 @@
         610,
         226
       ],
-      "sha256": "75aa86c1b82c8168b9a219f574ed17cf418cdd1159357153492566a824527393"
+      "sha256": "d228840655431d4fdb22c78e344397cd055b1bf5810aeed843704f3f3994f756"
     },
     {
       "destino": "personagens\\visitantes\\ricardo\\andando\\frente\\1.png",
@@ -50,7 +50,7 @@
         233,
         532
       ],
-      "sha256": "7bdb8a8e70a33712462ec9be240327afda64a16b20511a33923b0776a22c5f46"
+      "sha256": "f687e3d30da1fbe1c99b569fdc6557cc7f97249d23b3484767179478258eb3b5"
     },
     {
       "destino": "personagens\\visitantes\\ricardo\\andando\\frente\\2.png",
@@ -60,7 +60,7 @@
         356,
         532
       ],
-      "sha256": "61d95a93c0161c0cf14397781389996a4044bf7b8ce01e3183c5c93501b56721"
+      "sha256": "051c6027be2b05803da4794feef5e261c0d8c15f48061871ba687c1b3a4e07bd"
     },
     {
       "destino": "personagens\\visitantes\\ricardo\\andando\\frente\\3.png",
@@ -70,7 +70,7 @@
         478,
         532
       ],
-      "sha256": "bca3a7cd24e1183d9e5a303ad706b58c0a8027956a88882fc6cf82b97df02cbe"
+      "sha256": "e99063a60457990ce143227b7a9d880c8160fe91c19e807e129c46b448c77bd0"
     },
     {
       "destino": "personagens\\visitantes\\ricardo\\andando\\costas\\1.png",
@@ -80,7 +80,7 @@
         233,
         674
       ],
-      "sha256": "1acc9c42ef6788dc78173832ef581e574fec46b2c714a2e409913d748a7a701d"
+      "sha256": "314194e53697427b9810e7833856411572f7df39837ca548772f3734c6174c8f"
     },
     {
       "destino": "personagens\\visitantes\\ricardo\\andando\\costas\\2.png",
@@ -90,7 +90,7 @@
         356,
         674
       ],
-      "sha256": "8937d8dcbebf7ae0e5251d3a384c1d5f1507cce4daecb8b2b478eade48944ed4"
+      "sha256": "ad2956e3ab4274bcdda7578efb074b45519c251908d631618457ce27e5019db8"
     },
     {
       "destino": "personagens\\visitantes\\ricardo\\andando\\costas\\3.png",
@@ -100,7 +100,7 @@
         478,
         674
       ],
-      "sha256": "e774d655aab4a988c1ff59e7973f31e42187a2fdf4ad8e86641df853e118caf5"
+      "sha256": "1163abeb8d7f47af9b653df8ba2cffd66db6a44e1c8d600ccb833714a426b7df"
     },
     {
       "destino": "personagens\\visitantes\\ricardo\\andando\\esquerda\\1.png",
@@ -110,7 +110,7 @@
         233,
         819
       ],
-      "sha256": "974b407292728f56c6f828dec4c7918acf373ab9b74ef53627dea48663b3f576"
+      "sha256": "967a08c6dfed347dee786819ec3a02071aeed17b823c2d11b92406a5306dce6d"
     },
     {
       "destino": "personagens\\visitantes\\ricardo\\andando\\esquerda\\2.png",
@@ -120,7 +120,7 @@
         356,
         819
       ],
-      "sha256": "be2fa73102dfa61f57c02a42644b5d90d52d97fc04c1144d14bcc1bb937f276e"
+      "sha256": "f5963628bf8ac63b2d2a662985cb34e07927b910f04dd8cbeabaaa664bd86d71"
     },
     {
       "destino": "personagens\\visitantes\\ricardo\\andando\\esquerda\\3.png",
@@ -130,7 +130,7 @@
         478,
         819
       ],
-      "sha256": "05546ea54ae9fc17312e88a8614720296645fd921698be0b0da608e5b8b95910"
+      "sha256": "0c548e60b921e76c93a9cda3aba0a4fce90ad3d884602232c128eec0b6944b14"
     },
     {
       "destino": "personagens\\visitantes\\ricardo\\andando\\direita\\1.png",
@@ -140,7 +140,7 @@
         233,
         973
       ],
-      "sha256": "5eb8978f999d5a872572d48ffe2971eaf20d1180fda868eaaea044aeefae9883"
+      "sha256": "75b9966c155fa21680030aab83a532b80c324afdceaf66bd98cb3762925204cf"
     },
     {
       "destino": "personagens\\visitantes\\ricardo\\andando\\direita\\2.png",
@@ -150,7 +150,7 @@
         356,
         973
       ],
-      "sha256": "99f45089d3f6e972f8a11d7d624af766447c216f861456c10b371668bf318a03"
+      "sha256": "f4291de33353fedacc42ae23db62062c23f511338688bb618a92596a03442784"
     },
     {
       "destino": "personagens\\visitantes\\ricardo\\andando\\direita\\3.png",
@@ -160,7 +160,7 @@
         478,
         973
       ],
-      "sha256": "bf35da7e6013f9c4e5844c96abe8b4dd4d595844e5ff3bfbd03a1749c14fe169"
+      "sha256": "b90e931cf41e6c1ac20b73a6583b4c64f9864cb26e07b5eb9564e965c084ad47"
     },
     {
       "destino": "personagens\\visitantes\\ricardo\\dialogo\\principal.png",
@@ -253,5 +253,5 @@
       "sha256": "684d1a901e5642652e1a427234768e1227a68bf64310660fe0b8bf64e02d3374"
     }
   ],
-  "observacao": "Laterais extraidas independentemente; nao sao espelhamentos. Tres primeiros quadros por linha. Protagonista: idle esquerdo adaptado da linha esquerda; terceiro idle da sheet repete frente."
+  "observacao": "Caminhada: tres primeiros quadros por linha, laterais independentes. Sprites limpos por componente principal e espuroes de mascara. Protagonista: idle lateral reconstruido com apoio neutro; esquerda espelhada."
 }

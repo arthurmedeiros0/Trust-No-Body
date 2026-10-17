@@ -87,7 +87,7 @@ class Resident:
             self.remaining-=chunk;remaining-=chunk
 
     def image(self,assets):
-        frames=assets.walk.get(self.direction,())
+        frames=assets.cycles.get(self.direction,())
         if self.moving and frames:
             return frames[int(self.animation_elapsed/self.frame_seconds)%len(frames)]
         return assets.sprites[self.direction]

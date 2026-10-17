@@ -5,6 +5,7 @@ import json
 import shutil
 from datetime import datetime
 from PIL import Image, ImageDraw, ImageOps
+from casa.sprite_cleanup import clean_sprite, lateral_idle
 
 ROOT = Path(__file__).resolve().parent
 DIRECTIONS = ('frente', 'costas', 'esquerda', 'direita')
@@ -17,7 +18,7 @@ def transparent(image, movement=False):
     image = image.convert('RGBA')
     mask = Image.new('L', image.size)
     mask.putdata([255 if max(r,g,b)<=26 and (g>=r and g>=b if movement else max(r,g,b)-min(r,g,b)<=9) else 0
-                  for r,g,b,a in image.getdata()])
+                  for r,g,b,a in image.get_flattened_data()])
     padded = ImageOps.expand(mask, border=1, fill=255)
     ImageDraw.floodfill(padded, (0,0), 128)
     alpha = padded.crop((1,1,image.width+1,image.height+1)).point(lambda v: 0 if v==128 else 255)
@@ -84,7 +85,7 @@ def extract(character):
     records=[];images=[]
     def save(name,box,movement=False):
         image=transparent(sheet.crop(box),movement)
-        if movement:image=sprite(image)
+        if movement:image=clean_sprite(sprite(image))
         target=out/(name+'.png');target.parent.mkdir(parents=True,exist_ok=True);image.save(target)
         records.append(dict(destino=str(target.relative_to(ROOT)),recorte=box,sha256=digest(target)))
         images.append((name,image))
@@ -96,6 +97,14 @@ def extract(character):
     for direction,(top,bottom) in zip(DIRECTIONS,[(410,532),(550,674),(697,819),(842,973)]):
         for index,x in enumerate((150,273,395),1):
             save(f'andando/{direction}/{index}',(x,top,x+83,bottom),True)
+    if character=='protagonista':
+        right=lateral_idle(Image.open(out/'parado/esquerda.png'))
+        for direction,image in (('direita',right),('esquerda',ImageOps.mirror(right))):
+            target=out/f'parado/{direction}.png';image.save(target)
+            images[:]=[(name,image if name=='parado/'+direction else old) for name,old in images]
+            for row in records:
+                if row['destino']==str(target.relative_to(ROOT)):
+                    row.update(sha256=digest(target),edicao='Idle lateral reconstruido da pose esquerda: pernas apoiadas; esquerda espelhada.')
     portraits='retratos' if character=='protagonista' else 'dialogo'
     save(portraits+'/principal',(733,69,1117,535))
     for expression,box in zip(('normal','surpreso','preocupado','determinado'),
@@ -105,7 +114,7 @@ def extract(character):
         for detail,box in zip(('olhos','costas','mao','sapato'),((750,624,948,739),(978,615,1160,757),(760,791,935,946),(973,806,1152,946))):
             save('dialogo/detalhes/'+detail,box)
     report=dict(source=str(source.relative_to(ROOT)),source_sha256=digest(source),assets=records,
-                observacao='Laterais extraidas independentemente; nao sao espelhamentos. Tres primeiros quadros por linha. Protagonista: idle esquerdo adaptado da linha esquerda; terceiro idle da sheet repete frente.')
+                observacao='Caminhada: tres primeiros quadros por linha, laterais independentes. Sprites limpos por componente principal e espuroes de mascara. Protagonista: idle lateral reconstruido com apoio neutro; esquerda espelhada.')
     report_path=ROOT/'dados/sheets'/f'{character}.json';report_path.parent.mkdir(parents=True,exist_ok=True)
     report_path.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     preview=Image.new('RGB',(1000,1790),'#263645');draw=ImageDraw.Draw(preview)

@@ -65,11 +65,11 @@ class WalkTests(unittest.TestCase):
     def test_animation_all_directions_three_frames_and_rest(self):
         actor=Resident('ricardo','sala',(0,0))
         actor.moving=True
-        for direction,frames in self.assets.walk.items():
+        for direction,frames in self.assets.cycles.items():
             actor.direction=direction
-            for index in range(6):
+            for index in range(len(frames)*2):
                 actor.animation_elapsed=index*actor.frame_seconds+.001
-                self.assertIs(actor.image(self.assets),frames[index%3])
+                self.assertIs(actor.image(self.assets),frames[index%len(frames)])
         actor.rest()
         self.assertEqual(actor.animation_elapsed,0)
         self.assertIs(actor.image(self.assets),self.assets.sprites[actor.direction])
@@ -103,7 +103,7 @@ class WalkTests(unittest.TestCase):
             self.assertEqual(rect,feet_rect(actor.feet));self.assertEqual(position,actor.feet)
             actor._choose(Free());self.assertEqual(actor.animation_elapsed,0)
             actor.update(.02,Free())
-            self.assertIs(actor.image(self.assets),self.assets.walk[actor.direction][0])
+            self.assertIs(actor.image(self.assets),self.assets.cycles[actor.direction][0])
         self.assertLess(results[0][0].distance_to(results[-1][0]),.0001)
         self.assertAlmostEqual(results[0][1],results[-1][1],places=5)
         self.assertIs(results[0][2],results[-1][2])

@@ -8,6 +8,7 @@ from .visitor_image_processing import remove_white,examination_panel,PROCESSING_
 import pygame
 from .config import ROOT
 from .visitor_walk_assets import prepare_walks,comparison
+from .animation import animation_cycles
 
 
 def remove_border_white(image):
@@ -45,6 +46,7 @@ class VisitorAssets:
         paths=prepare_walks(definition)
         self.walk={direction:[pygame.image.load(str(path)).convert_alpha() for path in frames]
                    for direction,frames in paths.items()}
+        self.cycles=animation_cycles(self.sprites,self.walk)
         if self.walk:comparison(self.sprites,self.walk,base/'andando/comparacao.png')
         self.investigation={}
         for key,item in definition['investigation'].items():

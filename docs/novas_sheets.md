@@ -1,5 +1,10 @@
 # Novas sheets do protagonista e do Ricardo
 
+**Atualizacao:** os recortes e ciclos foram refinados posteriormente. Consulte
+[limpeza e animacoes](limpeza_animacoes.md) para o estado atual, idle lateral
+reconstruido, novas conferencias e validacao de 59 testes. As limitacoes e ciclos
+descritos abaixo registram a integracao inicial.
+
 O jogo usa agora o novo protagonista e os novos sprites internos do Ricardo.
 Foram extraidos 46 assets: 16 sprites e cinco retratos do protagonista; 16 sprites,
 cinco retratos e quatro detalhes do Ricardo. As imagens de dialogo ficam apenas

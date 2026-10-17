@@ -18,7 +18,8 @@ SHADOW_SIZE = (34, 12)
 SHADOW_OPACITY = 65
 SHADOW_OFFSET_Y = 2
 INTERACTION_RADIUS = 58
-LATERAL_CYCLE = (0, None, 1, None, 2, None)
+LATERAL_CYCLE = {'direita': (None, 0, None, 2),
+                 'esquerda': (None, 1, None, 2)}
 CORRIDOR_RETURN_Y = 235
 DOOR_X = {'sala': 294, 'quarto': 569, 'cozinha': 1160, 'banheiro': 1431}
 ROOMS = {
