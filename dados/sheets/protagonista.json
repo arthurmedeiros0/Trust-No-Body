@@ -1,0 +1,217 @@
+{
+  "source": "personagens\\protagonista\\referencias\\novo_design.png",
+  "source_sha256": "dcc7bf8ed0d377fceca327d6a5359add4b6ccb868f17a0fd3d56d386fbfc652f",
+  "assets": [
+    {
+      "destino": "personagens\\protagonista\\processados\\parado\\frente.png",
+      "recorte": [
+        202,
+        88,
+        276,
+        221
+      ],
+      "sha256": "558e78453dc138f18d88efa15132e1e7f6899e87be4566025c48dccc4fea913f"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\parado\\costas.png",
+      "recorte": [
+        309,
+        89,
+        384,
+        225
+      ],
+      "sha256": "6f6e0086205c249d3ad18e86135289d24ba70ac76de9982c061ffa587c0f0293"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\parado\\esquerda.png",
+      "recorte": [
+        160,
+        697,
+        234,
+        818
+      ],
+      "sha256": "9fe37fb97dff58cfa4a0f40b214162bf48f7005c73917073f0670e0fed952a3d"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\parado\\direita.png",
+      "recorte": [
+        530,
+        89,
+        606,
+        225
+      ],
+      "sha256": "215d02144be7a301a487c4bfd268d37a1cba4d5cb44b6b8be2b5d997d6be1f9b"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\andando\\frente\\1.png",
+      "recorte": [
+        150,
+        410,
+        233,
+        532
+      ],
+      "sha256": "0791ec5a3d6552d649a2e474ca8977d0e37a0974f7f87500cafef221d5490588"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\andando\\frente\\2.png",
+      "recorte": [
+        273,
+        410,
+        356,
+        532
+      ],
+      "sha256": "ea0060d41e2960908837a7cbc38e7c780104607e6fde392d88e8d7484f931bfb"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\andando\\frente\\3.png",
+      "recorte": [
+        395,
+        410,
+        478,
+        532
+      ],
+      "sha256": "d7d09ea48823080a254040ec6d1af8b21491d45e7f69c2aec982f34e70ee021d"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\andando\\costas\\1.png",
+      "recorte": [
+        150,
+        550,
+        233,
+        674
+      ],
+      "sha256": "f25bbea23f139c1614fed885e5204df15333d3fddc4ae3872b7665048e69538f"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\andando\\costas\\2.png",
+      "recorte": [
+        273,
+        550,
+        356,
+        674
+      ],
+      "sha256": "4c89065c4e2cb8c3046e957ddce81dae348bfcd519d21ed84df20540c6d2adc4"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\andando\\costas\\3.png",
+      "recorte": [
+        395,
+        550,
+        478,
+        674
+      ],
+      "sha256": "edbebb0f6978788bf0a68e78649a7bd77e6c8d73323f4e85a116c10ed9b58a08"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\andando\\esquerda\\1.png",
+      "recorte": [
+        150,
+        697,
+        233,
+        819
+      ],
+      "sha256": "9fe37fb97dff58cfa4a0f40b214162bf48f7005c73917073f0670e0fed952a3d"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\andando\\esquerda\\2.png",
+      "recorte": [
+        273,
+        697,
+        356,
+        819
+      ],
+      "sha256": "f2eeff57b3776664c908de764e12cd34f3fbc62e1b7b9bd7156eb1b7201cd6d6"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\andando\\esquerda\\3.png",
+      "recorte": [
+        395,
+        697,
+        478,
+        819
+      ],
+      "sha256": "1e95c4ba781c10458f56118cb1adfa03610436dea64e1f371e2dfac010a1728d"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\andando\\direita\\1.png",
+      "recorte": [
+        150,
+        842,
+        233,
+        973
+      ],
+      "sha256": "2f0c976aec573eb6a5acf572328d5330f98103dc4979d5ec9a2fcf3ceaaf14b0"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\andando\\direita\\2.png",
+      "recorte": [
+        273,
+        842,
+        356,
+        973
+      ],
+      "sha256": "737c5843bb539386738115a6167f186442e2ec7a93f85befd614fc1d7c97c7ab"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\andando\\direita\\3.png",
+      "recorte": [
+        395,
+        842,
+        478,
+        973
+      ],
+      "sha256": "bad5dffe51a912063ecb42286547fa9a3d1f77d004d75f7a570da82bc386ed52"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\retratos\\principal.png",
+      "recorte": [
+        733,
+        69,
+        1117,
+        535
+      ],
+      "sha256": "f231f9a5270d5978cddf5a42e0631326e0210a5a0765513563fc4804a0df9430"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\retratos\\normal.png",
+      "recorte": [
+        1164,
+        82,
+        1317,
+        251
+      ],
+      "sha256": "c4390493c93edb7c16b228e9572ff3c3bb7efe63abef09061728f07c9ecd5ae6"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\retratos\\surpreso.png",
+      "recorte": [
+        1344,
+        82,
+        1499,
+        251
+      ],
+      "sha256": "63aa13a55ce92e961976ab886e4fc3491152dbf968779f5d273fa031de7a4387"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\retratos\\preocupado.png",
+      "recorte": [
+        1164,
+        301,
+        1317,
+        495
+      ],
+      "sha256": "a961564a4034e2316f93bc0990558bf0edb6cae37d055ba822e01be044092570"
+    },
+    {
+      "destino": "personagens\\protagonista\\processados\\retratos\\determinado.png",
+      "recorte": [
+        1344,
+        301,
+        1499,
+        495
+      ],
+      "sha256": "a0a969fbde3df59002f136ab66fd5ba416f389e6d832bb4ba023d84612f5b440"
+    }
+  ],
+  "observacao": "Laterais extraidas independentemente; nao sao espelhamentos. Tres primeiros quadros por linha. Protagonista: idle esquerdo adaptado da linha esquerda; terceiro idle da sheet repete frente."
+}

@@ -9,10 +9,10 @@
   "asset_root": "personagens/visitantes/ricardo",
   "portrait": "retratos/porta.png",
   "sprites": {
-    "frente": "sprites/ricardo_frente.png",
-    "costas": "sprites/ricardo_costas.png",
-    "direita": "sprites/ricardo_direita.png",
-    "esquerda": "sprites/ricardo_esquerda.png"
+    "frente": "sprites/frente.png",
+    "costas": "sprites/costas.png",
+    "direita": "sprites/direita.png",
+    "esquerda": "sprites/esquerda.png"
   },
   "portrait_height": 490,
   "portrait_anchor": [
@@ -70,5 +70,6 @@
     ],
     "frame_seconds": 0.18
   },
-  "walk_manifest": "dados/animacoes/ricardo.json"
+  "walk_manifest": "dados/animacoes/ricardo.json",
+  "sheet_sprites": true
 }

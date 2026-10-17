@@ -1,0 +1,257 @@
+{
+  "source": "personagens\\visitantes\\ricardo\\referencias\\novo_design.png",
+  "source_sha256": "5f2f7bb6b97200b2ee0e4adf0c1ad71208555ff2396b0515da4e053dbd662fde",
+  "assets": [
+    {
+      "destino": "personagens\\visitantes\\ricardo\\sprites\\frente.png",
+      "recorte": [
+        201,
+        88,
+        274,
+        226
+      ],
+      "sha256": "93cada3da36ec9423bf1014f136dbd1cbb4fe85ba22955c0ddbeab2533d54773"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\sprites\\costas.png",
+      "recorte": [
+        307,
+        89,
+        384,
+        227
+      ],
+      "sha256": "4b8a0dea038fc498c9892192170a2b86eb8edf2281a649dbb03cfd78874438f9"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\sprites\\esquerda.png",
+      "recorte": [
+        158,
+        697,
+        236,
+        819
+      ],
+      "sha256": "974b407292728f56c6f828dec4c7918acf373ab9b74ef53627dea48663b3f576"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\sprites\\direita.png",
+      "recorte": [
+        535,
+        88,
+        610,
+        226
+      ],
+      "sha256": "75aa86c1b82c8168b9a219f574ed17cf418cdd1159357153492566a824527393"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\andando\\frente\\1.png",
+      "recorte": [
+        150,
+        410,
+        233,
+        532
+      ],
+      "sha256": "7bdb8a8e70a33712462ec9be240327afda64a16b20511a33923b0776a22c5f46"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\andando\\frente\\2.png",
+      "recorte": [
+        273,
+        410,
+        356,
+        532
+      ],
+      "sha256": "61d95a93c0161c0cf14397781389996a4044bf7b8ce01e3183c5c93501b56721"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\andando\\frente\\3.png",
+      "recorte": [
+        395,
+        410,
+        478,
+        532
+      ],
+      "sha256": "bca3a7cd24e1183d9e5a303ad706b58c0a8027956a88882fc6cf82b97df02cbe"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\andando\\costas\\1.png",
+      "recorte": [
+        150,
+        550,
+        233,
+        674
+      ],
+      "sha256": "1acc9c42ef6788dc78173832ef581e574fec46b2c714a2e409913d748a7a701d"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\andando\\costas\\2.png",
+      "recorte": [
+        273,
+        550,
+        356,
+        674
+      ],
+      "sha256": "8937d8dcbebf7ae0e5251d3a384c1d5f1507cce4daecb8b2b478eade48944ed4"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\andando\\costas\\3.png",
+      "recorte": [
+        395,
+        550,
+        478,
+        674
+      ],
+      "sha256": "e774d655aab4a988c1ff59e7973f31e42187a2fdf4ad8e86641df853e118caf5"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\andando\\esquerda\\1.png",
+      "recorte": [
+        150,
+        697,
+        233,
+        819
+      ],
+      "sha256": "974b407292728f56c6f828dec4c7918acf373ab9b74ef53627dea48663b3f576"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\andando\\esquerda\\2.png",
+      "recorte": [
+        273,
+        697,
+        356,
+        819
+      ],
+      "sha256": "be2fa73102dfa61f57c02a42644b5d90d52d97fc04c1144d14bcc1bb937f276e"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\andando\\esquerda\\3.png",
+      "recorte": [
+        395,
+        697,
+        478,
+        819
+      ],
+      "sha256": "05546ea54ae9fc17312e88a8614720296645fd921698be0b0da608e5b8b95910"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\andando\\direita\\1.png",
+      "recorte": [
+        150,
+        842,
+        233,
+        973
+      ],
+      "sha256": "5eb8978f999d5a872572d48ffe2971eaf20d1180fda868eaaea044aeefae9883"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\andando\\direita\\2.png",
+      "recorte": [
+        273,
+        842,
+        356,
+        973
+      ],
+      "sha256": "99f45089d3f6e972f8a11d7d624af766447c216f861456c10b371668bf318a03"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\andando\\direita\\3.png",
+      "recorte": [
+        395,
+        842,
+        478,
+        973
+      ],
+      "sha256": "bf35da7e6013f9c4e5844c96abe8b4dd4d595844e5ff3bfbd03a1749c14fe169"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\dialogo\\principal.png",
+      "recorte": [
+        733,
+        69,
+        1117,
+        535
+      ],
+      "sha256": "a9cb49157ee507bf37c40cb3ab44fe0b3fb7dafb3bdd42f77acd65d8626844d7"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\dialogo\\expressoes\\normal.png",
+      "recorte": [
+        1164,
+        82,
+        1317,
+        251
+      ],
+      "sha256": "d1284c884e6a9b13977ad02cc0fc58d2b6f7965a880df6eabe8567b3a247d646"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\dialogo\\expressoes\\surpreso.png",
+      "recorte": [
+        1344,
+        82,
+        1499,
+        251
+      ],
+      "sha256": "ecb711cc1c5b43516d77487c7a8419ff0760d5bf64be32c8e0cd7107efd6f121"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\dialogo\\expressoes\\preocupado.png",
+      "recorte": [
+        1164,
+        301,
+        1317,
+        495
+      ],
+      "sha256": "ca775c7c88c578c9383f282cc4e4fceb972d188cbc01055d5d44e7fbec3241f0"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\dialogo\\expressoes\\determinado.png",
+      "recorte": [
+        1344,
+        301,
+        1499,
+        495
+      ],
+      "sha256": "ac1daa1123c7f3dc1fbcc18ae149e2fb32ae62812fb86b5a80075959a6200658"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\dialogo\\detalhes\\olhos.png",
+      "recorte": [
+        750,
+        624,
+        948,
+        739
+      ],
+      "sha256": "71a01b4fadd40c151c337ba7160ee14566ee6e1a2085ad22f100581a881c1bcf"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\dialogo\\detalhes\\costas.png",
+      "recorte": [
+        978,
+        615,
+        1160,
+        757
+      ],
+      "sha256": "afa790034a2d76e21be841c2e60b4838a24f57d6039ed4c0c65cdc4e7112d486"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\dialogo\\detalhes\\mao.png",
+      "recorte": [
+        760,
+        791,
+        935,
+        946
+      ],
+      "sha256": "a14e3b203c56a7a82f7ee0d5a32dc287d93df72deb4af54edd89562b55af6792"
+    },
+    {
+      "destino": "personagens\\visitantes\\ricardo\\dialogo\\detalhes\\sapato.png",
+      "recorte": [
+        973,
+        806,
+        1152,
+        946
+      ],
+      "sha256": "684d1a901e5642652e1a427234768e1227a68bf64310660fe0b8bf64e02d3374"
+    }
+  ],
+  "observacao": "Laterais extraidas independentemente; nao sao espelhamentos. Tres primeiros quadros por linha. Protagonista: idle esquerdo adaptado da linha esquerda; terceiro idle da sheet repete frente."
+}

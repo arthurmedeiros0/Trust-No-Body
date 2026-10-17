@@ -40,10 +40,9 @@ class ExplorationTests(unittest.TestCase):
             self.assertEqual(im.getbbox()[3],94)
             self.assertEqual(im.getchannel('A').getextrema()[0],0)
             self.assertGreaterEqual(im.getchannel('A').getextrema()[1],250)
-        for n in range(1,4):
-            right=Image.open(base/f'processados/andando/direita/{n}.png')
-            left=Image.open(base/f'processados/andando/esquerda/{n}.png')
-            self.assertIsNone(ImageChops.difference(ImageOps.mirror(right),left).getbbox())
+        sheet=json.loads((ROOT/'dados/sheets/protagonista.json').read_text(encoding='utf-8'))
+        for asset in sheet['assets']:
+            self.assertEqual(hashlib.sha256((ROOT/asset['destino']).read_bytes()).hexdigest(),asset['sha256'])
 
     def test_all_interactions_reachable_from_spawn(self):
         for name,scene in self.game.scenes.items():

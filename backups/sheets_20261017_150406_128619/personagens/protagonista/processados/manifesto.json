@@ -1,0 +1,223 @@
+[
+  {
+    "original": "Jovem herói pixelado em fundo escuro.png",
+    "sha256": "0a85951f3d4ea72eea0a47447801e5379755e1757927fe8f56dacd59d7ae9516",
+    "destino": "personagens\\protagonista\\processados\\parado\\frente.png",
+    "recorte": [
+      496,
+      247,
+      826,
+      992
+    ],
+    "tamanho_visual": [
+      39,
+      88
+    ],
+    "escala": 0.11812080536912752,
+    "caminho_original": "personagens\\protagonista\\originais\\Jovem herói pixelado em fundo escuro.png"
+  },
+  {
+    "original": "Jovem Pixelado de Costas com Mochila.png",
+    "sha256": "e3ca84309e6dca208a5e3d93b93f4e888bc02a9cd42361692a72e9ff3fc0965d",
+    "destino": "personagens\\protagonista\\processados\\parado\\costas.png",
+    "recorte": [
+      510,
+      240,
+      809,
+      968
+    ],
+    "tamanho_visual": [
+      36,
+      88
+    ],
+    "escala": 0.12087912087912088,
+    "caminho_original": "personagens\\protagonista\\originais\\Jovem Pixelado de Costas com Mochila.png"
+  },
+  {
+    "original": "Protagonista em perfil no fundo preto.png",
+    "sha256": "5707ddc5e4668e234b02bf30ed0e0d2fe7b5ea03a60a1b1b80a4faf62af3fbcc",
+    "destino": "personagens\\protagonista\\processados\\parado\\direita.png",
+    "recorte": [
+      533,
+      254,
+      795,
+      967
+    ],
+    "tamanho_visual": [
+      32,
+      88
+    ],
+    "escala": 0.12342215988779803,
+    "caminho_original": "personagens\\protagonista\\originais\\Protagonista em perfil no fundo preto.png"
+  },
+  {
+    "original": "Sprite RPG em Perfil no Escuro.png",
+    "sha256": "7f3a49d2e6be49b60c8710f140f5a4567391d96b62b7c6b642ca92370855942b",
+    "destino": "personagens\\protagonista\\processados\\parado\\esquerda.png",
+    "recorte": [
+      491,
+      243,
+      751,
+      959
+    ],
+    "tamanho_visual": [
+      32,
+      88
+    ],
+    "escala": 0.12290502793296089,
+    "caminho_original": "personagens\\protagonista\\originais\\Sprite RPG em Perfil no Escuro.png"
+  },
+  {
+    "original": "Jovem caminhando em pixel art.png",
+    "sha256": "d83b177eeca4e1ab39338a66eeb815b1367ce5230c9227c72edf122032c8c8f5",
+    "destino": "personagens\\protagonista\\processados\\andando\\frente\\1.png",
+    "recorte": [
+      355,
+      197,
+      788,
+      1226
+    ],
+    "tamanho_visual": [
+      37,
+      88
+    ],
+    "escala": 0.08551992225461613,
+    "caminho_original": "personagens\\protagonista\\originais\\Jovem caminhando em pixel art.png"
+  },
+  {
+    "original": "Jovem Pixelado Caminhando no Escuro.png",
+    "sha256": "90f0a8565b28c111d044bf819ca40c05333fafc9b4650a767d3fb913861101dc",
+    "destino": "personagens\\protagonista\\processados\\andando\\frente\\2.png",
+    "recorte": [
+      349,
+      197,
+      792,
+      1231
+    ],
+    "tamanho_visual": [
+      38,
+      88
+    ],
+    "escala": 0.0851063829787234,
+    "caminho_original": "personagens\\protagonista\\originais\\Jovem Pixelado Caminhando no Escuro.png"
+  },
+  {
+    "original": "Sprite Pixel Art Caminhando.png",
+    "sha256": "348c652ac91fd6cdd45c7f3bba8e617b9adb4bf89a51a224d51d2b28d1c0b0f5",
+    "destino": "personagens\\protagonista\\processados\\andando\\frente\\3.png",
+    "recorte": [
+      348,
+      195,
+      784,
+      1235
+    ],
+    "tamanho_visual": [
+      37,
+      88
+    ],
+    "escala": 0.08461538461538462,
+    "caminho_original": "personagens\\protagonista\\originais\\Sprite Pixel Art Caminhando.png"
+  },
+  {
+    "original": "Jovem Aventureiro em Pixel Art.png",
+    "sha256": "e900b694b8c3550784bce8c234b1b17ba14e1e4a01653e984bc8d56f60d5aed2",
+    "destino": "personagens\\protagonista\\processados\\andando\\costas\\1.png",
+    "recorte": [
+      356,
+      204,
+      773,
+      1215
+    ],
+    "tamanho_visual": [
+      36,
+      88
+    ],
+    "escala": 0.08704253214638971,
+    "caminho_original": "personagens\\protagonista\\originais\\Jovem Aventureiro em Pixel Art.png"
+  },
+  {
+    "original": "Jovem Caminhando no Vazio Preto.png",
+    "sha256": "88d455f66e8d3b1ac7e7aaedb3aaf90ea0195955425a5358233b46f949bffdc2",
+    "destino": "personagens\\protagonista\\processados\\andando\\costas\\2.png",
+    "recorte": [
+      357,
+      202,
+      774,
+      1211
+    ],
+    "tamanho_visual": [
+      36,
+      88
+    ],
+    "escala": 0.08721506442021804,
+    "caminho_original": "personagens\\protagonista\\originais\\Jovem Caminhando no Vazio Preto.png"
+  },
+  {
+    "original": "Sprite Pixelado Caminhando no Escuro.png",
+    "sha256": "82a76e1e51ffd72a16321396292eaf45d15d643eb6c94b63086885cf16e8b4f9",
+    "destino": "personagens\\protagonista\\processados\\andando\\costas\\3.png",
+    "recorte": [
+      363,
+      203,
+      774,
+      1213
+    ],
+    "tamanho_visual": [
+      36,
+      88
+    ],
+    "escala": 0.08712871287128712,
+    "caminho_original": "personagens\\protagonista\\originais\\Sprite Pixelado Caminhando no Escuro.png"
+  },
+  {
+    "original": "Jovem Andarilho em Pixel Art.png",
+    "sha256": "386de2e47f6bb152a1dbcadc992d976ac1d2a193176e4775f5f584871ce7a6b0",
+    "destino": "personagens\\protagonista\\processados\\andando\\direita\\1.png",
+    "recorte": [
+      488,
+      269,
+      868,
+      1000
+    ],
+    "tamanho_visual": [
+      46,
+      88
+    ],
+    "escala": 0.12038303693570451,
+    "caminho_original": "personagens\\protagonista\\originais\\Jovem Andarilho em Pixel Art.png"
+  },
+  {
+    "original": "Jovem caminhando em pixel art retro (1).png",
+    "sha256": "f6e4d3d15e108ab96c3a3c8b28a4c77993a48465f74aaf8310fda19c83fc2311",
+    "destino": "personagens\\protagonista\\processados\\andando\\direita\\2.png",
+    "recorte": [
+      473,
+      270,
+      875,
+      996
+    ],
+    "tamanho_visual": [
+      49,
+      88
+    ],
+    "escala": 0.12121212121212122,
+    "caminho_original": "personagens\\protagonista\\originais\\Jovem caminhando em pixel art retro (1).png"
+  },
+  {
+    "original": "Jovem caminhando em pixel art retro.png",
+    "sha256": "681d263748cdf68668d7840edc399fd6f8746928e6c87a06c5859f4b6fc79f0d",
+    "destino": "personagens\\protagonista\\processados\\andando\\direita\\3.png",
+    "recorte": [
+      460,
+      270,
+      871,
+      995
+    ],
+    "tamanho_visual": [
+      50,
+      88
+    ],
+    "escala": 0.12137931034482759,
+    "caminho_original": "personagens\\protagonista\\originais\\Jovem caminhando em pixel art retro.png"
+  }
+]

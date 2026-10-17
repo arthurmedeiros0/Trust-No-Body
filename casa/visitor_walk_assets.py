@@ -8,6 +8,10 @@ from .visitor_image_processing import remove_black,PROCESSING_VERSION
 
 
 def prepare_walks(definition):
+    if definition.get('sheet_sprites'):
+        base=ROOT/definition['asset_root']
+        return {direction:[base/f'andando/{direction}/{n}.png' for n in range(1,4)]
+                for direction in definition['sprites']}
     if not definition.get('walk_manifest'):return {}
     base=ROOT/definition['asset_root']
     manifest_path=ROOT/definition['walk_manifest']

@@ -34,13 +34,17 @@ class VisitorAssets:
         self.portrait=fit(self.portrait,(650,definition['portrait_height']))
         self.sprites={}
         for direction,path in definition['sprites'].items():
+            if definition.get('sheet_sprites'):
+                self.sprites[direction]=pygame.image.load(str(base/path)).convert_alpha()
+                continue
             original=pygame.image.load(str(processed(base/path))).convert_alpha()
             character=fit(original,(60,88))
             canvas=pygame.Surface((64,96),pygame.SRCALPHA)
             canvas.blit(character,((64-character.get_width())//2,94-character.get_height()))
             self.sprites[direction]=canvas
+        paths=prepare_walks(definition)
         self.walk={direction:[pygame.image.load(str(path)).convert_alpha() for path in frames]
-                   for direction,frames in prepare_walks(definition).items()}
+                   for direction,frames in paths.items()}
         if self.walk:comparison(self.sprites,self.walk,base/'andando/comparacao.png')
         self.investigation={}
         for key,item in definition['investigation'].items():

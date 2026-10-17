@@ -34,6 +34,10 @@ def remove_background(path):
 
 
 def main():
+    if (BASE/'referencias/novo_design.png').exists():
+        from preparar_sheets import main as prepare_sheets
+        prepare_sheets()
+        return
     files = sorted(SOURCE.glob('*.png'))
     if len(files) != 13:
         raise ValueError('Esperados os 13 originais; confira o mapeamento antes de continuar.')

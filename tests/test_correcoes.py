@@ -112,4 +112,9 @@ class CorrectionTests(unittest.TestCase):
         self.assertEqual(len(scene.interactions),2)
         before=json.loads((ROOT/'docs/hashes_antes_correcoes.json').read_text(encoding='utf-8'))
         for path,digest in before.items():
+            if path.replace('\\','/').startswith('personagens/protagonista/processados/'):
+                # Design anterior preservado no backup; novo design tem manifesto proprio.
+                archived=ROOT/'backups/sheets_20261017_150406_128619'/path
+                self.assertEqual(hashlib.sha256(archived.read_bytes()).hexdigest(),digest,path)
+                continue
             self.assertEqual(hashlib.sha256((ROOT/path).read_bytes()).hexdigest(),digest,path)

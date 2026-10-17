@@ -39,9 +39,9 @@ class WalkTests(unittest.TestCase):
             self.assertEqual(len({pygame.image.tobytes(surface,'RGBA') for surface in frames}),3)
         self.assertTrue((self.base/'andando/comparacao.png').exists())
 
-    def test_left_is_exact_mirror_and_coat_stays_light(self):
+    def test_left_is_independent_sheet_pose_and_coat_stays_light(self):
         for right,left in zip(self.assets.walk['direita'],self.assets.walk['esquerda']):
-            self.assertEqual(pygame.image.tobytes(pygame.transform.flip(right,True,False),'RGBA'),pygame.image.tobytes(left,'RGBA'))
+            self.assertNotEqual(pygame.image.tobytes(pygame.transform.flip(right,True,False),'RGBA'),pygame.image.tobytes(left,'RGBA'))
         for frames in self.assets.walk.values():
             for image in frames:
                 light=sum(1 for y in range(96) for x in range(64) if image.get_at((x,y)).a>200 and min(image.get_at((x,y))[:3])>150)

@@ -150,3 +150,7 @@ python teste_movimentacao.py --smoke-test
 Os testes cobrem as regressões anteriores, dados/sorteios, seis exames nas duas variantes, diálogos e decisões, além de painéis, tratamento das bordas, spawn seguro, passos do NPC, limites da sala e colisões mútuas. Incluem a identificação dos nove originais, dimensões/alinhamento dos 12 quadros, espelhamento, três fases em cada direção, repouso e animação em diferentes FPS. Os originais e `diagnostico_pendente` são verificados. Nenhum teste implementa ou resolve regras de infecção.
 
 Os testes usam SDL dummy. A avaliação manual de teclado, fluidez e contornos finos dos móveis continua necessária. Como as imagens têm perspectivas e proporções artísticas diferentes, a calibração dos cenários não garante proporções anatômicas idênticas entre todos os objetos.
+
+## Novas sheets dos personagens
+
+O novo protagonista e os sprites internos do Ricardo ja estao integrados. Execute python preparar_sheets.py para reprocessar com backup. Porta e investigacao do Ricardo permanecem preservadas. Estrutura, conferencias e limites visuais: [relatorio das sheets](docs/novas_sheets.md).
