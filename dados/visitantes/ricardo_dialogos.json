@@ -1,0 +1,24 @@
+{
+  "intro": [
+    "Meu nome é Ricardo. Sou médico. Estava trabalhando no hospital quando tudo começou.",
+    "As coisas saíram do controle rapidamente. Preciso de um lugar seguro para passar a noite."
+  ],
+  "questions": [
+    {
+      "question": "Em qual hospital você trabalhava?",
+      "answer": "No Hospital Municipal São Lucas, no pronto atendimento. Marina, uma enfermeira da equipe, ajudou a organizar a retirada dos pacientes."
+    },
+    {
+      "question": "Há quanto tempo está procurando abrigo?",
+      "answer": "Saí do hospital nesta manhã. Passei o dia procurando um lugar seguro e evitando as avenidas bloqueadas."
+    },
+    {
+      "question": "Você teve contato com pessoas infectadas?",
+      "answer": "Atendi pacientes durante os primeiros dias. Usei os equipamentos que havia, mas não tenho como garantir o que aconteceu depois."
+    },
+    {
+      "question": "Você possui comida ou água?",
+      "answer": "Tenho {food} latas de comida e {water} garrafas de água comigo."
+    }
+  ]
+}

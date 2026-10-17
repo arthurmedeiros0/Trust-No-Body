@@ -1,0 +1,19 @@
+{
+  "retratos/porta.png": "0b7a03298ff890a9d1a360ce210147e6ce664b708999edf1b4589770054e76b3",
+  "sprites/ricardo_costas.png": "c2b319da1bd48a43c13547e06f11f3df6f26678364b58f9a14e1200e0ec7c42d",
+  "sprites/ricardo_direita.png": "d9a7497c7f9d1e8c9d778e8b3847e9c7fddf74515d6b48cacfa94305908241a1",
+  "sprites/ricardo_esquerda.png": "18a431d28a3edebda0704ebd0c479a5d9fa1a68037c75b18c465a2ba8c8b5747",
+  "sprites/ricardo_frente.png": "fd6f3c740b990f043cf28e3a174dd50162ae82757968e73521eda56a81f4413e",
+  "investigacao/dentes/ricardo_dente_amarelo.png": "2370b746376729bddb01b27d9fb6b4f84aef02da0738ce92831b5a0e55a55dc6",
+  "investigacao/dentes/ricardo_dente_normal.png": "6e8056be0b5f9a059431ff907723c4e97ce0906b0ac7901e094aaa82fd753f4e",
+  "investigacao/maos/ricardo_mao_anormal.png": "c6f3acad5ce4053000ed56df40a906f66f833b26f85bca221a5d981d6ceb3d79",
+  "investigacao/maos/ricardo_mao_normal.png": "45c1892b4b8866bc30a68db8ba5fcf3360ef7d96247069ede44566312aede17f",
+  "investigacao/olhos/ricardo_olho_normal.png": "3056e565651a7ca23849821cf01c88b46b3baab8e296e7543b671eb90e8ab801",
+  "investigacao/olhos/ricardo_olho_vermelho.png": "3219fc5c2404e9d7b6037bb796a670263f6ae06e4fece8ff0be9ca0cf2f14b91",
+  "investigacao/palidez/ricardo_nao_palido.png": "bf2b8cd1368a40d8fd8009faab05b350b915c7eff14b5e1893dfd08261997715",
+  "investigacao/palidez/ricardo_palido.png": "ce2ddc455a23ac8a5d1cbcaaee4086d368b02add074f9bbb558f3caccb2cb0af",
+  "investigacao/pescoco/ricardo_pescoco_anormal.png": "47e7bbc7a1c9c4f218f3fe2723c281da0c52e3dea7d5ff7a4dcd7cfaae39bd10",
+  "investigacao/pescoco/ricardo_pescoco_normal.png": "3a1246196ffad7a0a9c38110926e9e9f4daec559510b66aba097562f6a91b65b",
+  "investigacao/tremores/ricardo_sem_tremor.png": "7c2be4ed7e4994eabcd299b8e921948ca6fb7351c1838633c5f46fd23855e860",
+  "investigacao/tremores/ricardo_tremendo.png": "a7f750e37e0b4a2bed5492bb46e7cef2bb00a367c98a3d0f67894a90baf45a95"
+}

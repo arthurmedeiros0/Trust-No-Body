@@ -1,0 +1,147 @@
+{
+  "corredor": {
+    "original": [
+      1727,
+      311
+    ],
+    "exibido": [
+      1554,
+      280
+    ],
+    "escala": 0.9,
+    "posicao_base": [
+      -137,
+      230
+    ],
+    "art_scale": 0.9,
+    "protagonista": [
+      64,
+      96
+    ],
+    "hitbox": [
+      20,
+      10
+    ],
+    "entrada": [
+      650,
+      246
+    ],
+    "camera_horizontal": true
+  },
+  "quarto": {
+    "original": [
+      747,
+      561
+    ],
+    "exibido": [
+      657,
+      494
+    ],
+    "escala": 0.88,
+    "posicao_base": [
+      312,
+      123
+    ],
+    "art_scale": 0.88,
+    "protagonista": [
+      64,
+      96
+    ],
+    "hitbox": [
+      20,
+      10
+    ],
+    "entrada": [
+      403,
+      452
+    ],
+    "camera_horizontal": false
+  },
+  "cozinha": {
+    "original": [
+      747,
+      561
+    ],
+    "exibido": [
+      672,
+      505
+    ],
+    "escala": 0.9,
+    "posicao_base": [
+      304,
+      118
+    ],
+    "art_scale": 0.9,
+    "protagonista": [
+      64,
+      96
+    ],
+    "hitbox": [
+      20,
+      10
+    ],
+    "entrada": [
+      379,
+      488
+    ],
+    "camera_horizontal": false
+  },
+  "banheiro": {
+    "original": [
+      747,
+      561
+    ],
+    "exibido": [
+      687,
+      516
+    ],
+    "escala": 0.92,
+    "posicao_base": [
+      297,
+      112
+    ],
+    "art_scale": 0.92,
+    "protagonista": [
+      64,
+      96
+    ],
+    "hitbox": [
+      20,
+      10
+    ],
+    "entrada": [
+      374,
+      478
+    ],
+    "camera_horizontal": false
+  },
+  "sala": {
+    "original": [
+      1053,
+      724
+    ],
+    "exibido": [
+      716,
+      492
+    ],
+    "escala": 0.68,
+    "posicao_base": [
+      282,
+      124
+    ],
+    "art_scale": 0.68,
+    "protagonista": [
+      64,
+      96
+    ],
+    "hitbox": [
+      20,
+      10
+    ],
+    "entrada": [
+      343,
+      636
+    ],
+    "camera_horizontal": false
+  }
+}

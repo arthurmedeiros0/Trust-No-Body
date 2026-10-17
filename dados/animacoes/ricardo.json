@@ -1,0 +1,52 @@
+{
+  "canvas": [
+    64,
+    96
+  ],
+  "visual_height": 88,
+  "foot_line": 94,
+  "frames": {
+    "direita": [
+      {
+        "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_11-1.png",
+        "sha256": "e760d3782af9ea5aac7897a682ad63efcb9fa24c80526011a136d105d1bbd598"
+      },
+      {
+        "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_13-2.png",
+        "sha256": "88fc195fdfafbf8a52326b70c2ac4c3ac659aa9f846baabf90c260a7c92aba4c"
+      },
+      {
+        "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_14-3.png",
+        "sha256": "8a28832059a1268efb0ad7fb2d8908f3e33b10b29711fbd1a95e97ab41435521"
+      }
+    ],
+    "frente": [
+      {
+        "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_15-4.png",
+        "sha256": "16fff94af196e51c22a451d59c4eacb78c952d5708075acd9b50de8e25ebaa0c"
+      },
+      {
+        "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_16-5.png",
+        "sha256": "faa5b5e3f11613a708675bdcd1a3fe13b89b54bec2c8e7d8c771cefe664a29b4"
+      },
+      {
+        "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_17-6.png",
+        "sha256": "e0e4b2a52d1b959a48df393db80c564729a3250f2498c3085be6c408d80626e7"
+      }
+    ],
+    "costas": [
+      {
+        "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_18-7.png",
+        "sha256": "5ec5a61e4fcd3017c02d3581fa7c8839be2c2d015d33e4397fb9e188eab2559b"
+      },
+      {
+        "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_20-8.png",
+        "sha256": "6a2c21b0b38478fe95a3726437829781dadb746191f9e368ff75fcfea65476c3"
+      },
+      {
+        "original": "Imagem do ChatGPT 17 de out. de 2026, 14_06_21-9.png",
+        "sha256": "66f5264d3b1b9848741bcd0f87c884e597de6efcd3c2d998b421a9c6f2b829b4"
+      }
+    ]
+  }
+}
