@@ -7,6 +7,8 @@ from .days import DayCycle
 from .news import NewsArchive
 from .config import ROOT
 from .survival import Survival,Needs
+from .visitor_schedule import VisitorManager,ArrivalRules
+from .visitor_registry import readiness
 
 @dataclass
 class Visitor:
@@ -21,6 +23,7 @@ class Visitor:
     arrived: bool = False
     alive: bool = True
     supplies_transferred: bool = False
+    arrival_day: int | None = None
 
     @property
     def id(self):return self.definition['id']
@@ -56,7 +59,7 @@ class JournalKnowledge:
     published: dict[str,dict] = field(default_factory=dict)
 
 class VisitorSession:
-    def __init__(self, rng=None):
+    def __init__(self, rng=None, definitions=None, arrival_rules=None, asset_check=readiness):
         rng=rng if rng is not None else random
         self.days=DayCycle()
         self.survival=Survival()
@@ -70,15 +73,24 @@ class VisitorSession:
         self.days.subscribe('day_start',self._start_day)
         self.news.on_watch.append(self._news_seen)
         self.decisions=[]
+        self.on_arrival=[]
         self.visitors={}
+        self.unavailable={}
         directory=ROOT/'dados/visitantes'
-        for path in sorted(directory.glob('*.json')):
-            if path.stem.endswith('_dialogos'):continue
-            definition=json.loads(path.read_text(encoding='utf-8'))
+        if definitions is None:
+            definitions=[json.loads(path.read_text(encoding='utf-8')) for path in sorted(directory.glob('*.json'))
+                         if not path.stem.endswith('_dialogos')]
+        for definition in definitions:
+            if definition['id'] in self.visitors:raise ValueError('Identificador de visitante duplicado: '+definition['id'])
             supplies=definition.get('initial_supplies',{})
-            visitor=Visitor(definition,{key:bool(rng.getrandbits(1)) for key in definition['investigation']},
+            visitor=Visitor(definition,{key:bool(rng.getrandbits(1)) for key in definition.get('investigation',{})},
                             rng.randint(*supplies.get('food',(0,3))),rng.randint(*supplies.get('water',(0,3))))
             self.visitors[visitor.id]=visitor
+            reason=asset_check(definition)
+            if reason:self.unavailable[visitor.id]=reason
+        if arrival_rules is None:
+            arrival_rules=ArrivalRules(**json.loads((ROOT/'dados/agendamento_visitantes.json').read_text(encoding='utf-8')))
+        self.manager=VisitorManager(self.visitors,rng,set(self.visitors)-set(self.unavailable),arrival_rules)
 
     @property
     def day(self):return self.days.day
@@ -90,8 +102,11 @@ class VisitorSession:
     def _news_seen(self,bulletin):
         if bulletin.day==1:
             self.intro.broadcast_seen=True
-            visitor=self.visitors.get('ricardo')
-            if visitor and visitor.state=='aguardando':visitor.arrived=True
+            if self.day==1:self._arrive(self.manager.activate(1,True))
+
+    def _arrive(self,visitor):
+        if visitor:
+            for callback in tuple(self.on_arrival):callback(visitor)
 
     def _end_day(self,event):
         self.last_report=self.survival.close_day(event.day,self.living_ids,self.company_seen_today)
@@ -99,8 +114,11 @@ class VisitorSession:
 
     def _start_day(self,event):
         self.company_seen_today=len(self.living_ids)>1
+        self._arrive(self.manager.activate(event.day,self.intro.broadcast_seen))
 
     def decide(self,visitor,decision):
+        if self.visitors.get(visitor.id) is not visitor:return False
+        if self.manager.current and self.manager.current!=visitor.id:return False
         if not visitor.decide(decision):return False
         if decision=='acolhido' and not visitor.supplies_transferred:
             self.survival.add_supplies(visitor.food,visitor.water)
@@ -108,4 +126,5 @@ class VisitorSession:
             self.survival.people.setdefault(visitor.id,Needs())
             self.company_seen_today=True
         self.decisions.append(dict(day=self.day,visitor=visitor.id,decision=decision))
+        self._arrive(self.manager.next())
         return True

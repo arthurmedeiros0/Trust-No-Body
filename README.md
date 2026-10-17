@@ -1,5 +1,7 @@
 # Trust No Body — exploração da casa
 
+O [gerenciador de visitantes](docs/agendamento_visitantes.md) planeja as chegadas uma vez por partida, com parâmetros em `dados/agendamento_visitantes.json`. Ricardo continua obrigatório no dia 1 após a TV. Novos visitantes completos usarão datas variadas, oportunidades prioritárias nos dias 2/3 e uma fila sem encontros simultâneos. Por enquanto, somente Ricardo está completo; nenhuma pessoa ou suprimento provisório foi acrescentado.
+
 **Regras atuais de fome e sede:** a HUD inclui a previsão do dia atual; dias completos são registrados somente ao dormir. Sem água desde o início, o dia 3 começa com sede 2/2 e pode ser explorado inteiro, mas dormir sem água causa derrota sem iniciar o dia 4. Com água suficiente e sem comida, o equivalente ocorre no dia 4 com fome 3/3. Conseguir e consumir a ração no dia crítico zera a privação. O dia 1 continua de tolerância. Veja [previsão e encerramento diário](docs/previsao_privacao.md), que substitui as descrições anteriores dos limites.
 
 No terminal do VS Code, aberto na raiz do projeto:

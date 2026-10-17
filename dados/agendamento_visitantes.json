@@ -1,0 +1,7 @@
+{
+  "first_day": 2,
+  "last_day": 20,
+  "max_per_day": 1,
+  "priority_days": [2, 3],
+  "minimum_encounters": 1
+}

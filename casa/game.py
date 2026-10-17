@@ -44,7 +44,9 @@ class House:
         self.news.on_watch.append(self.news_seen)
         self.summary_pending=False
         self.sleep_held=False
-        self.visitor_assets={key:load_assets(v.definition) for key,v in self.visitor_session.visitors.items()}
+        self.visitor_assets={key:load_assets(v.definition) for key,v in self.visitor_session.visitors.items()
+                             if key not in self.visitor_session.unavailable}
+        self.visitor_session.on_arrival.append(lambda visitor:self.present_visitor(visitor.id))
         self.visitor_shadow=Shadow()
         self.resident_positions={}
         self.residents={}
@@ -56,12 +58,15 @@ class House:
 
     def present_visitor(self,visitor_id):
         visitor=self.visitor_session.visitors[visitor_id]
-        if not visitor.arrived:return False
+        if not visitor.arrived or visitor_id not in self.visitor_assets:return False
+        current=self.peephole.visitor_ui
+        if current and current.visitor.state=='aguardando' and current.visitor.id!=visitor_id:return False
         self.peephole.visitor_ui=VisitorUI(visitor,self.visitor_assets[visitor.id],self.decide_visitor)
         return True
 
     def decide_visitor(self,visitor,decision):
         if not visitor.arrived or visitor.state!='aguardando' or not self.visitor_session.survival.alive:return False
+        if self.visitor_session.manager.current and self.visitor_session.manager.current!=visitor.id:return False
         if decision=='acolhido':
             scene=self.scenes[visitor.definition['room']]
             desired=scene.point(visitor.definition['room_position'])

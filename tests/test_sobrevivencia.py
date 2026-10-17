@@ -250,6 +250,7 @@ class SurvivalGameTests(unittest.TestCase):
 
     def test_multiple_living_residents_and_dead_excluded(self):
         self.introduction();session=self.game.visitor_session
+        session.decide(session.visitors['ricardo'],'rejeitado')
         for name in ('zeta','alfa'):
             visitor=Visitor({'id':name}, {},2,2,arrived=True)
             session.visitors[name]=visitor;self.assertTrue(session.decide(visitor,'acolhido'))
