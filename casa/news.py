@@ -25,6 +25,7 @@ class NewsArchive:
         self.unlock(1)
 
     def unlock(self,day):
+        self.publication_day=day
         for bulletin in self.bulletins:bulletin.available=bulletin.day<=day
 
     def current(self,day):
@@ -40,4 +41,6 @@ class NewsArchive:
         return True
 
     @property
-    def history(self):return [b for b in self.bulletins if b.read and b.available]
+    def history(self):
+        return sorted((b for b in self.bulletins if b.available and b.day<self.publication_day),
+                      key=lambda b:b.day,reverse=True)

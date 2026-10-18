@@ -101,20 +101,20 @@ class DaysAndTelevisionTests(unittest.TestCase):
         self.tv();self.click_tv('current')
         self.assertIn('cura',self.game.television.bulletin.headline)
 
-    def test_tv_current_history_only_watched_no_future_and_escape(self):
+    def test_tv_current_published_history_no_future_and_escape(self):
         self.tv();self.assertEqual(self.game.news.history,[])
         before=self.game.player.feet.copy();self.game.update((1,0),2)
         self.assertEqual(self.game.player.feet,before)
         self.click_tv('current');self.assertTrue(self.game.news.current(1).read)
         self.key(pygame.K_ESCAPE);self.assertEqual(self.game.television.page,'root')
         for _ in range(3):self.game.days.advance()
-        self.click_tv('history');self.assertEqual([b.day for b in self.game.news.history],[1])
+        self.click_tv('history');self.assertEqual([b.day for b in self.game.news.history],[3,2,1])
         self.assertNotIn('news:boletim_04',[k for k,_,_ in self.game.television.layout()])
         self.game.television.choose('news:boletim_20');self.assertEqual(self.game.television.page,'history')
         self.click_tv('news:boletim_01');self.assertEqual(self.game.television.bulletin.day,1)
         self.key(pygame.K_ESCAPE);self.key(pygame.K_ESCAPE)
         self.click_tv('current');self.assertEqual(self.game.television.bulletin.day,4)
-        self.assertEqual([b.day for b in self.game.news.history],[1,4])
+        self.assertEqual([b.day for b in self.game.news.history],[3,2,1])
         self.assertEqual(set(self.game.visitor_session.knowledge.published),{'boletim_01','boletim_04'})
         self.key(pygame.K_ESCAPE);self.key(pygame.K_ESCAPE);self.assertFalse(self.game.television.active)
 
@@ -127,7 +127,8 @@ class DaysAndTelevisionTests(unittest.TestCase):
         found=set()
         for _ in range(3):
             found.update(k for k,_,_ in ui.layout() if k.startswith('news:'));ui.choose('next')
-        self.assertEqual(len(found),20)
+        self.assertEqual(len(found),19)
+        self.assertNotIn('news:boletim_20',found)
         data={b.day:' '.join(b.paragraphs).lower() for b in self.game.news.bulletins}
         self.assertIn('ausência de alterações oculares',data[7]);self.assertIn('três condições',data[7])
         self.assertIn('não significa estar saudável',data[7])

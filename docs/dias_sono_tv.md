@@ -27,7 +27,7 @@ no dia 20, a cama informa o limite e a partida continua acessivel, inclusive a T
 Na televisao existente do quarto, pressione **E**. Escolha **Noticiario atual**,
 **Noticias anteriores** ou **Voltar**. Use mouse ou setas e Enter/Espaco. ESC
 retorna uma pagina e, no menu principal, fecha a TV. O historico possui paginacao
-para comportar as 20 transmissoes. So abrir o menu nao marca uma noticia como
+para comportar todos os boletins anteriores (19 no dia 20). So abrir o menu nao marca uma noticia como
 assistida: e preciso abrir seu conteudo.
 
 ## Calendario e boletins
@@ -41,8 +41,12 @@ o dia 17 anuncia o protocolo completo; o dia 20 anuncia a cura, sem tela de vito
 
 Cada boletim possui id, dia, manchete, paragrafos e estados separados
 `available`/`read`. Ao acordar, os boletins ate aquele dia ficam disponiveis;
-a TV abre o do dia atual. O historico mostra somente os efetivamente assistidos.
-Uma transmissao perdida nao surge no historico apenas porque sua data passou.
+a TV abre o do dia atual. O historico mostra todos os publicados antes do dia
+atual, assistidos ou nao, do mais recente ao mais antigo. Cada linha indica
+ASSISTIDA ou NAO ASSISTIDA. Abrir um boletim antigo chama o mesmo `watch` da
+transmissao atual, registrando sua primeira leitura e liberando os exames
+ensinados por ele. A publicacao sozinha nao ensina sintomas. Releituras nao
+repetem callbacks. Veja [noticias perdidas e leitura tardia](noticias_perdidas.md).
 Nenhuma noticia futura pode ser aberta pela interface.
 
 O estado fica na instancia da partida, em `VisitorSession`, incluindo calendario,
@@ -104,8 +108,8 @@ A suite verifica inicio diurno no dia 1; ausencia de avanco por tempo/F6;
 cancelamento e confirmacao por teclado/mouse; bloqueio por visitante pendente;
 um unico avanco ao manter E; fade, cartela e retorno valido ao quarto;
 eventos disparados uma vez; limite 20 mantendo a TV acessivel; acesso por
-proximidade; leitura separada de disponibilidade; historico paginado so dos
-assistidos; bloqueio de futuras; marcos dos dias 7/14/17/20; modalidades;
+proximidade; leitura separada de disponibilidade; historico paginado dos
+boletins publicados, incluindo nao assistidos; bloqueio de futuras; marcos dos dias 7/14/17/20; modalidades;
 preservacao de Ricardo aceito e rejeitado, sem novo sorteio; transicao a
 30/60/120 FPS e suite existente de movimento, colisoes, sprites, sombra e portas.
 

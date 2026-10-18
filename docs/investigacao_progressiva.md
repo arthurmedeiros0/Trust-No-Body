@@ -17,6 +17,8 @@ Chegar ao dia correspondente não ensina nada automaticamente. `NewsArchive.watc
 
 Os dias 7, 10, 14 e 17 recapitulam os sinais anteriores listados na tabela. Assim, perder uma transmissão não bloqueia esses exames permanentemente, desde que o jogador assista à recapitulação posterior. Boletins sem menções explícitas não desbloqueiam outros sinais. A notícia da cura do dia 20 permanece igual.
 
+Também é possível recuperar o conhecimento consultando uma notícia perdida em **Notícias anteriores**. O histórico contém todos os boletins publicados antes do dia atual, inclusive não assistidos, com status de leitura. Abrir um boletim antigo pela primeira vez usa `NewsArchive.watch` e ensina exatamente os mesmos sinais da transmissão original. Listar uma notícia não ensina nada; reler não duplica os efeitos. O aviso continua aparecendo após fechar a televisão. Veja a [correção do histórico](noticias_perdidas.md).
+
 O texto do dia 4 agora menciona somente mãos e dentes; olhos aparecem no dia 7. O dia 10 não antecipa tremores, que são apresentados no dia 14. As informações narrativas dos dois padrões e do protocolo continuam disponíveis nos boletins, sem qualquer código que as interprete para diagnosticar pessoas.
 
 Ao fechar a televisão, uma mensagem informa somente as investigações novas. Enter/Espaço fecha. Se vários boletins forem vistos antes de sair da TV, os novos sinais são reunidos em um aviso, sem nomes repetidos.

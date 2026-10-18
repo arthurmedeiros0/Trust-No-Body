@@ -10,6 +10,76 @@ from casa.collisions import feet_rect
 
 
 class ProgressiveInvestigationTests(unittest.TestCase):
+    def test_missed_day_four_recovered_at_day_five_once_for_door_and_residents(self):
+        game=self.game;session=self.session
+        self.accept('ricardo');session.survival.add_supplies(30,30) # Somente fixture.
+        while game.days.day<5:
+            if session.manager.current:
+                self.assertTrue(game.decide_visitor(session.visitors[session.manager.current],'acolhido'))
+            game.dialog='';game.change_room('quarto',game.scenes['quarto'].point((345,365)))
+            game.handle_event(pygame.event.Event(pygame.KEYUP,key=pygame.K_e))
+            game.interact();self.assertTrue(game.sleep_option)
+            game.confirm_sleep();game.update((0,0),3)
+        self.assertFalse(session.medical.known)
+        snapshot={key:copy.deepcopy(v.symptoms) for key,v in session.visitors.items()}
+        arrivals=set(session.manager.seen)
+        game.dialog='';tv=game.television;tv.open();tv.choose('history')
+        self.assertEqual([b.day for b in game.news.history],[4,3,2,1])
+        label=next(label for key,_,label in tv.layout() if key=='news:boletim_04')
+        self.assertIn('[NÃO ASSISTIDA]',label)
+        calls=[];game.news.on_watch.append(lambda b:calls.append(b.id))
+        tv.choose('news:boletim_04')
+        self.assertTrue(tv.bulletin.read);self.assertEqual(tv.bulletin.day,4)
+        self.assertEqual(session.medical.known,{'manchas_maos','dentes_deteriorados'})
+        self.assertFalse(game.dialog)
+        tv.choose('back');self.assertIn('[ASSISTIDA]',next(label for key,_,label in tv.layout() if key=='news:boletim_04'))
+        tv.choose('news:boletim_04');self.assertEqual(calls,['boletim_04'])
+        for _ in range(3):game.handle_event(pygame.event.Event(pygame.KEYDOWN,key=pygame.K_ESCAPE))
+        self.assertIn('NOVAS INVESTIGAÇÕES',game.dialog)
+        game.dialog=''
+        tv.open();tv.choose('history');tv.choose('news:boletim_04')
+        tv.choose('back');tv.choose('news:boletim_01');tv.choose('close');game.update((0,0),0)
+        self.assertFalse(game.dialog);self.assertEqual(calls,['boletim_04'])
+        self.assertEqual(session.manager.seen,arrivals)
+        for key in ('ricardo','laura'):
+            door=VisitorUI(session.visitors[key],game.visitor_assets[key],lambda *args:False,knowledge=session.medical)
+            door.page='investigate';self.assertEqual(set(door.layout()),{'manchas_maos','dentes_deteriorados','back'})
+            resident=self.approach(key);self.click(resident,'investigate')
+            self.assertEqual(set(resident.layout()),{'manchas_maos','dentes_deteriorados','back'})
+            game.resident_ui=None
+        self.assertEqual({key:v.symptoms for key,v in session.visitors.items()},snapshot)
+
+    def test_future_and_current_cannot_be_opened_as_old_news_and_recap_still_works(self):
+        game=self.game;game.days.day=5;game.news.unlock(5)
+        ui=game.television;ui.open();ui.choose('history')
+        for day in range(5,21):
+            ui.choose(f'news:boletim_{day:02}')
+            self.assertEqual(ui.page,'history')
+            self.assertFalse(game.news.bulletins[day-1].read)
+        self.assertFalse(self.session.medical.known)
+        game.days.day=7;game.news.unlock(7);ui.choose('current')
+        self.assertEqual(self.session.medical.known,set(list(LABELS)[:3]))
+        ui.choose('history')
+        self.assertIn('news:boletim_04',[key for key,_,_ in ui.layout()])
+
+    def test_twenty_day_archive_pages_include_every_unread_previous_bulletin(self):
+        game=self.game;game.days.day=20;game.news.unlock(20)
+        ui=game.television;ui.open();ui.choose('history')
+        seen=[]
+        for _ in range(3):
+            seen.extend(key for key,_,_ in ui.layout() if key.startswith('news:'))
+            ui.choose('next')
+        self.assertEqual(seen,[f'news:boletim_{day:02}' for day in range(19,0,-1)])
+        self.assertEqual(len(set(seen)),19)
+        self.assertFalse(game.news.bulletins[18].read)
+        ui.choose('prev');self.assertEqual(ui.offset,8)
+        ui.choose('prev');self.assertEqual(ui.offset,0)
+        game.handle_event(pygame.event.Event(pygame.KEYDOWN,key=pygame.K_RETURN))
+        self.assertEqual(ui.bulletin.day,19);self.assertTrue(ui.bulletin.read)
+        game.handle_event(pygame.event.Event(pygame.KEYDOWN,key=pygame.K_ESCAPE))
+        self.assertEqual(ui.page,'history')
+        game.draw(pygame.display.get_surface())
+
     def setUp(self):
         self.game=House();self.game.dialog=''
         self.session=self.game.visitor_session
