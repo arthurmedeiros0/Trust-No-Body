@@ -7,6 +7,7 @@ import pygame
 from casa.survival import Survival
 from casa.game import House
 from casa.visitors import Visitor,VisitorSession
+from support import without_future_arrivals
 
 
 class SurvivalUnitTests(unittest.TestCase):
@@ -155,6 +156,7 @@ class SurvivalGameTests(unittest.TestCase):
 
     def sleep(self):
         game=self.game
+        without_future_arrivals(game)
         if game.dialog:self.key(pygame.K_RETURN)
         game.change_room('quarto',game.scenes['quarto'].point((345,365)))
         game.handle_event(pygame.event.Event(pygame.KEYUP,key=pygame.K_e))
@@ -233,7 +235,7 @@ class SurvivalGameTests(unittest.TestCase):
         self.key(pygame.K_i);self.assertFalse(game.inventory.active)
         old=game.visitor_session
         with patch('casa.visitors.random.getrandbits',return_value=1) as roll:self.key(pygame.K_RETURN)
-        self.assertEqual(roll.call_count,6);self.assertIsNot(game.visitor_session,old)
+        self.assertEqual(roll.call_count,sum(len(v.symptoms) for v in old.visitors.values()));self.assertIsNot(game.visitor_session,old)
         self.assertEqual(game.room,'quarto');self.assertEqual(game.days.day,1)
         self.assertEqual((game.visitor_session.survival.food,game.visitor_session.survival.water),(0,0))
         self.assertEqual(game.visitor_session.survival.sanity,8)

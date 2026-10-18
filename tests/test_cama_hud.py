@@ -5,6 +5,7 @@ import pygame
 from casa.game import House
 from casa.interactions import nearest
 from casa.visitors import Visitor
+from support import without_future_arrivals
 
 
 class BedAndHUDTests(unittest.TestCase):
@@ -35,7 +36,7 @@ class BedAndHUDTests(unittest.TestCase):
                 self.assertEqual(len(state.reports),critical_day)
 
     def setUp(self):
-        self.game=House()
+        self.game=without_future_arrivals(House())
         self.game.dialog=''
         self.game.news.watch(self.game.news.current(1))
         self.game.decide_visitor(self.game.visitor_session.visitors['ricardo'],'rejeitado')

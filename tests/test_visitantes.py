@@ -35,7 +35,7 @@ class VisitorTests(unittest.TestCase):
         # Comprova as chamadas de sorteio por partida, sem testar deducoes.
         with patch('casa.visitors.random.getrandbits',return_value=1) as symptoms,patch('casa.visitors.random.randint',return_value=3) as supplies:
             session=VisitorSession()
-            self.assertEqual(symptoms.call_count,6);self.assertEqual(supplies.call_count,2)
+            self.assertEqual(symptoms.call_count,6*len(session.visitors));self.assertEqual(supplies.call_count,2*len(session.visitors))
             self.assertTrue(all(v for v in session.visitors['ricardo'].symptoms.values()))
         before=(copy.deepcopy(self.visitor.symptoms),self.visitor.food,self.visitor.water)
         with patch('casa.visitors.random.getrandbits',side_effect=AssertionError('Nao ressorteie')):

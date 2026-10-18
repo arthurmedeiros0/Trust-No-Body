@@ -1,4 +1,9 @@
 {
+  "resident_intro": ["Continuo acompanhando as notícias. Precisamos manter a calma e organizar o que temos."],
+  "resident_questions": [
+    {"question": "Como você está?", "answer": "Cansado, mas consigo ajudar por aqui. Vou avisar se perceber alguma mudança."},
+    {"question": "O que acha das notícias?", "answer": "Precisamos ouvir os comunicados com atenção. Uma observação isolada não deve virar uma conclusão precipitada."}
+  ],
   "intro": [
     "Boa tarde. Meu nome é Ricardo. Sou médico.",
     "Sei que não deveria estar andando pelas ruas, mas não tenho para onde ir.",

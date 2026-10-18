@@ -9,6 +9,7 @@ from .config import ROOT
 from .survival import Survival,Needs
 from .visitor_schedule import VisitorManager,ArrivalRules
 from .visitor_registry import readiness
+from .medical_knowledge import MedicalKnowledge
 
 @dataclass
 class Visitor:
@@ -67,6 +68,7 @@ class VisitorSession:
         self.company_seen_today=False
         self.last_report=None
         self.knowledge=JournalKnowledge()
+        self.medical=MedicalKnowledge()
         self.news=NewsArchive(self.knowledge)
         self.days.subscribe('day_start',lambda event:self.news.unlock(event.day))
         self.days.subscribe('day_end',self._end_day)
@@ -100,6 +102,7 @@ class VisitorSession:
         return (['protagonista'] if self.survival.alive else [])+[v.id for v in self.visitors.values() if v.state=='acolhido' and v.alive]
 
     def _news_seen(self,bulletin):
+        self.medical.learn(bulletin.investigations)
         if bulletin.day==1:
             self.intro.broadcast_seen=True
             if self.day==1:self._arrive(self.manager.activate(1,True))

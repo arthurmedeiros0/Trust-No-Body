@@ -1,0 +1,19 @@
+{
+  "resident_intro": ["Obrigada por me deixar ficar. Ainda estou tentando me acostumar com esse silêncio."],
+  "resident_questions": [
+    {"question": "Como você está se sentindo?", "answer": "Um pouco mais segura aqui. Mas fico pensando na minha família... espero que tenham encontrado abrigo."},
+    {"question": "Quer conversar um pouco?", "answer": "Quero, sim. Ficar só ouvindo as notícias me deixa nervosa. É bom ter alguém por perto."}
+  ],
+  "intro": [
+    "Oi... desculpa incomodar. Meu nome é Laura.",
+    "Eu sei que ninguém deveria estar andando por aí, mas não tenho para onde ir.",
+    "Meu bairro foi evacuado. Eu me separei da minha família e não consigo falar com ninguém."
+  ],
+  "before_decision": ["Eu só preciso de um lugar seguro.", "Não quero causar problemas. Por favor..."],
+  "questions": [
+    {"question": "Por que você está sozinha?", "answer": "A gente estava tentando chegar a um abrigo. Tinha muita gente correndo, gritando...\nQuando percebi, já não conseguia encontrar minha família."},
+    {"question": "Por que não volta para casa?", "answer": "Os militares fecharam todas as entradas do bairro.\nDisseram que ninguém poderia voltar até a região ser liberada."},
+    {"question": "Você tem comida ou água?", "answer": "Tenho algumas coisas na mochila. Não é muito, mas posso dividir com você.\nComigo: {food} lata(s) de comida e {water} garrafa(s) de água."},
+    {"question": "Você sabe alguma coisa sobre a doença?", "answer": "Só o que ouvi nas notícias. Todo mundo fala uma coisa diferente.\nEu nem sei mais no que acreditar."}
+  ]
+}

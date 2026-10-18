@@ -1,0 +1,38 @@
+{
+  "id": "laura",
+  "name": "Laura",
+  "age": 24,
+  "profession": "Estudante universitária",
+  "personality": "Ansiosa, educada, desconfiada e emocionalmente abalada.",
+  "appearance": "Cabelos castanhos, jaqueta verde-escura, camiseta cinza, calça escura, tênis marrom e mochila marrom.",
+  "history": "Durante uma evacuação emergencial, Laura se separou da família. Sem contato com os familiares e sem poder voltar ao bairro bloqueado pelas autoridades, procura um lugar seguro. Assustada e cansada, tenta manter a calma; não possui conhecimentos médicos especializados.",
+  "asset_root": "personagens/visitantes/laura",
+  "prepared_assets": true,
+  "sheet_sprites": true,
+  "portrait": "processados/porta.png",
+  "portrait_height": 465,
+  "portrait_anchor": [640, 625],
+  "sprites": {
+    "frente": "processados/sprites/frente.png",
+    "costas": "processados/sprites/costas.png",
+    "direita": "processados/sprites/direita.png",
+    "esquerda": "processados/sprites/esquerda.png"
+  },
+  "internal_sprite_manifest": "dados/animacoes/laura.json",
+  "comparison_output": "processados/comparacao.png",
+  "walk_step_first": true,
+  "visual_scale": 1.0,
+  "room": "sala",
+  "room_position": [610, 405],
+  "room_direction": "frente",
+  "resident": {"speed": 32, "radius": 65, "wait_seconds": [2, 4], "walk_seconds": [0.7, 1.4], "frame_seconds": 0.18},
+  "initial_supplies": {"food": [1, 2], "water": [1, 2]},
+  "investigation": {
+    "manchas_maos": {"label": "Examinar mãos", "normal": "processados/investigacao/mao_sem_mancha.png", "alterado": "processados/investigacao/mao_mancha.png"},
+    "dentes_deteriorados": {"label": "Examinar dentes", "normal": "processados/investigacao/dente_branco.png", "alterado": "processados/investigacao/dente_amarelo.png"},
+    "olhos_alterados": {"label": "Examinar olhos", "normal": "processados/investigacao/rosto_normal.png", "alterado": "processados/investigacao/olho_vermelho.png"},
+    "veias_escurecidas": {"label": "Examinar pescoço", "normal": "processados/investigacao/pescoco_normal.png", "alterado": "processados/investigacao/pescoco_veia_roxa.png"},
+    "palidez_anormal": {"label": "Examinar palidez", "normal": "processados/investigacao/rosto_normal.png", "alterado": "processados/investigacao/rosto_palido.png"},
+    "tremores_involuntarios": {"label": "Examinar tremores", "normal": "processados/investigacao/mao_normal.png", "alterado": "processados/investigacao/mao_tremendo.png"}
+  }
+}

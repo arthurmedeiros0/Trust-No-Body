@@ -2,11 +2,18 @@
 import pygame
 from .visitor_assets import fit
 from .visitor_dialogue import Dialogue
+from .medical_knowledge import MedicalKnowledge
 
 class VisitorUI:
-    def __init__(self,visitor,assets,on_decision):
+    def __init__(self,visitor,assets,on_decision,knowledge=None,resident=False):
         self.visitor=visitor;self.assets=assets;self.on_decision=on_decision
         self.dialogue=Dialogue(visitor)
+        self.knowledge=knowledge if knowledge is not None else MedicalKnowledge()
+        self.resident=resident
+        if resident:
+            self.dialogue.data={**self.dialogue.data,
+                'intro':self.dialogue.data.get('resident_intro',['Como você está?']),
+                'questions':self.dialogue.data.get('resident_questions',[])}
         self.page='root';self.feature=None;self.decision=None
         self.response='';self.buttons={}
         self.font=pygame.font.Font(None,25);self.small=pygame.font.Font(None,22)
@@ -15,11 +22,16 @@ class VisitorUI:
         self.page='root';self.feature=None;self.response=''
 
     def layout(self):
+        if self.page=='image' and self.feature not in self.knowledge.known:self.page='root';self.feature=None
+        if self.page=='confirm' and self.resident:self.page='root'
         if self.page=='root':
-            labels=[('talk','Conversar'),('investigate','Investigar'),('accept','Aceitar'),('reject','Rejeitar'),('back','Voltar')]
+            labels=[('talk','Conversar')]
+            if self.knowledge.known:labels.append(('investigate','Investigar'))
+            if not self.resident:labels.extend([('accept','Aceitar'),('reject','Rejeitar')])
+            labels.append(('back','Voltar'))
             return {key:(pygame.Rect(165+i*192,655,180,44),label) for i,(key,label) in enumerate(labels)}
         if self.page=='investigate':
-            labels=[(key,item['label']+(' [visto]' if key in self.visitor.examined else '')) for key,item in self.visitor.definition['investigation'].items()]
+            labels=[(key,item['label']+(' [visto]' if key in self.visitor.examined else '')) for key,item in self.visitor.definition['investigation'].items() if key in self.knowledge.known]
             return {**{key:(pygame.Rect(410,195+i*57,460,46),label) for i,(key,label) in enumerate(labels)},'back':(pygame.Rect(540,600,200,42),'Voltar')}
         if self.page=='talk':
             count=len(self.dialogue.data['questions'])
@@ -49,7 +61,8 @@ class VisitorUI:
                     self.response='Converse ou examine uma característica antes de decidir.'
                 else:self.decision='acolhido' if key=='accept' else 'rejeitado';self.page='confirm'
         elif self.page=='investigate':
-            self.feature=key;self.visitor.examined.add(key);self.page='image'
+            if key not in self.knowledge.known:return None
+            self.feature=key;self.knowledge.observe(self.visitor,key);self.page='image'
         elif self.page=='talk':self.response=self.dialogue.answer(int(key))
         elif self.page=='confirm' and key=='confirm':
             if self.on_decision(self.visitor,self.decision):self.reset()
@@ -62,6 +75,7 @@ class VisitorUI:
             screen.blit(image,image.get_rect(midbottom=self.visitor.definition['portrait_anchor']))
 
     def examination_image(self):
+        if self.feature not in self.knowledge.known:raise PermissionError('Investigacao ainda desconhecida')
         variant='alterado' if self.visitor.symptoms[self.feature] else 'normal'
         return self.assets.investigation[self.feature][variant]
 
@@ -78,6 +92,9 @@ class VisitorUI:
             y+=5
 
     def draw(self,screen):
+        self.layout() # Sanitiza paginas/atalhos bloqueados antes de acessar imagens.
+        if self.resident:
+            shade=pygame.Surface(screen.get_size(),pygame.SRCALPHA);shade.fill((0,0,0,180));screen.blit(shade,(0,0))
         if self.page!='root':
             shade=pygame.Surface(screen.get_size(),pygame.SRCALPHA);shade.fill((0,0,0,200));screen.blit(shade,(0,0))
             pygame.draw.rect(screen,'#17232e',(170,105,940,535),border_radius=8)
@@ -100,6 +117,8 @@ class VisitorUI:
             self.text(screen,item['label'],pygame.Rect(220,125,840,35))
         elif self.page=='confirm':
             choice='acolher' if self.decision=='acolhido' else 'rejeitar'
+            before=self.dialogue.data.get('before_decision',[])
+            if before:self.text(screen,'\n'.join(before),pygame.Rect(250,165,780,100))
             self.text(screen,f'Deseja {choice} {self.visitor.definition["name"]}?',pygame.Rect(315,285,650,80))
         for rect,label in self.layout().values():
             pygame.draw.rect(screen,'#344b49',rect,border_radius=5)

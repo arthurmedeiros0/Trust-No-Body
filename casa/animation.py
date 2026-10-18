@@ -9,8 +9,8 @@ def animation_cycles(idle, walk, lateral_cycle=None):
             for direction,frames in walk.items()}
 
 
-def resident_animation_cycles(idle,walk):
+def resident_animation_cycles(idle,walk,step_first=False):
     # Cada passo disponivel e precedido pelo proprio idle, inclusive com um
     # unico quadro. Nao usa indices fixos nem imagens de outra direcao.
-    return {direction:tuple(image for frame in frames for image in (idle[direction],frame))
+    return {direction:tuple(image for frame in frames for image in ((frame,idle[direction]) if step_first else (idle[direction],frame)))
             for direction,frames in walk.items()}

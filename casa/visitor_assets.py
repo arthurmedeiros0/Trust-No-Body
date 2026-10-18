@@ -31,7 +31,8 @@ def fit(image,size):
 class VisitorAssets:
     def __init__(self,definition):
         base=ROOT/definition['asset_root']
-        self.portrait=pygame.image.load(str(processed(base/definition['portrait']))).convert_alpha()
+        portrait=base/definition['portrait']
+        self.portrait=pygame.image.load(str(portrait if definition.get('prepared_assets') else processed(portrait))).convert_alpha()
         self.portrait=fit(self.portrait,(650,definition['portrait_height']))
         self.sprites={}
         for direction,path in definition['sprites'].items():
@@ -46,13 +47,18 @@ class VisitorAssets:
         paths=prepare_walks(definition)
         self.walk={direction:[pygame.image.load(str(path)).convert_alpha() for path in frames]
                    for direction,frames in paths.items()}
-        self.cycles=resident_animation_cycles(self.sprites,self.walk)
-        if self.walk:comparison(self.sprites,self.walk,base/'andando/comparacao.png')
+        self.cycles=resident_animation_cycles(self.sprites,self.walk,definition.get('walk_step_first',False))
+        if self.walk:comparison(self.sprites,self.walk,base/definition.get('comparison_output','andando/comparacao.png'))
         self.investigation={}
+        panels={}
         for key,item in definition['investigation'].items():
             self.investigation[key]={}
             for variant in ('normal','alterado'):
                 source=base/item[variant]
+                if definition.get('prepared_assets'):
+                    if source not in panels:panels[source]=pygame.image.load(str(source)).convert_alpha()
+                    self.investigation[key][variant]=panels[source]
+                    continue
                 digest=hashlib.sha256(source.read_bytes()).hexdigest()[:16]
                 target=base/'investigacao_processada'/key/(variant+'_'+PROCESSING_VERSION+'_'+digest+'.png')
                 if not target.exists():

@@ -6,8 +6,8 @@ RICARDO_VISUAL_SCALE = 1.08
 
 
 @lru_cache(maxsize=128)
-def resident_frame(visitor_id, source):
-    scale=RICARDO_VISUAL_SCALE if visitor_id=='ricardo' else 1.0
+def resident_frame(visitor_id, source, visual_scale=None):
+    scale=visual_scale if visual_scale is not None else RICARDO_VISUAL_SCALE if visitor_id=='ricardo' else 1.0
     width,height=source.get_size()
     size=(round(width*scale),round(height*scale))
     image=source if size==(width,height) else pygame.transform.scale(source,size)

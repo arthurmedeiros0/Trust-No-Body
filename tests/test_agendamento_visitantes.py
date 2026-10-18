@@ -29,7 +29,7 @@ def session(count,seed=1,rules=None):
 
 class ArrivalTests(unittest.TestCase):
     def test_only_ricardo_introduction_and_empty_early_opportunities(self):
-        state=VisitorSession(random.Random(1));manager=state.manager
+        state=VisitorSession(random.Random(1),simulated(0));manager=state.manager
         self.assertEqual(manager.plan,{'ricardo':1})
         self.assertEqual(manager.opportunities,{2:[],3:[]})
         self.assertFalse(state.visitors['ricardo'].arrived)
@@ -120,7 +120,7 @@ class ArrivalTests(unittest.TestCase):
     def test_day_start_presents_dynamic_ui_and_room_changes_keep_waiting(self):
         state=session(2,rules=ArrivalRules(first_day=2,last_day=2,max_per_day=2))
         # Apenas objetos simulados: UI sem arquivos narrativos ficticios no disco.
-        with patch('casa.game.VisitorSession',return_value=state),patch('casa.game.VisitorUI',side_effect=lambda visitor,assets,callback:SimpleNamespace(visitor=visitor,assets=assets)):
+        with patch('casa.game.VisitorSession',return_value=state),patch('casa.game.VisitorUI',side_effect=lambda visitor,assets,callback,**kwargs:SimpleNamespace(visitor=visitor,assets=assets)):
             game=House();game.dialog=''
             state.news.watch(state.news.current(1))
             ricardo=state.visitors['ricardo']

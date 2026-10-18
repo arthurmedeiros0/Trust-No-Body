@@ -32,6 +32,8 @@ def main():
     game.decide_visitor(game.visitor_session.visitors['ricardo'],'rejeitado')
     for _ in range(3):
         if game.dialog:key(pygame.K_RETURN)
+        pending=game.visitor_session.manager.current
+        if pending:game.decide_visitor(game.visitor_session.visitors[pending],'rejeitado')
         game.change_room('quarto',game.scenes['quarto'].point((345,365)))
         game.handle_event(pygame.event.Event(pygame.KEYUP,key=pygame.K_e))
         game.interact();game.confirm_sleep();game.update((0,0),3)

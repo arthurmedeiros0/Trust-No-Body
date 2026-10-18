@@ -12,6 +12,7 @@ class Bulletin:
     paragraphs: list[str]
     available: bool=False
     read: bool=False
+    investigations: tuple=()
 
 
 class NewsArchive:

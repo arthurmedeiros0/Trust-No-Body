@@ -20,6 +20,8 @@ def main():
     game.television.open();capture('tv_menu.png')
     game.television.choose('current')
     for day in range(3,21):
+        pending=game.visitor_session.manager.current
+        if pending:game.decide_visitor(game.visitor_session.visitors[pending],'acolhido')
         game.days.advance()
         if day in (4,7,14,17,20):
             game.television.choose('current');capture(f'tv_dia_{day}.png')

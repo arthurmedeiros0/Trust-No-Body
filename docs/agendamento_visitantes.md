@@ -1,6 +1,6 @@
 # Chegada e agendamento de visitantes
 
-O cadastro completo atual continua sendo somente Ricardo. Nenhum personagem, imagem, diálogo ou recurso provisório foi adicionado. A introdução permanece: quarto, geladeira vazia, TV do lockdown e Ricardo na porta no dia 1. Ele nunca retorna após aceitação ou rejeição.
+O cadastro completo atual inclui Ricardo e **Laura**, integrada com seus próprios assets e dados. Ricardo chega no dia 1 após a TV, e Laura no dia 2 ou 3, conforme a agenda da partida. Nenhum personagem provisório foi adicionado. A introdução permanece: quarto, geladeira vazia, TV do lockdown e Ricardo na porta no dia 1. Ambos nunca retornam após aceitação ou rejeição. Veja o [relatório da Laura](laura.md).
 
 ## Organização
 
@@ -72,4 +72,4 @@ Modificados: `casa/visitors.py` (agenda, validação e notificações), `casa/ga
 
 ## Pendências
 
-Os próximos personagens ainda precisam de seus próprios cadastros narrativos e assets completos. A partida normal continua com apenas Ricardo e não foi artificialmente equilibrada para durar 20 dias. Regras de fome/sede, tolerância inicial, sanidade, solidão, HUD e geladeira permanecem iguais. Não foi criada persistência em disco da agenda; assim como os demais dados da partida, ela existe durante a sessão. A lógica de infecção continua reservada aos alunos.
+Os personagens posteriores a Laura ainda precisam de seus próprios cadastros narrativos e assets completos. A partida normal tem Ricardo e Laura e não foi artificialmente equilibrada para durar 20 dias. Regras de fome/sede, tolerância inicial, sanidade, solidão, HUD e geladeira permanecem iguais. Não foi criada persistência em disco da agenda; assim como os demais dados da partida, ela existe durante a sessão. A lógica de infecção continua reservada aos alunos.

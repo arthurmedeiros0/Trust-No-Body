@@ -1,0 +1,250 @@
+{
+  "version": 1,
+  "canvas": [
+    64,
+    96
+  ],
+  "foot_line": 94,
+  "visual_height": 86,
+  "frames": {
+    "frente": [
+      "processados/andando/frente/1.png",
+      "processados/andando/frente/2.png"
+    ],
+    "costas": [
+      "processados/andando/costas/1.png",
+      "processados/andando/costas/2.png"
+    ],
+    "direita": [
+      "processados/andando/direita/1.png",
+      "processados/andando/direita/2.png"
+    ],
+    "esquerda": [
+      "processados/andando/esquerda/1.png",
+      "processados/andando/esquerda/2.png"
+    ]
+  },
+  "source_hashes": {
+    "parado/parado_frente.png": "393d110db81a89f9ce8cabd59f3d88e6bf10ba83966756e9a1c507df9356b087",
+    "andando/andando_frente_um.png": "8d4d1c61accc867128349e546ed1e195e38f7faa88ea67cd675a56f8f26ff9d3",
+    "andando/andando_frente_dois.png": "f90ab818e13120ad38e6289ed2df42ad637d16edffc004ade5748c662465fe63",
+    "parado/parado_tras.png": "cf6867f2f0d80713abbfc8bea6a3f6e82873c0e017efc752b70e4b1c351f4500",
+    "andando/andando_tras_um.png": "d4c6e43bb2c728b63f6aa7d576120056069b22b6d9a3c2c61cb3d59cd5da4ad7",
+    "andando/andando_tras_dois.png": "799c36f8d805e4acb28782774927ca098037bc2baa41dfaf23bb5bc97c4943fb",
+    "parado/parado_lado.png": "13d69b5e5d1bdbe10215fe9bc169e8587b3700a10b0582fe5795756375ff5f04",
+    "andando/andando_lado_um.png": "55bbb1a8ec9d008e8cc2d8c1b80b1242a05e7d3339facd2fa66f43e1702c3aee",
+    "andando/andando_lado_dois.png": "e399f2d0eaea24e75d73a7ae2880db387927ad8fde790232a88c0574c1293182",
+    "porta/porta.png": "9118d098575c4aa4d6d5658b82cfa558743561067950fabda48142c213eb534a",
+    "investigacao/dente_amarelo.png": "0a7d77800c607b57ac6f8d4e077c1eaebdea0c62e7ff1ed8364afd205e49af35",
+    "investigacao/dente_branco.png": "d64708e07afbd54730073896029e8678781aec67fbaaa31035151f458db55519",
+    "investigacao/mao_mancha.png": "54f4ab532d1cfc570f9435d1eb4952a5bc7577e6e86f2bbf4ff9e4d5bf13e8e0",
+    "investigacao/mao_normal.png": "6399add4becd85b39fee4a562e915e9e94f5ca5fc0eb544bf26bbf94e3d5515b",
+    "investigacao/mao_sem_mancha.png": "d9ffa59ee50cb6d0100761c45ea2adbd69cc354bcf50c2fd9e026b24597cdfe6",
+    "investigacao/mao_tremendo.png": "0d3cfd7cc35855d5c68e228ee32763de3161f1da22870dbca1b63869b566289e",
+    "investigacao/olho_vermelho.png": "1fafdcd1147f91dce11a0ae09d39075e573a86e6ab1e0b467db2b349efda0c24",
+    "investigacao/pescoco_normal.png": "edc4f78c5b7c06ffe1c3d80658abdb365390697b91bc88ca75cf121597b4a2ec",
+    "investigacao/pescoco_veia_roxa.png": "fd7cba9f7ed8ab581ba1addaa56535aa0d0b3b10421134d89af2064dcf1be1f7",
+    "investigacao/rosto_normal.png": "594d9b0ab066e6f96d18e1e021881b096195f62516aa42ac4fbc1be3f72d2a56",
+    "investigacao/rosto_palido.png": "acfc020a12852100f7ab9bf61dd37186e2cc75ca62e1d30666b52f10ae33e084"
+  },
+  "records": [
+    {
+      "output": "processados/sprites/frente.png",
+      "source": "parado/parado_frente.png",
+      "crop": [
+        89,
+        46,
+        156,
+        235
+      ],
+      "scale": 0.455026455026455,
+      "size": [
+        30,
+        86
+      ],
+      "offset": [
+        17,
+        8
+      ]
+    },
+    {
+      "output": "processados/andando/frente/1.png",
+      "source": "andando/andando_frente_um.png",
+      "crop": [
+        98,
+        43,
+        162,
+        229
+      ],
+      "scale": 0.46236559139784944,
+      "size": [
+        30,
+        86
+      ],
+      "offset": [
+        17,
+        8
+      ]
+    },
+    {
+      "output": "processados/andando/frente/2.png",
+      "source": "andando/andando_frente_dois.png",
+      "crop": [
+        98,
+        43,
+        161,
+        229
+      ],
+      "scale": 0.46236559139784944,
+      "size": [
+        29,
+        86
+      ],
+      "offset": [
+        17,
+        8
+      ]
+    },
+    {
+      "output": "processados/sprites/costas.png",
+      "source": "parado/parado_tras.png",
+      "crop": [
+        97,
+        44,
+        162,
+        233
+      ],
+      "scale": 0.455026455026455,
+      "size": [
+        30,
+        86
+      ],
+      "offset": [
+        17,
+        8
+      ]
+    },
+    {
+      "output": "processados/andando/costas/1.png",
+      "source": "andando/andando_tras_um.png",
+      "crop": [
+        97,
+        45,
+        163,
+        233
+      ],
+      "scale": 0.4574468085106383,
+      "size": [
+        30,
+        86
+      ],
+      "offset": [
+        17,
+        8
+      ]
+    },
+    {
+      "output": "processados/andando/costas/2.png",
+      "source": "andando/andando_tras_dois.png",
+      "crop": [
+        96,
+        44,
+        161,
+        231
+      ],
+      "scale": 0.45989304812834225,
+      "size": [
+        30,
+        86
+      ],
+      "offset": [
+        17,
+        8
+      ]
+    },
+    {
+      "output": "processados/sprites/direita.png",
+      "source": "parado/parado_lado.png",
+      "crop": [
+        100,
+        46,
+        160,
+        233
+      ],
+      "scale": 0.45989304812834225,
+      "size": [
+        28,
+        86
+      ],
+      "offset": [
+        18,
+        8
+      ]
+    },
+    {
+      "output": "processados/andando/direita/1.png",
+      "source": "andando/andando_lado_um.png",
+      "crop": [
+        94,
+        46,
+        176,
+        227
+      ],
+      "scale": 0.47513812154696133,
+      "size": [
+        39,
+        86
+      ],
+      "offset": [
+        12,
+        8
+      ]
+    },
+    {
+      "output": "processados/andando/direita/2.png",
+      "source": "andando/andando_lado_dois.png",
+      "crop": [
+        87,
+        46,
+        179,
+        223
+      ],
+      "scale": 0.4858757062146893,
+      "size": [
+        45,
+        86
+      ],
+      "offset": [
+        9,
+        8
+      ]
+    }
+  ],
+  "output_hashes": {
+    "processados/sprites/frente.png": "c99eeabbacb48301a9eb169cf2454882f68937e90fc19921026fa34d993f34de",
+    "processados/andando/frente/1.png": "ee2f28ad4dfb5a41a8654d1b4a4482cdc10f907f4c754fbad885ec7730b9a43d",
+    "processados/andando/frente/2.png": "e376cbefbf7ec4254fd54a2a9329b08f6190125d084a9d0f20470a155593a53f",
+    "processados/sprites/costas.png": "83fb965f27dcad7095a6144796ff6af59f3dfa44dbe78d4b094bf92cfc1be8e5",
+    "processados/andando/costas/1.png": "6de88c687153775c150a255a348ec2646e3e77bd5753b72f0900c034016e4b88",
+    "processados/andando/costas/2.png": "74eef492807df08953ad91aeab216f459ac7157629645ee5f4bc0fca83bde1fa",
+    "processados/sprites/direita.png": "bbb0c204ed05a50aa589b85723bdc4e3935cb93dc7926564aae2dc6040bfaf53",
+    "processados/andando/direita/1.png": "a9b525edbe1d2f4e7faf6be808aca5b25fee1f6ae08db7cc08df4c6709bb8141",
+    "processados/andando/direita/2.png": "be0319b3e4b3919c8b13e70fc4b6c1ebb12c2c1aa1df573b62e845d6e1d905af",
+    "processados/sprites/esquerda.png": "4310039993a1b2739c961bb36ba70c589adb135fb213e681b92502ae72d3bc1f",
+    "processados/andando/esquerda/1.png": "43e47e3c2f3a056b6a849af0df9237dde9c2541df0b9321cb77e15c617a68bcb",
+    "processados/andando/esquerda/2.png": "d53f7658efafe9735cfa6063d0132e59dc4b55c1f032747100f8795a2f7291bc",
+    "processados/porta.png": "06e828bab92466ca773877d5fca722082b1290e7eca46f021d85da8d2f4320e1",
+    "processados/investigacao/dente_amarelo.png": "f1d9fc268998a2ea3844eae16c77c10ec7783b945c6dff8ddcb4c31642d6f459",
+    "processados/investigacao/dente_branco.png": "5fa821e01cd72b3cb7b5e26b70a3b28c030123e410b071811f7561df85c515a0",
+    "processados/investigacao/mao_mancha.png": "80c605e8e54dd8d717216bca72f058c50487c3330ba02acf46797df5f8b49911",
+    "processados/investigacao/mao_normal.png": "a9474cc336fadd6fec7694ba3c9f0cbc7e885dd501a5d7b7d9a5466bacc395ee",
+    "processados/investigacao/mao_sem_mancha.png": "8b52723e9c6ef07b032597d55e28c1d77b910039bc0d80da51aa834808835dff",
+    "processados/investigacao/mao_tremendo.png": "569742c66274ce3794741a25645442670d2475f2e9d5f693b1db7accfc11212f",
+    "processados/investigacao/olho_vermelho.png": "ac725ea6f4d2606b2540fd707360b7577d803ab7efb04996ea3bb704b7e83cb8",
+    "processados/investigacao/pescoco_normal.png": "44678b503d235fae0b3d199e3fce02d25b1acdecd58a36fba2e7fa3f70684785",
+    "processados/investigacao/pescoco_veia_roxa.png": "5054c291b58b556c5a27aabec6f36b4e50f10e505f99229c9f7db3bfb9f9df15",
+    "processados/investigacao/rosto_normal.png": "c8797a98030a5bbea6b9da4d0ea65e7afb9b3a31921b553816fb4901132072b7",
+    "processados/investigacao/rosto_palido.png": "1d6d2d750a21d2705b2b09d4d82c9e2d3f62c2dfa1d254ac708ca9da4db5b216"
+  },
+  "notes": "Alpha original preservado; escala proporcional NEAREST, pes y=94; esquerda espelhada da direita."
+}

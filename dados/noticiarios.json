@@ -7,7 +7,8 @@
       "Um vírus extremamente letal e contagioso provocou uma epidemia. O governo decretou lockdown imediato: moradores devem permanecer em casa, comércios estão fechados e a circulação nas ruas é proibida.",
       "O abastecimento foi interrompido. Nas Zonas Vermelhas, regiões com surtos confirmados, moradores estão sendo evacuados, acessos foram bloqueados e ninguém pode retornar. Em situações extremas, autoridades podem destruir edifícios contaminados.",
       "Abrigos emergenciais estão sendo organizados, mas muitos já estão sobrecarregados. Famílias evacuadas procuram um lugar seguro. A transmissão e os sintomas continuam sob investigação."
-    ]
+    ],
+    "investigations": []
   },
   {
     "id": "boletim_02",
@@ -15,7 +16,8 @@
     "headline": "Hospitais ampliam atendimento de emergência",
     "paragraphs": [
       "Equipes montam espaços temporários para atender o aumento de pacientes. Famílias aguardam informações enquanto as pesquisas sobre a doença continuam."
-    ]
+    ],
+    "investigations": []
   },
   {
     "id": "boletim_03",
@@ -24,15 +26,20 @@
     "paragraphs": [
       "Moradores relatam que pessoas acolhidas se recusam a deixar as residências, mesmo diante de suspeitas de infecção. As autoridades afirmam que não conseguem atender a todas as ocorrências.",
       "Com ruas bloqueadas e abrigos lotados, uma decisão de acolhimento pode se tornar permanente. As equipes pedem cautela e diálogo diante da falta de alternativas seguras."
-    ]
+    ],
+    "investigations": []
   },
   {
     "id": "boletim_04",
     "day": 4,
     "headline": "Relatos de alterações físicas preocupam autoridades",
     "paragraphs": [
-      "Profissionais de saúde começaram a registrar alterações incomuns em alguns pacientes, incluindo mudanças na aparência das mãos, dos dentes e dos olhos.",
+      "Profissionais de saúde começaram a registrar manchas nas mãos e deterioração dos dentes em alguns pacientes.",
       "Especialistas alertam que essas observações ainda são preliminares e não permitem determinar quem está infectado."
+    ],
+    "investigations": [
+      "manchas_maos",
+      "dentes_deteriorados"
     ]
   },
   {
@@ -41,7 +48,8 @@
     "headline": "Filas por alimentos preocupam moradores",
     "paragraphs": [
       "Entregas sofreram atrasos desde o início da crise. As autoridades pedem compras responsáveis para que mais famílias consigam se abastecer."
-    ]
+    ],
+    "investigations": []
   },
   {
     "id": "boletim_06",
@@ -50,7 +58,8 @@
     "paragraphs": [
       "O isolamento e a falta de atendimento das autoridades estão provocando conflitos graves. Há relatos de confrontos fatais envolvendo pessoas suspeitas de infecção.",
       "As famílias vivem medo e desespero. O governo ainda não oferece uma solução segura para essas situações. A violência amplia as perdas e não resolve a crise."
-    ]
+    ],
+    "investigations": []
   },
   {
     "id": "boletim_07",
@@ -60,6 +69,11 @@
       "Após análises realizadas em pacientes hospitalizados, pesquisadores confirmaram a existência de um conjunto específico de características associado à doença.",
       "O primeiro padrão exige a combinação das três condições: manchas nas mãos, dentes deteriorados e ausência de alterações oculares.",
       "Não apresentar essa combinação não significa estar saudável. Ainda podem existir outros padrões desconhecidos."
+    ],
+    "investigations": [
+      "manchas_maos",
+      "dentes_deteriorados",
+      "olhos_alterados"
     ]
   },
   {
@@ -68,7 +82,8 @@
     "headline": "Equipes médicas continuam as pesquisas",
     "paragraphs": [
       "Hospitais organizam novos registros e acompanham pacientes. As equipes alertam contra rumores e pedem que a população acompanhe os comunicados oficiais."
-    ]
+    ],
+    "investigations": []
   },
   {
     "id": "boletim_09",
@@ -76,7 +91,8 @@
     "headline": "Famílias procuram abrigo seguro",
     "paragraphs": [
       "Moradores separados de seus familiares tentam restabelecer contato. Abrigos temporários recebem pedidos de ajuda, com capacidade limitada."
-    ]
+    ],
+    "investigations": []
   },
   {
     "id": "boletim_10",
@@ -84,8 +100,15 @@
     "headline": "Novos casos desafiam entendimento da epidemia",
     "paragraphs": [
       "Autoridades médicas investigam pacientes que não apresentam o primeiro conjunto de características identificado anteriormente.",
-      "Alguns relatos mencionam alterações na aparência das veias, palidez incomum e movimentos involuntários.",
+      "Além das manchas nas mãos, dentes deteriorados e alterações nos olhos já divulgados, novos relatos mencionam veias escurecidas no pescoço e palidez anormal.",
       "Os pesquisadores ainda não confirmaram uma nova combinação diagnóstica."
+    ],
+    "investigations": [
+      "manchas_maos",
+      "dentes_deteriorados",
+      "olhos_alterados",
+      "veias_escurecidas",
+      "palidez_anormal"
     ]
   },
   {
@@ -94,7 +117,8 @@
     "headline": "Restrições de circulação são mantidas",
     "paragraphs": [
       "Deslocamentos devem ser limitados a necessidades essenciais. As ruas ficaram mais silenciosas nesta semana, mas equipes de atendimento continuam trabalhando."
-    ]
+    ],
+    "investigations": []
   },
   {
     "id": "boletim_12",
@@ -102,7 +126,8 @@
     "headline": "Hospitais pedem reforço de suprimentos",
     "paragraphs": [
       "Profissionais relatam falta de materiais e longas jornadas. Pesquisas e atendimento seguem em paralelo, sem novos resultados confirmados hoje."
-    ]
+    ],
+    "investigations": []
   },
   {
     "id": "boletim_13",
@@ -110,16 +135,25 @@
     "headline": "Pesquisas avançam sob pressão da emergência",
     "paragraphs": [
       "Equipes revisam os registros recentes e aguardam novas análises. Até que haja confirmação oficial, observações isoladas não devem ser tratadas como conclusões."
-    ]
+    ],
+    "investigations": []
   },
   {
     "id": "boletim_14",
     "day": 14,
     "headline": "Segundo padrão de infecção é oficialmente confirmado",
     "paragraphs": [
-      "Pesquisadores identificaram um segundo conjunto de características que também permite reconhecer pessoas infectadas.",
+      "Após o primeiro conjunto, que considera manchas nas mãos, dentes deteriorados e alterações nos olhos, pesquisadores identificaram um segundo conjunto de características.",
       "O segundo padrão exige a combinação das três condições: veias escurecidas no pescoço, palidez anormal e ausência de tremores involuntários.",
       "Esse padrão é independente do primeiro. A descoberta não significa que todos os padrões possíveis foram identificados."
+    ],
+    "investigations": [
+      "manchas_maos",
+      "dentes_deteriorados",
+      "olhos_alterados",
+      "veias_escurecidas",
+      "palidez_anormal",
+      "tremores_involuntarios"
     ]
   },
   {
@@ -128,7 +162,8 @@
     "headline": "População acompanha novas orientações",
     "paragraphs": [
       "Após os comunicados recentes, moradores buscam informações pelos canais oficiais. Serviços de saúde continuam reunindo dados sobre a epidemia."
-    ]
+    ],
+    "investigations": []
   },
   {
     "id": "boletim_16",
@@ -136,7 +171,8 @@
     "headline": "Equipes revisam dados antes de novo comunicado",
     "paragraphs": [
       "Pesquisadores conferem os resultados obtidos nas últimas semanas. Não há novos padrões confirmados nesta transmissão."
-    ]
+    ],
+    "investigations": []
   },
   {
     "id": "boletim_17",
@@ -144,7 +180,15 @@
     "headline": "Autoridades anunciam conclusão do protocolo de identificação",
     "paragraphs": [
       "Após novas pesquisas, especialistas afirmam que os dois conjuntos de características anteriormente divulgados abrangem todos os casos de infecção conhecidos e foram validados como protocolo completo de identificação.",
-      "A descoberta representa um avanço importante no combate à epidemia."
+      "O protocolo revisa manchas nas mãos, dentes deteriorados, alterações nos olhos, veias escurecidas no pescoço, palidez anormal e tremores involuntários. A descoberta representa um avanço importante no combate à epidemia."
+    ],
+    "investigations": [
+      "manchas_maos",
+      "dentes_deteriorados",
+      "olhos_alterados",
+      "veias_escurecidas",
+      "palidez_anormal",
+      "tremores_involuntarios"
     ]
   },
   {
@@ -153,7 +197,8 @@
     "headline": "Hospitais reorganizam o atendimento",
     "paragraphs": [
       "As equipes trabalham para aplicar o protocolo anunciado e manter o acolhimento dos pacientes. A crise continua exigindo cautela e cooperação."
-    ]
+    ],
+    "investigations": []
   },
   {
     "id": "boletim_19",
@@ -161,7 +206,8 @@
     "headline": "Pesquisas de tratamento seguem em andamento",
     "paragraphs": [
       "Laboratórios e hospitais mantêm esforços conjuntos. As autoridades pedem que a população aguarde resultados oficiais e evite tratamentos sem orientação."
-    ]
+    ],
+    "investigations": []
   },
   {
     "id": "boletim_20",
@@ -171,6 +217,7 @@
       "Após semanas de esforços, pesquisadores anunciaram o desenvolvimento de um tratamento capaz de combater a doença que provocou o colapso da região.",
       "As autoridades iniciaram os preparativos para a distribuição do tratamento.",
       "Apesar das perdas, a descoberta representa a primeira esperança concreta de recuperação."
-    ]
+    ],
+    "investigations": []
   }
 ]
