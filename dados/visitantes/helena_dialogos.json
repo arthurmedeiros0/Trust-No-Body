@@ -1,0 +1,27 @@
+{
+  "intro": [
+    "Meu nome é Helena. Sou professora. Estou procurando um lugar seguro para ficar.",
+    "Perdi contato com pessoas conhecidas durante o isolamento. Antes de decidir, pode me perguntar o que quiser. Eu faria o mesmo no seu lugar."
+  ],
+  "before_decision": [
+    "Você fez as perguntas certas? Eu também preciso entender em quem posso confiar."
+  ],
+  "questions": [
+    {"question": "Quem é você?", "answer": "Helena. Tenho 33 anos e trabalhava como professora antes da epidemia. Costumo prestar atenção aos detalhes; agora isso parece mais necessário do que nunca."},
+    {"question": "Por que procura abrigo?", "answer": "Perdi contato com pessoas conhecidas durante o isolamento. Procuro um lugar onde possa ficar em segurança e organizar o que sei."},
+    {"question": "Quem desapareceu?", "answer": "Pessoas que eu conhecia deixaram de responder. Ainda não sei o que aconteceu com elas, então não vou afirmar que morreram ou que foram infectadas."},
+    {"question": "Por onde você passou?", "answer": "Passei por lugares diferentes enquanto procurava abrigo. Prefiro não dar um endereço exato sem ter certeza de que reconstruí o caminho corretamente."},
+    {"question": "Você conhece outros visitantes?", "answer": "Talvez eu reconheça alguma história, mas não quero apontar alguém sem confirmar. Compare o que cada pessoa conta sobre horários, caminhos e encontros."},
+    {"question": "Notou contradições nos relatos?", "answer": "Ainda não tenho informações suficientes para acusar ninguém. Relatos podem se completar ou divergir; anotar a ordem dos acontecimentos ajuda a perceber a diferença."},
+    {"question": "Está apresentando sintomas?", "answer": "Não vou pedir que confie só na minha palavra. Examine o que conseguir observar e tire suas próprias conclusões."},
+    {"question": "Trouxe comida ou água?", "answer": "Tenho {food} lata(s) de comida e {water} garrafa(s) de água. Posso dividir se me deixar entrar."}
+  ],
+  "resident_intro": [
+    "Obrigada pelo abrigo. Estou tentando colocar os acontecimentos em ordem."
+  ],
+  "resident_questions": [
+    {"question": "Como você está?", "answer": "Mais segura aqui dentro. Ainda penso nas pessoas com quem perdi contato."},
+    {"question": "O que você sabe sobre os desaparecimentos?", "answer": "Separamos o que vimos do que apenas ouvimos. Sem essa distinção, uma hipótese vira boato muito rápido."},
+    {"question": "Como comparar os relatos?", "answer": "Comece pela sequência: quando cada pessoa saiu, por onde passou e quem encontrou. Depois veja o que realmente não coincide."}
+  ]
+}

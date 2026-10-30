@@ -13,6 +13,8 @@ def main():
     import pygame
     from casa.config import WINDOW,FPS
     from casa.game import House
+    from casa.menu import GameMenu
+    from casa.visitors import VisitorSession
     pygame.init()
     try:
         screen=pygame.display.set_mode(WINDOW)
@@ -23,17 +25,59 @@ def main():
             result=unittest.TextTestRunner(verbosity=2).run(suite)
             if not result.wasSuccessful(): raise SystemExit(1)
             return
-        game=House(development=args.dev);clock=pygame.time.Clock();running=True
+        catalogue=VisitorSession()
+        available=set(catalogue.visitors)-set(catalogue.unavailable)
+        menu=GameMenu(available)
+        game=None;mode=None;test_choice=None
+        clock=pygame.time.Clock();running=True
+
+        def start_game(kind,character=None,condition=None):
+            house=House(development=args.dev)
+            if kind=='test':
+                house.dialog=''
+                house.visitor_session.start_test(character,condition)
+                house.change_room('entrada')
+                house.observing=True
+            return house
+
         while running:
             dt=min(clock.tick(FPS)/1000,.05)
             for event in pygame.event.get():
-                if event.type==pygame.QUIT or (event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE and not game.captures_escape):
-                    running=False
-                else: game.handle_event(event)
-            keys=pygame.key.get_pressed()
-            movement=(int(keys[pygame.K_d] or keys[pygame.K_RIGHT])-int(keys[pygame.K_a] or keys[pygame.K_LEFT]),
-                      int(keys[pygame.K_s] or keys[pygame.K_DOWN])-int(keys[pygame.K_w] or keys[pygame.K_UP]))
-            game.update(movement,dt);game.draw(screen);pygame.display.flip()
+                if event.type==pygame.QUIT:running=False;continue
+                if game is None or menu.page=='pause':
+                    action=menu.handle_event(event)
+                    if action:
+                        kind,character,condition=action
+                        if kind=='quit':running=False
+                        elif kind in ('normal','test'):
+                            game=start_game(kind,character,condition)
+                            mode=kind;test_choice=(character,condition) if kind=='test' else None
+                            menu.mode=kind
+                            menu.page='playing'
+                        elif kind=='restart' and test_choice:
+                            game=start_game('test',*test_choice)
+                            menu.page='playing'
+                        elif kind=='main':game=None;mode=None
+                        elif kind=='resume':menu.page='playing'
+                    continue
+                if event.type==pygame.KEYDOWN and event.key==pygame.K_F1:
+                    menu.page='pause';menu.selected=0;continue
+                if event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE and not game.captures_escape:
+                    menu.page='pause';menu.selected=0;continue
+                game.handle_event(event)
+            if game is None or menu.page in ('main','select','setup','pause'):
+                menu.draw(screen)
+            else:
+                keys=pygame.key.get_pressed()
+                movement=(int(keys[pygame.K_d] or keys[pygame.K_RIGHT])-int(keys[pygame.K_a] or keys[pygame.K_LEFT]),
+                          int(keys[pygame.K_s] or keys[pygame.K_DOWN])-int(keys[pygame.K_w] or keys[pygame.K_UP]))
+                game.update(movement,dt);game.draw(screen)
+                if mode=='test':
+                    visitor=game.visitor_session.visitors[test_choice[0]]
+                    label=f'MODO TESTE | {visitor.definition["name"]} | diagnóstico: {visitor.diagnosis} | F1: opções'
+                    pygame.draw.rect(screen,'#172027',(0,0,1280,34))
+                    screen.blit(game.small.render(label,True,'#f1e6c8'),(20,8))
+            pygame.display.flip()
     finally:
         pygame.quit()
 

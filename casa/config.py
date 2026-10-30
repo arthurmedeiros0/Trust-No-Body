@@ -42,11 +42,11 @@ ROOMS = {
     dict(label='Cama',point=(299,339),region=(232,125,131,215),action='sleep')],
  },
  'cozinha': {
-  'images': {'dia':'cozinha_dia.png','noite':'cozinha_noite.png'},
-  'source_size': (747,561), 'art_scale': .90,
-  'spawn': (379,488),
-  'interactions': [dict(label='Voltar ao corredor',point=(379,519),action='exit',direction='frente'),
-    dict(label='Geladeira',point=(668,237),action='fridge')],
+  'images': {'dia':'cozinha_novo/cozinha_dia.png','noite':'cozinha_novo/cozinha_noite.png'},
+  'source_size': (1536,1024), 'art_scale': .44,
+  'spawn': (768,790),
+  'interactions': [dict(label='Voltar ao corredor',point=(768,866),action='exit',direction='frente'),
+    dict(label='Geladeira',point=(1290,435),action='fridge')],
  },
  'banheiro': {
   'images': {'dia':'banheiro_dia.png','noite':'banheiro_noite.png'},

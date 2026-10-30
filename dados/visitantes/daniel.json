@@ -1,0 +1,41 @@
+{
+  "id": "daniel",
+  "visitor_number": 6,
+  "name": "Daniel",
+  "age": 21,
+  "profession": "estudante",
+  "personality": "Reservado, nervoso e pouco comunicativo.",
+  "history": "Daniel procura abrigo durante a epidemia. Evita contar onde esteve nos primeiros dias do surto e demonstra desconforto quando perguntam sobre seu passado recente; esse comportamento não determina sua condição de saúde.",
+  "asset_root": "personagens/visitantes/daniel",
+  "prepared_assets": true,
+  "raw_animation": true,
+  "visual_scale": 1.08,
+  "portrait": "porta/porta.png",
+  "portrait_height": 510,
+  "portrait_anchor": [640, 625],
+  "sprites": {
+    "frente": "movimentos/parado_frente.png",
+    "costas": "movimentos/parado_tras.png",
+    "direita": "movimentos/parado_lado.png",
+    "esquerda": "movimentos/parado_lado.png"
+  },
+  "walk_frames": {
+    "frente": ["movimentos/andando_frente.png", "movimentos/andando_frente_dois.png"],
+    "costas": ["movimentos/andando_tras_um.png", "movimentos/andando_tras_dois.png"],
+    "direita": ["movimentos/andando_lado.png", "movimentos/andando_lado_dois.png"],
+    "esquerda": ["movimentos/andando_lado.png", "movimentos/andando_lado_dois.png"]
+  },
+  "room": "sala",
+  "room_position": [760, 560],
+  "room_direction": "frente",
+  "resident": {"speed": 33, "radius": 65, "wait_seconds": [2, 4], "walk_seconds": [0.7, 1.4], "frame_seconds": 0.18},
+  "initial_supplies": {"food": [0, 2], "water": [0, 2]},
+  "investigation": {
+    "manchas_maos": {"label": "Examinar mãos", "normal": "investigacao/mao_normal.png", "alterado": "investigacao/mao_mancha.png"},
+    "dentes_deteriorados": {"label": "Examinar dentes", "normal": "investigacao/dente_normal.png", "alterado": "investigacao/dente_amarelo.png"},
+    "olhos_alterados": {"label": "Examinar olhos", "normal": "investigacao/rosto_normal.png", "alterado": "investigacao/rosto_olho_vermelho.png"},
+    "veias_escurecidas": {"label": "Examinar pescoço", "normal": "investigacao/rosto_normal.png", "alterado": "investigacao/pescoco_veia_escura.png"},
+    "palidez_anormal": {"label": "Examinar palidez", "normal": "investigacao/rosto_normal.png", "alterado": "investigacao/rosto_palido.png"},
+    "tremores_involuntarios": {"label": "Observar tremores", "normal": "investigacao/mao_normal.png", "alterado": "investigacao/mao tremendo.png"}
+  }
+}

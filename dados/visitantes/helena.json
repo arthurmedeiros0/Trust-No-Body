@@ -1,0 +1,40 @@
+{
+  "id": "helena",
+  "name": "Helena",
+  "age": 33,
+  "profession": "professora",
+  "personality": "Observadora, organizada e questionadora.",
+  "history": "Helena trabalhava como professora antes da epidemia. Durante o isolamento, perdeu contato com pessoas conhecidas e passou a procurar um abrigo seguro. Observa acontecimentos e organiza relatos para tentar compreender o que ocorreu com pessoas desaparecidas.",
+  "asset_root": "personagens/visitantes/helena",
+  "prepared_assets": true,
+  "raw_animation": true,
+  "visual_scale": 1.08,
+  "portrait": "porta/porta.png",
+  "portrait_height": 510,
+  "portrait_anchor": [640, 625],
+  "sprites": {
+    "frente": "movimento/parado_frente.png",
+    "costas": "movimento/parado_tras.png",
+    "direita": "movimento/parado_lado.png",
+    "esquerda": "movimento/parado_lado.png"
+  },
+  "walk_frames": {
+    "frente": ["movimento/andando_frente_um.png", "movimento/andando_frente_dois.png"],
+    "costas": ["movimento/andando_tras_um.png", "movimento/andando_tras_dois.png"],
+    "direita": ["movimento/andando_lado_um.png", "movimento/andando_lado_dois.png"],
+    "esquerda": ["movimento/andando_lado_um.png", "movimento/andando_lado_dois.png"]
+  },
+  "room": "sala",
+  "room_position": [580, 565],
+  "room_direction": "frente",
+  "resident": {"speed": 32, "radius": 65, "wait_seconds": [2, 4], "walk_seconds": [0.7, 1.4], "frame_seconds": 0.18},
+  "initial_supplies": {"food": [0, 2], "water": [0, 2]},
+  "investigation": {
+    "manchas_maos": {"label": "Examinar mãos", "normal": "investigação/mao_normal.png", "alterado": "investigação/mao_mancha.png"},
+    "dentes_deteriorados": {"label": "Examinar dentes", "normal": "investigação/dente_normal.png", "alterado": "investigação/dente_amarelo.png"},
+    "olhos_alterados": {"label": "Examinar olhos", "normal": "investigação/rosto_normal.png", "alterado": "investigação/olho_vermelho.png"},
+    "veias_escurecidas": {"label": "Examinar pescoço", "normal": "investigação/pescoco_normal.png", "alterado": "investigação/pescoco_veias_escuras.png"},
+    "palidez_anormal": {"label": "Examinar palidez", "normal": "investigação/rosto_normal.png", "alterado": "investigação/rosto_palido.png"},
+    "tremores_involuntarios": {"label": "Observar tremores", "normal": "investigação/mao_normal.png", "alterado": "investigação/mao_tremendo.png"}
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "id": "marina",
+  "visitor_number": 7,
+  "name": "Marina",
+  "age": 31,
+  "profession": "enfermeira",
+  "personality": "Cuidadosa, determinada e protetora.",
+  "history": "Marina trabalhava como enfermeira no Hospital Municipal São Lucas quando surgiram os primeiros casos. Conhece Ricardo, médico da equipe. Pode ter tido contato com pessoas infectadas, mas sua exposição não determina sua condição de saúde. Deixou um abrigo anterior e procura um lugar seguro.",
+  "asset_root": "personagens/visitantes/marina",
+  "prepared_assets": true,
+  "raw_animation": true,
+  "visual_scale": 1.08,
+  "portrait": "porta/porta.png",
+  "portrait_height": 510,
+  "portrait_anchor": [640, 625],
+  "sprites": {
+    "frente": "movimentos/parado_frente.png",
+    "costas": "movimentos/parado_costas.png",
+    "direita": "movimentos/parado_lado.png",
+    "esquerda": "movimentos/parado_lado.png"
+  },
+  "walk_frames": {
+    "frente": ["movimentos/andando_frente_um.png", "movimentos/andando_frente_dois.png"],
+    "costas": ["movimentos/andando_tras_um.png", "movimentos/andando_tras_dois.png"],
+    "direita": ["movimentos/andando_lado_um.png", "movimentos/andando_lado_dois.png"],
+    "esquerda": ["movimentos/andando_lado_um.png", "movimentos/andando_lado_dois.png"]
+  },
+  "room": "sala",
+  "room_position": [620, 585],
+  "room_direction": "frente",
+  "resident": {"speed": 32, "radius": 65, "wait_seconds": [2, 4], "walk_seconds": [0.7, 1.4], "frame_seconds": 0.18},
+  "initial_supplies": {"food": [0, 2], "water": [0, 2]},
+  "investigation_features": ["manchas_maos", "dentes_deteriorados", "olhos_alterados", "veias_escurecidas", "palidez_anormal"],
+  "investigation": {
+    "manchas_maos": {"label": "Examinar mãos", "normal": "investigacao/mao_normal.png", "alterado": "investigacao/mao_mancha.png"},
+    "dentes_deteriorados": {"label": "Examinar dentes", "normal": "investigacao/rosto_dente_normal.png", "alterado": "investigacao/rosto_dente_amarelo.png"},
+    "olhos_alterados": {"label": "Examinar olhos", "normal": "investigacao/rosto_normal.png", "alterado": "investigacao/rosto_olho_vermelho.png"},
+    "veias_escurecidas": {"label": "Examinar pescoço", "normal": "investigacao/rosto_normal.png", "alterado": "investigacao/pescoco_veia_escura.png"},
+    "palidez_anormal": {"label": "Examinar palidez", "normal": "investigacao/rosto_normal.png", "alterado": "investigacao/rosto_palido.png"}
+  }
+}

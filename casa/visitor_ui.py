@@ -5,9 +5,9 @@ from .visitor_dialogue import Dialogue
 from .medical_knowledge import MedicalKnowledge
 
 class VisitorUI:
-    def __init__(self,visitor,assets,on_decision,knowledge=None,resident=False):
+    def __init__(self,visitor,assets,on_decision,knowledge=None,resident=False,session=None):
         self.visitor=visitor;self.assets=assets;self.on_decision=on_decision
-        self.dialogue=Dialogue(visitor)
+        self.dialogue=Dialogue(visitor,session)
         self.knowledge=knowledge if knowledge is not None else MedicalKnowledge()
         self.resident=resident
         if resident:
@@ -98,7 +98,11 @@ class VisitorUI:
         if self.page!='root':
             shade=pygame.Surface(screen.get_size(),pygame.SRCALPHA);shade.fill((0,0,0,200));screen.blit(shade,(0,0))
             pygame.draw.rect(screen,'#17232e',(170,105,940,535),border_radius=8)
-        title=f"{self.visitor.definition['name']} | {self.visitor.definition['age']} anos | {self.visitor.definition['profession']}"
+        definition=self.visitor.definition
+        details=[definition['name']]
+        if definition.get('age') is not None:details.append(f"{definition['age']} anos")
+        if definition.get('profession'):details.append(definition['profession'])
+        title=' | '.join(details)
         if self.page=='root':
             pygame.draw.rect(screen,'#172027',(0,640,1280,80))
             screen.blit(self.small.render(title,True,'#eeddb8'),(170,624))

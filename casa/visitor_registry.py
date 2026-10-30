@@ -17,13 +17,21 @@ def readiness(definition):
         base=ROOT/definition['asset_root']
         images=[base/definition['portrait']]
         images.extend(base/definition['sprites'][direction] for direction in DIRECTIONS)
-        for feature in FEATURES:
+        features=tuple(definition.get('investigation_features',FEATURES))
+        if (not features or len(set(features))!=len(features) or
+            not set(features)<=set(FEATURES) or set(definition['investigation'])!=set(features)):
+            raise ValueError('Lista de investigações inválida')
+        for feature in features:
             images.extend(base/definition['investigation'][feature][variant] for variant in ('normal','alterado'))
         dialogue=json.loads((ROOT/f"dados/visitantes/{definition['id']}_dialogos.json").read_text(encoding='utf-8'))
         if not dialogue['intro'] or not dialogue['questions']:raise ValueError('Dialogos incompletos')
         for question in dialogue['questions']:
-            question['question'];question['answer'].format(food=2,water=2)
-        if definition.get('internal_sprite_manifest'):
+            question['question']
+            for answer in (question['answer'],*question.get('ricardo_states',{}).values()):
+                answer.format(food=2,water=2)
+        if definition.get('raw_animation'):
+            images.extend(base/path for frames in definition['walk_frames'].values() for path in frames)
+        elif definition.get('internal_sprite_manifest'):
             manifest=json.loads((ROOT/definition['internal_sprite_manifest']).read_text(encoding='utf-8'))
             for direction in DIRECTIONS:
                 frames=manifest['frames'][direction]

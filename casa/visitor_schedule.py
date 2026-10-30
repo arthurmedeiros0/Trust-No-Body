@@ -32,6 +32,11 @@ class VisitorManager:
         if 'ricardo' in self.eligible:self.plan['ricardo']=1
         candidates=[key for key in sorted(self.eligible) if key!='ricardo']
         rng.shuffle(candidates)
+        # Laura mantém a oportunidade inicial do jogo original mesmo quando
+        # novos visitantes entram no cadastro.
+        if 'laura' in candidates:
+            candidates.remove('laura')
+            candidates.insert(0,'laura')
         slots=[day for day in range(self.rules.first_day,self.rules.last_day+1)
                for _ in range(self.rules.max_per_day)]
         priorities=[day for day in self.opportunities]
@@ -40,6 +45,8 @@ class VisitorManager:
         required=min(len(candidates),max(1,self.rules.minimum_encounters),len(priorities))
         early=priorities[:required]
         for day in early:slots.remove(day)
+        if candidates and candidates[0]=='laura':
+            slots=[day for day in slots if day not in self.opportunities]
         rng.shuffle(slots)
         for key,day in zip(candidates,early+slots):
             self.plan[key]=day

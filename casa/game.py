@@ -62,7 +62,8 @@ class House:
         if not visitor.arrived or visitor_id not in self.visitor_assets:return False
         current=self.peephole.visitor_ui
         if current and current.visitor.state=='aguardando' and current.visitor.id!=visitor_id:return False
-        self.peephole.visitor_ui=VisitorUI(visitor,self.visitor_assets[visitor.id],self.decide_visitor,knowledge=self.visitor_session.medical)
+        self.peephole.visitor_ui=VisitorUI(visitor,self.visitor_assets[visitor.id],self.decide_visitor,
+            knowledge=self.visitor_session.medical,session=self.visitor_session)
         return True
 
     def decide_visitor(self,visitor,decision):
@@ -114,7 +115,7 @@ class House:
             visitor=self.visitor_session.visitors[item.target]
             self.residents[item.target].rest()
             self.resident_ui=VisitorUI(visitor,self.visitor_assets[item.target],lambda *args:False,
-                knowledge=self.visitor_session.medical,resident=True)
+                knowledge=self.visitor_session.medical,resident=True,session=self.visitor_session)
         elif item.action=='door':
             self.fade.start(lambda:self.change_room(item.target,direction=item.direction))
         elif item.action=='exit':

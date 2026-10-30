@@ -87,12 +87,43 @@ class VisitorSession:
             supplies=definition.get('initial_supplies',{})
             visitor=Visitor(definition,{key:bool(rng.getrandbits(1)) for key in definition.get('investigation',{})},
                             rng.randint(*supplies.get('food',(0,3))),rng.randint(*supplies.get('water',(0,3))))
+            if visitor.id=='gabriel':self.set_gabriel_condition(visitor,rng)
             self.visitors[visitor.id]=visitor
             reason=asset_check(definition)
             if reason:self.unavailable[visitor.id]=reason
         if arrival_rules is None:
             arrival_rules=ArrivalRules(**json.loads((ROOT/'dados/agendamento_visitantes.json').read_text(encoding='utf-8')))
         self.manager=VisitorManager(self.visitors,rng,set(self.visitors)-set(self.unavailable),arrival_rules)
+
+    @staticmethod
+    def set_gabriel_condition(visitor,rng,condition='aleatoria'):
+        if condition=='aleatoria':condition='infectado' if rng.random()<.5 else 'saudavel'
+        if condition not in ('saudavel','infectado'):raise ValueError('Condição de teste inválida')
+        visitor.diagnosis=condition
+        # Graxa e solventes podem marcar as mãos de uma pessoa saudável.
+        visitor.symptoms={key:False for key in visitor.definition['investigation']}
+        visitor.symptoms['manchas_maos']=rng.random()<.65
+        visitor.symptoms['dentes_deteriorados']=rng.random()<.25
+        if condition=='infectado':
+            signs=('olhos_alterados','veias_escurecidas','palidez_anormal','tremores_involuntarios')
+            chosen=[key for key in signs if rng.random()<.5]
+            if not chosen:chosen=[rng.choice(signs)]
+            for key in chosen:visitor.symptoms[key]=True
+
+    def start_test(self,visitor_id,condition='aleatoria',rng=None):
+        """Ativa um visitante na sessão real, sem avançar dias ou disparar a agenda."""
+        if visitor_id in self.unavailable or visitor_id not in self.visitors:
+            raise ValueError('Visitante indisponível: '+visitor_id)
+        visitor=self.visitors[visitor_id]
+        if visitor_id=='gabriel':self.set_gabriel_condition(visitor,rng or random,condition)
+        elif condition!='aleatoria':raise ValueError('Condição de teste indisponível para este visitante')
+        self.medical.known.update(visitor.definition['investigation'])
+        self.manager.queue.clear()
+        self.manager.current=visitor_id
+        self.manager.seen.add(visitor_id)
+        visitor.arrived=True
+        self._arrive(visitor)
+        return visitor
 
     @property
     def day(self):return self.days.day

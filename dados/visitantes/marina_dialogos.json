@@ -1,0 +1,37 @@
+{
+  "intro": [
+    "Meu nome é Marina. Sou enfermeira e estou procurando um lugar seguro.",
+    "Estava abrigada em outro lugar, mas precisei sair. Não posso exigir sua confiança; pode me perguntar o que quiser."
+  ],
+  "before_decision": [
+    "Sei que abrir a porta é um risco. Faça a avaliação que achar necessária."
+  ],
+  "questions": [
+    {"question": "Onde você trabalhava?", "answer": "No Hospital Municipal São Lucas. Cuidava de pacientes quando os primeiros casos começaram a aparecer."},
+    {"question": "Teve contato com pessoas infectadas?", "answer": "Atendi pessoas durante os primeiros casos. Posso ter sido exposta; não vou esconder essa possibilidade, mas ela não é um diagnóstico."},
+    {"question": "Quando deixou o abrigo anterior?", "answer": "Saí depois que não pude mais permanecer lá em segurança. Não vou inventar uma data exata que não consigo confirmar."},
+    {"question": "Por que procura outro abrigo?", "answer": "Preciso de um lugar onde possa ficar em segurança. Se entrar, também vou me preocupar com a saúde de quem já está aí."},
+    {"question": "Quais sintomas da doença conhece?", "answer": "Conheço sinais observados nos primeiros atendimentos. Um único sinal pode ter outras causas; compare os sintomas com o que foi divulgado e com o restante do relato."},
+    {"question": "O que acha das notícias médicas?", "answer": "São úteis, mas ainda há informações incertas. Separe o que foi observado do que é apenas hipótese.", "news_context": true},
+    {"question": "Você conhece Ricardo?", "answer": "Sim. Ricardo é médico do Hospital Municipal São Lucas. Conheço-o da equipe, mas não vou falar por ele.", "ricardo_states": {
+      "nao_encontrado": "Conheço Ricardo, médico do Hospital Municipal São Lucas. Não sei se ele passou por aqui; o relato dele pode ajudar a comparar o que sabemos.",
+      "presente": "Você diz que Ricardo está nesta casa? Conheço-o do hospital. Gostaria de saber como ele está, mas cada um deve responder pelo próprio relato.",
+      "recusado": "Você diz que recusou Ricardo? Conheço-o do hospital. Isso não muda o que posso contar sobre meu trabalho e minha possível exposição.",
+      "conhecido": "Sim, conheço Ricardo do hospital. Podemos comparar os relatos, mas não vou tirar conclusões sobre ele sem mais informações."
+    }},
+    {"question": "Você trouxe medicamentos?", "answer": "Trouxe alguns medicamentos. Eles não são uma cura para uma doença que ainda estamos tentando compreender."},
+    {"question": "Você tem comida ou água?", "answer": "Tenho {food} lata(s) de comida e {water} garrafa(s) de água para dividir."}
+  ],
+  "resident_intro": [
+    "Obrigada por me acolher. Vou ajudar a observar a saúde de todos, sem tirar conclusões apressadas."
+  ],
+  "resident_questions": [
+    {"question": "Como você está?", "answer": "Atenta. Se alguém apresentar uma mudança, precisamos observar e registrar antes de concluir qualquer coisa."},
+    {"question": "O que acha do noticiário?", "answer": "Compare as notícias com o que realmente vimos aqui. Um sinal isolado não basta.", "news_context": true},
+    {"question": "E Ricardo?", "answer": "Conheço Ricardo do hospital. Espero que esteja bem, onde quer que esteja.", "ricardo_states": {
+      "presente": "Ricardo está aqui. Conheço-o do hospital; podemos comparar nossas lembranças, mas não presumir que concordamos em tudo.",
+      "recusado": "Soube que Ricardo foi recusado. Conheço-o do hospital, mas respeito a decisão que você tomou.",
+      "nao_encontrado": "Conheço Ricardo do hospital. Ainda não sei onde ele está."
+    }}
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "intro": [
+    "Daniel... Meu nome é Daniel. Estou procurando um lugar para ficar. Só isso.",
+    "Se vai fazer perguntas, faça. Mas não prometo saber responder tudo."
+  ],
+  "before_decision": [
+    "Eu não fiz nada de errado. Só preciso de abrigo."
+  ],
+  "questions": [
+    {"question": "Quem é você?", "answer": "Daniel. Tenho 21 anos. Sou estudante."},
+    {"question": "Onde estava quando a epidemia começou?", "answer": "Eu... estava longe daqui. Prefiro não falar do lugar."},
+    {"question": "Por quais lugares passou?", "answer": "Por alguns. Não vou listar cada caminho que fiz para chegar até esta porta."},
+    {"question": "Por que evita falar dos últimos dias?", "answer": "Porque não foram dias bons. Tem coisas que eu prefiro esquecer."},
+    {"question": "O que aconteceu no início do surto?", "answer": "Tudo ficou confuso muito rápido. Eu saí de onde estava e continuei andando. É o que consigo contar agora."},
+    {"question": "Por que procura abrigo agora?", "answer": "Não tenho onde ficar em segurança. Demorei a pedir ajuda, mas aqui estou."},
+    {"question": "Está nervoso por estar doente?", "answer": "Estou nervoso porque você está me interrogando do outro lado da porta. Examine o que precisar; não vou fingir que isso prova alguma coisa."},
+    {"question": "Trouxe suprimentos?", "answer": "Tenho {food} lata(s) de comida e {water} garrafa(s) de água. Não é muito."}
+  ],
+  "resident_intro": [
+    "Obrigado por abrir a porta. Ainda não me acostumei a estar aqui."
+  ],
+  "resident_questions": [
+    {"question": "Como você está?", "answer": "Melhor do que lá fora. Ainda estou nervoso."},
+    {"question": "Quer falar dos primeiros dias?", "answer": "Ainda não. Preciso de tempo para colocar aquilo em ordem."}
+  ]
+}

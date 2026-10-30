@@ -28,6 +28,23 @@ def fit(image,size):
     scale=min(size[0]/image.get_width(),size[1]/image.get_height())
     return pygame.transform.scale(image,(max(1,round(image.get_width()*scale)),max(1,round(image.get_height()*scale))))
 
+def raw_character(path,mirror=False):
+    """Recorta a margem transparente e alinha todos os quadros pela linha dos pés."""
+    with Image.open(path) as source:
+        image=source.convert('RGBA')
+        bounds=image.getbbox()
+        if bounds:image=image.crop(bounds)
+        if mirror:
+            from PIL import ImageOps
+            image=ImageOps.mirror(image)
+        scale=min(60/image.width,88/image.height)
+        size=(max(1,round(image.width*scale)),max(1,round(image.height*scale)))
+        image=image.resize(size,Image.Resampling.NEAREST)
+        surface=pygame.image.frombytes(image.tobytes(),size,'RGBA').convert_alpha()
+    canvas=pygame.Surface((64,96),pygame.SRCALPHA)
+    canvas.blit(surface,((64-size[0])//2,94-size[1]))
+    return canvas
+
 class VisitorAssets:
     def __init__(self,definition):
         base=ROOT/definition['asset_root']
@@ -36,6 +53,9 @@ class VisitorAssets:
         self.portrait=fit(self.portrait,(650,definition['portrait_height']))
         self.sprites={}
         for direction,path in definition['sprites'].items():
+            if definition.get('raw_animation'):
+                self.sprites[direction]=raw_character(base/path,direction=='esquerda')
+                continue
             if definition.get('sheet_sprites'):
                 self.sprites[direction]=pygame.image.load(str(base/path)).convert_alpha()
                 continue
@@ -44,11 +64,16 @@ class VisitorAssets:
             canvas=pygame.Surface((64,96),pygame.SRCALPHA)
             canvas.blit(character,((64-character.get_width())//2,94-character.get_height()))
             self.sprites[direction]=canvas
-        paths=prepare_walks(definition)
-        self.walk={direction:[pygame.image.load(str(path)).convert_alpha() for path in frames]
-                   for direction,frames in paths.items()}
+        if definition.get('raw_animation'):
+            self.walk={direction:[raw_character(base/path,direction=='esquerda') for path in frames]
+                       for direction,frames in definition['walk_frames'].items()}
+        else:
+            paths=prepare_walks(definition)
+            self.walk={direction:[pygame.image.load(str(path)).convert_alpha() for path in frames]
+                       for direction,frames in paths.items()}
         self.cycles=resident_animation_cycles(self.sprites,self.walk,definition.get('walk_step_first',False))
-        if self.walk:comparison(self.sprites,self.walk,base/definition.get('comparison_output','andando/comparacao.png'))
+        if self.walk and not definition.get('raw_animation'):
+            comparison(self.sprites,self.walk,base/definition.get('comparison_output','andando/comparacao.png'))
         self.investigation={}
         panels={}
         for key,item in definition['investigation'].items():

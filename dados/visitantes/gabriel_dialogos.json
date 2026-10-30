@@ -1,0 +1,18 @@
+{
+  "intro": ["Gabriel. Preciso de um teto por esta noite. A rua não está segura.", "Não me conhece, eu sei. Também não conheço você. Pergunte logo o que precisa."],
+  "before_decision": ["Já respondi. Vai abrir ou não?"],
+  "questions": [
+    {"question": "Qual é seu nome e profissão?", "answer": "Gabriel. Sou mecânico. Trabalhava numa oficina aqui perto."},
+    {"question": "De onde você veio?", "answer": "Da oficina, pelo bairro industrial. Vi gente saindo de lá antes dos bloqueios. Posso contar mais quando estiver seguro."},
+    {"question": "Onde esteve durante a epidemia?", "answer": "Trancado na oficina por dias. Saí quando a água acabou. Não vou contar cada passo que dei a um estranho atrás de uma porta."},
+    {"question": "Teve contato com produtos químicos?", "answer": "Óleo, graxa, solvente. Todo dia. Se está olhando minhas mãos, considere isso antes de tirar conclusões."},
+    {"question": "Está com algum sintoma?", "answer": "Estou cansado e com fome. Examine o que quiser, mas seja rápido."},
+    {"question": "Você tem suprimentos?", "answer": "Trouxe {food} lata(s) de comida e {water} garrafa(s) de água. É o que consegui carregar."},
+    {"question": "O que sabe sobre a cidade?", "answer": "Vi veículos passando pelo bairro industrial quando disseram que ninguém circulava. Não sei quem estava dentro. Ainda estou juntando as peças."}
+  ],
+  "resident_intro": ["Aqui é mais quieto que a oficina. Prefiro assim."],
+  "resident_questions": [
+    {"question": "Como você está?", "answer": "Cansado. Mas consigo me virar."},
+    {"question": "Conte sobre a cidade.", "answer": "Os bloqueios começaram antes do anúncio oficial. Vi movimento perto da oficina naquela noite."}
+  ]
+}

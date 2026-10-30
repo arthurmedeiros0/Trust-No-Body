@@ -1,0 +1,40 @@
+{
+  "id": "gabriel",
+  "name": "Gabriel",
+  "age": 40,
+  "profession": "mecânico",
+  "personality": "Prático, direto, impaciente e desconfiado.",
+  "history": "Escondeu-se na oficina durante o início da epidemia. Trabalhou com óleo, graxa e produtos químicos; marcas nas mãos podem ter origem no trabalho.",
+  "asset_root": "personagens/visitantes/gabriel",
+  "prepared_assets": true,
+  "raw_animation": true,
+  "visual_scale": 1.08,
+  "portrait": "porta/porta.png",
+  "portrait_height": 490,
+  "portrait_anchor": [640, 625],
+  "sprites": {
+    "frente": "movimentacao/parado_frente.png",
+    "costas": "movimentacao/parado_costas.png",
+    "direita": "movimentacao/parado_lado.png",
+    "esquerda": "movimentacao/parado_lado.png"
+  },
+  "walk_frames": {
+    "frente": ["movimentacao/andando_frente_um.png", "movimentacao/andando_frente_dois.png"],
+    "costas": ["movimentacao/andando_costas_um.png", "movimentacao/andando_costas_dois.png"],
+    "direita": ["movimentacao/andando_lado_um.png", "movimentacao/andando_lado_dois.png"],
+    "esquerda": ["movimentacao/andando_lado_um.png", "movimentacao/andando_lado_dois.png"]
+  },
+  "room": "sala",
+  "room_position": [700, 540],
+  "room_direction": "frente",
+  "resident": {"speed": 34, "radius": 72, "wait_seconds": [1, 2], "walk_seconds": [0.8, 1.4], "frame_seconds": 0.18},
+  "initial_supplies": {"food": [0, 2], "water": [0, 2]},
+  "investigation": {
+    "manchas_maos": {"label": "Examinar mãos", "normal": "investigacao/mao_normal.png", "alterado": "investigacao/mao_mancha.png"},
+    "dentes_deteriorados": {"label": "Examinar dentes", "normal": "investigacao/dente_normal.png", "alterado": "investigacao/dente_amarelo.png"},
+    "olhos_alterados": {"label": "Examinar olhos", "normal": "investigacao/rosto_normal.png", "alterado": "investigacao/rosto_olho_vermelho.png"},
+    "veias_escurecidas": {"label": "Examinar pescoço", "normal": "investigacao/rosto_normal.png", "alterado": "investigacao/rosto_veia_escura.png"},
+    "palidez_anormal": {"label": "Examinar palidez", "normal": "investigacao/rosto_normal.png", "alterado": "investigacao/rosto_palido.png"},
+    "tremores_involuntarios": {"label": "Observar tremores", "normal": "investigacao/mao_normal.png", "alterado": "investigacao/mao_tremendo.png"}
+  }
+}
