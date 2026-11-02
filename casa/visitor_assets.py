@@ -67,6 +67,10 @@ class VisitorAssets:
         if definition.get('raw_animation'):
             self.walk={direction:[raw_character(base/path,direction=='esquerda') for path in frames]
                        for direction,frames in definition['walk_frames'].items()}
+            if definition.get('mirror_final_frames'):
+                # Espelha após a redução para preservar exatamente os pixels.
+                self.sprites['esquerda']=pygame.transform.flip(self.sprites['direita'],True,False)
+                self.walk['esquerda']=[pygame.transform.flip(frame,True,False) for frame in self.walk['direita']]
         else:
             paths=prepare_walks(definition)
             self.walk={direction:[pygame.image.load(str(path)).convert_alpha() for path in frames]

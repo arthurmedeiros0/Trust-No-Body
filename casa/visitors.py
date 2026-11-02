@@ -88,6 +88,7 @@ class VisitorSession:
             visitor=Visitor(definition,{key:bool(rng.getrandbits(1)) for key in definition.get('investigation',{})},
                             rng.randint(*supplies.get('food',(0,3))),rng.randint(*supplies.get('water',(0,3))))
             if visitor.id=='gabriel':self.set_gabriel_condition(visitor,rng)
+            elif visitor.id=='antonio':self.set_antonio_condition(visitor,rng)
             self.visitors[visitor.id]=visitor
             reason=asset_check(definition)
             if reason:self.unavailable[visitor.id]=reason
@@ -110,12 +111,21 @@ class VisitorSession:
             if not chosen:chosen=[rng.choice(signs)]
             for key in chosen:visitor.symptoms[key]=True
 
+    @staticmethod
+    def set_antonio_condition(visitor,rng,condition='aleatoria'):
+        # Reutiliza o sorteio de condição já usado por Gabriel; estes sinais
+        # adicionais podem ter origem nas condições anteriores à epidemia.
+        VisitorSession.set_gabriel_condition(visitor,rng,condition)
+        for key in ('palidez_anormal','tremores_involuntarios'):
+            visitor.symptoms[key]=visitor.symptoms[key] or rng.random()<.5
+
     def start_test(self,visitor_id,condition='aleatoria',rng=None):
         """Ativa um visitante na sessão real, sem avançar dias ou disparar a agenda."""
         if visitor_id in self.unavailable or visitor_id not in self.visitors:
             raise ValueError('Visitante indisponível: '+visitor_id)
         visitor=self.visitors[visitor_id]
         if visitor_id=='gabriel':self.set_gabriel_condition(visitor,rng or random,condition)
+        elif visitor_id=='antonio':self.set_antonio_condition(visitor,rng or random,condition)
         elif condition!='aleatoria':raise ValueError('Condição de teste indisponível para este visitante')
         self.medical.known.update(visitor.definition['investigation'])
         self.manager.queue.clear()

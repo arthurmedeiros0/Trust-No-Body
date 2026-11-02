@@ -1,0 +1,60 @@
+{
+  "intro": [
+    "Boa noite. Sou Antônio. Estou procurando um abrigo seguro.",
+    "Sei que abrir a porta exige cuidado. Posso responder às suas perguntas."
+  ],
+  "before_decision": [
+    "Agradeço por me ouvir. Vou respeitar sua decisão."
+  ],
+  "questions": [
+    {
+      "question": "Quem é você?",
+      "answer": "Meu nome é Antônio. Tenho 67 anos, sou aposentado. Procuro um lugar onde possa descansar em segurança. Entendo que precise me conhecer antes de abrir."
+    },
+    {
+      "question": "Onde estava quando a epidemia começou?",
+      "answer": "Fiquei em casa com minha família. Fechamos as portas e tentamos cuidar uns dos outros. No começo, achei que bastava esperar."
+    },
+    {
+      "question": "O que aconteceu com sua família?",
+      "answer": "A infecção levou minha família. Cuidei deles enquanto pude... Ainda é difícil falar nisso. Peço que não me faça contar os últimos momentos."
+    },
+    {
+      "question": "Já tinha problemas de saúde?",
+      "answer": "Sim, antes de tudo isso. Minha saúde já exigia cuidados. Tremores, palidez ou marcas nas mãos podem ter outras causas; não digo que isso explique tudo que você observar. Pode me examinar com calma."
+    },
+    {
+      "question": "Teve contato com pessoas infectadas?",
+      "answer": "Sim. Meus familiares adoeceram enquanto estávamos juntos. Fiquei para cuidar deles. Não vou esconder esse contato, mas também não sei dizer o que ele significa para minha saúde agora."
+    },
+    {
+      "question": "Por que saiu de casa?",
+      "answer": "Depois que os perdi, a casa ficou silenciosa demais. Cada cômodo me lembrava deles. Precisei sair e procurar um abrigo."
+    },
+    {
+      "question": "Consegue lembrar quando saiu?",
+      "answer": "Foi depois de perder minha família. O dia exato... me desculpe, os dias se misturam. Prefiro admitir que não lembro a lhe dar uma data errada."
+    },
+    {
+      "question": "Trouxe suprimentos?",
+      "answer": "Tenho {food} lata(s) de comida e {water} garrafa(s) de água. É o que consegui trazer. Se me acolher, podemos dividir."
+    },
+    {
+      "question": "Pode contar mais sobre seus familiares?",
+      "answer": "Compreendo sua preocupação, mas há lembranças que prefiro guardar. Já lhe contei sobre o contato com a infecção. Pergunte sobre o que precisa examinar, por favor."
+    }
+  ],
+  "resident_intro": [
+    "Obrigado pelo abrigo. Ainda estou me acostumando com o silêncio."
+  ],
+  "resident_questions": [
+    {
+      "question": "Como está se sentindo?",
+      "answer": "Um pouco mais tranquilo. Há dias mais difíceis, mas ter companhia ajuda."
+    },
+    {
+      "question": "Quer falar da sua família?",
+      "answer": "Hoje prefiro guardar as lembranças comigo. Obrigado por perguntar com cuidado."
+    }
+  ]
+}

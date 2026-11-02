@@ -26,7 +26,7 @@ class GameMenu:
             return [(key,name+('' if key in self.available else '  •  indisponível'))
                     for key,name in zip(ORDER,NAMES)]+[('back','VOLTAR')]
         if self.page=='setup':
-            options=[('condition','CONDIÇÃO: '+CONDITIONS[self.condition])] if self.character=='gabriel' else []
+            options=[('condition','CONDIÇÃO: '+CONDITIONS[self.condition])] if self.character in ('gabriel','antonio') else []
             return options+[('start','INICIAR TESTE'),('back','VOLTAR')]
         if self.mode=='test':
             return [('resume','CONTINUAR'),('restart','REINICIAR TESTE'),('select','SELECIONAR PERSONAGEM'),('main','MENU PRINCIPAL')]
@@ -54,7 +54,7 @@ class GameMenu:
             if event.key in (pygame.K_DOWN,pygame.K_s):self.selected=(self.selected+1)%len(keys)
             elif event.key in (pygame.K_UP,pygame.K_w):self.selected=(self.selected-1)%len(keys)
             elif event.key in (pygame.K_RETURN,pygame.K_SPACE):return self.choose(keys[self.selected])
-            elif event.key in (pygame.K_LEFT,pygame.K_RIGHT) and self.page=='setup' and self.character=='gabriel':
+            elif event.key in (pygame.K_LEFT,pygame.K_RIGHT) and self.page=='setup' and self.character in ('gabriel','antonio'):
                 self.condition=(self.condition+(1 if event.key==pygame.K_RIGHT else -1))%3
         return None
 
@@ -64,7 +64,7 @@ class GameMenu:
         if key=='test':self.page='select';self.selected=0
         elif key in ORDER and key in self.available:self.character=key;self.page='setup';self.selected=0
         elif key=='condition':self.condition=(self.condition+1)%3
-        elif key=='start':return ('test',self.character,('aleatoria','saudavel','infectado')[self.condition] if self.character=='gabriel' else 'aleatoria')
+        elif key=='start':return ('test',self.character,('aleatoria','saudavel','infectado')[self.condition] if self.character in ('gabriel','antonio') else 'aleatoria')
         elif key=='back':self.page='select' if self.page=='setup' else 'main';self.selected=0
         elif key=='resume':return ('resume',None,None)
         elif key=='restart':return ('restart',None,None)
@@ -91,7 +91,7 @@ class GameMenu:
             sub=self.small.render('Every body tells a story. Not every story is true.',True,'#9ca7a2')
             screen.blit(sub,sub.get_rect(center=(640,228)))
         if self.page=='setup':
-            message='Clique na condição ou use as setas para alterar.' if self.character=='gabriel' else 'Este personagem usa a geração original de sintomas.'
+            message='Clique na condição ou use as setas para alterar.' if self.character in ('gabriel','antonio') else 'Este personagem usa a geração original de sintomas.'
             hint=self.small.render(message,True,'#9ca7a2')
             screen.blit(hint,hint.get_rect(center=(640,240)))
         for i,(key,label) in enumerate(self.entries()):

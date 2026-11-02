@@ -1,0 +1,95 @@
+{
+  "id": "antonio",
+  "name": "Antônio",
+  "age": 67,
+  "profession": "aposentado",
+  "personality": "Calmo, experiente, reservado e desconfiado.",
+  "history": "Já tinha problemas de saúde antes da epidemia. Perdeu seus familiares para a infecção e procura abrigo após deixar sua antiga residência.",
+  "asset_root": "personagens/visitantes/antonio",
+  "prepared_assets": true,
+  "raw_animation": true,
+  "mirror_final_frames": true,
+  "visual_scale": 1.08,
+  "portrait": "porta/porta.png",
+  "portrait_height": 490,
+  "portrait_anchor": [
+    640,
+    625
+  ],
+  "sprites": {
+    "frente": "movimentacao/parado_frente.png",
+    "costas": "movimentacao/parado_tras.png",
+    "direita": "movimentacao/parado_lado.png",
+    "esquerda": "movimentacao/parado_lado.png"
+  },
+  "walk_frames": {
+    "frente": [
+      "movimentacao/andando_frente_um.png",
+      "movimentacao/andando_frente_dois.png"
+    ],
+    "costas": [
+      "movimentacao/andando_costas_um.png",
+      "movimentacao/andando_costas_dois.png"
+    ],
+    "direita": [
+      "movimentacao/andando_lado_um.png",
+      "movimentacao/andando_lado_dois.png"
+    ],
+    "esquerda": [
+      "movimentacao/andando_lado_um.png",
+      "movimentacao/andando_lado_dois.png"
+    ]
+  },
+  "room": "sala",
+  "room_position": [
+    620,
+    585
+  ],
+  "room_direction": "frente",
+  "resident": {
+    "speed": 32,
+    "radius": 72,
+    "wait_seconds": [
+      1,
+      2
+    ],
+    "walk_seconds": [
+      0.8,
+      1.4
+    ],
+    "frame_seconds": 0.18
+  },
+  "investigation": {
+    "manchas_maos": {
+      "label": "Examinar mãos",
+      "normal": "investigacao/mao_normal.png",
+      "alterado": "investigacao/mao_mancha.png"
+    },
+    "dentes_deteriorados": {
+      "label": "Examinar dentes",
+      "normal": "investigacao/dente_normal.png",
+      "alterado": "investigacao/dente_amarelo.png"
+    },
+    "olhos_alterados": {
+      "label": "Examinar olhos",
+      "normal": "investigacao/rosto_normal.png",
+      "alterado": "investigacao/rosto_olho_vermelho.png"
+    },
+    "veias_escurecidas": {
+      "label": "Examinar pescoço",
+      "normal": "investigacao/rosto_normal.png",
+      "alterado": "investigacao/rosto_veias_escuras.png"
+    },
+    "palidez_anormal": {
+      "label": "Examinar palidez",
+      "normal": "investigacao/rosto_normal.png",
+      "alterado": "investigacao/rosto_palido.png"
+    },
+    "tremores_involuntarios": {
+      "label": "Observar tremores",
+      "normal": "investigacao/mao_normal.png",
+      "alterado": "investigacao/mao_tremendo.png"
+    }
+  },
+  "visitor_number": 3
+}

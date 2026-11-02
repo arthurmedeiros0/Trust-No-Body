@@ -144,6 +144,7 @@ class LauraTests(unittest.TestCase):
         self.assertFalse(game.decide_visitor(visitor,'acolhido'));self.assertFalse(game.decide_visitor(visitor,'rejeitado'))
         self.assertIs(game.residents['ricardo'],ricardo)
         state.survival.change_sanity(-3);previous=state.survival.sanity
+        state.manager.plan={key:day for key,day in state.manager.plan.items() if key in ('ricardo','laura')}
         day=game.days.day;self.sleep(game)
         report=state.survival.reports[day]
         self.assertEqual((report.food,report.water),(1.5,1.5))
@@ -160,6 +161,8 @@ class LauraTests(unittest.TestCase):
         self.assertTrue(game.decide_visitor(visitor,'rejeitado'))
         self.assertEqual((state.survival.food,state.survival.water),before)
         self.assertNotIn('laura',game.residents)
+        # Este cenário verifica apenas a recusa de Laura, sem novas chegadas.
+        state.manager.plan={key:day for key,day in state.manager.plan.items() if key in ('ricardo','laura')}
         for day in range(2,21):state.manager.activate(day,True)
         self.assertIsNone(state.manager.current)
         self.assertEqual(state.manager.seen,{'ricardo','laura'})
