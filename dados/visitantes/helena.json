@@ -28,7 +28,7 @@
   "room_position": [580, 565],
   "room_direction": "frente",
   "resident": {"speed": 32, "radius": 65, "wait_seconds": [2, 4], "walk_seconds": [0.7, 1.4], "frame_seconds": 0.18},
-  "initial_supplies": {"food": [0, 2], "water": [0, 2]},
+  "initial_supplies": {"food": [6, 11], "water": [6, 11]},
   "investigation": {
     "manchas_maos": {"label": "Examinar mãos", "normal": "investigação/mao_normal.png", "alterado": "investigação/mao_mancha.png"},
     "dentes_deteriorados": {"label": "Examinar dentes", "normal": "investigação/dente_normal.png", "alterado": "investigação/dente_amarelo.png"},

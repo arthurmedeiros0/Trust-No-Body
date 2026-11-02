@@ -91,5 +91,6 @@
       "alterado": "investigacao/mao_tremendo.png"
     }
   },
-  "visitor_number": 3
+  "visitor_number": 3,
+  "initial_supplies": {"food": [6, 11], "water": [6, 11]}
 }

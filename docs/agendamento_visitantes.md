@@ -1,75 +1,87 @@
-# Chegada e agendamento de visitantes
+# Calendário fixo e balanceamento
 
-O cadastro completo atual inclui Ricardo e **Laura**, integrada com seus próprios assets e dados. Ricardo chega no dia 1 após a TV, e Laura no dia 2 ou 3, conforme a agenda da partida. Nenhum personagem provisório foi adicionado. A introdução permanece: quarto, geladeira vazia, TV do lockdown e Ricardo na porta no dia 1. Ambos nunca retornam após aceitação ou rejeição. Veja o [relatório da Laura](laura.md).
+O modo normal cria o plano uma única vez, em `VisitorManager.__init__`.
+`dados/agendamento_visitantes.json` define Ricardo no dia 1, Laura no dia 2 e
+as vagas restantes nos dias 4, 6, 9, 13 e 17. Somente os identificadores dos
+outros visitantes disponíveis são embaralhados, a partir de uma lista ordenada.
+A mesma semente e os mesmos cadastros produzem o mesmo plano.
 
-## Organização
+Cadastros incompletos continuam indisponíveis. Uma vaga fixa de personagem
+indisponível fica vazia; candidatos além das vagas ficam em `unscheduled`.
+A configuração permite repetir dias para testar a fila, mas o calendário padrão
+possui apenas uma chegada por dia. As regras anteriores de intervalo, prioridade
+e quantidade mínima foram substituídas por `fixed_visitors` e `arrival_days`.
 
-`VisitorSession` continua sendo o estado da partida e o ponto de integração com notícias, sobrevivência e decisões. O novo `VisitorManager`, em `casa/visitor_schedule.py`, mantém a agenda e a fila, referenciando os mesmos objetos `Visitor`. A definição JSON contém os dados permanentes; cada `Visitor` guarda os sintomas, recursos, estado, chegada e decisão daquela partida.
+Ricardo aguarda o primeiro noticiário. Os demais são ativados pelo evento
+`day_start`, inclusive durante a animação de sono. Decisões não alteram o plano.
+A fila preserva visitantes pendentes e recupera vagas vencidas se uma ativação
+for atrasada. Os identificadores apresentados não voltam à fila. A interface
+continua guardada durante diálogos e trocas de cômodo. Dormir continua bloqueado
+até decidir sobre o visitante na porta.
 
-Informações disponíveis em `session.manager`:
+`VisitorSession.start_test` marca a sessão como teste e apresenta imediatamente
+o personagem escolhido. Eventos de dia e o primeiro noticiário não introduzem
+outros visitantes nessa sessão. Reiniciar pelo menu cria uma nova sessão real,
+como antes; não há implementação duplicada de personagens.
 
-- `plan`: identificador → dia planejado; Ricardo sempre recebe dia 1.
-- `available`: visitantes planejados que ainda não apareceram.
-- `eligible`: cadastros completos aprovados na validação.
-- `unscheduled`: completos que ficaram sem vaga na capacidade configurada.
-- `seen`: identificadores que já foram apresentados, sem duplicatas.
-- `current`: único visitante atualmente aguardando decisão, ou `None`.
-- `queue`: próximos identificadores, apresentados um por vez.
-- `accepted`, `rejected`, `residents`: consultas aos estados atuais; moradores incluem somente aceitos vivos.
-- `opportunities`: dias prioritários e respectivos identificadores planejados. Com somente Ricardo, os dias 2 e 3 ficam com listas vazias.
-- `opportunity_results`: ao consultar um dia prioritário, registra `planejado` ou `sem_candidatos`.
+## Recursos
 
-`session.unavailable` registra motivos pelos quais cadastros incompletos não podem ser agendados. Não existe diagnóstico de infecção: os seis sintomas continuam sendo dados booleanos sorteados, sem classificação médica ou proposicional.
+O protagonista permanece sem estoque inicial. O consumo continua em 0,5 de cada
+recurso por pessoa por dia, respeitando a tolerância existente do primeiro dia.
+Fome, sede, sanidade, investigação e infecção não foram modificadas.
 
-## Planejamento por partida
+Intervalos independentes de comida e água, sorteados uma vez por visitante:
 
-A agenda é criada uma única vez, após o sorteio dos sintomas e suprimentos. Entrar em cômodos, abrir o olho mágico, usar F6 ou atualizar frames não altera o plano e não sorteia dados novamente.
+| Visitante | Comida | Água |
+|---|---|---|
+| Ricardo | 2–3 (inalterado) | 2–3 (inalterado) |
+| Laura | 3–5 | 3–5 |
+| Antônio, Gabriel, Helena, Daniel e Marina | 6–11 | 6–11 |
 
-`dados/agendamento_visitantes.json` centraliza:
+Acolher todos exige 43,5 unidades de cada recurso entre os dias 2 e 19, ou 47,5
+incluindo a ração do dia 20. Os intervalos antigos forneciam em média apenas
+cerca de 9,5 unidades por recurso: aumentar apenas a frequência das chegadas
+não poderia sustentar oito moradores. Os novos intervalos fornecem em média
+49 unidades por recurso, com variação entre 35 e 63. O ajuste maior nos últimos
+visitantes acompanha o crescimento da casa; não há reposição automática nem
+estoque criado em função de uma derrota iminente.
 
-```json
-{
-  "first_day": 2,
-  "last_day": 20,
-  "max_per_day": 1,
-  "priority_days": [2, 3],
-  "minimum_encounters": 1
-}
-```
+A prioridade de distribuição existente favorece o protagonista. Portanto, chegar
+ao dia 20 não significa que todos os moradores receberam todas as rações.
+Os resultados abaixo medem o protagonista, sem simular consequências de infecção
+que ainda não estão implementadas no projeto.
 
-O intervalo aplica-se aos visitantes posteriores a Ricardo, sempre entre 2 e 20. Os candidatos completos são embaralhados. O sistema reserva inicialmente pelo menos uma oportunidade prioritária quando houver candidato e dia prioritário dentro do intervalo; o parâmetro `minimum_encounters` pode ampliar essa reserva até a quantidade de dias prioritários e candidatos disponíveis. As vagas restantes do intervalo são embaralhadas e preenchidas pelos demais candidatos, respeitando `max_per_day`. Cadastros excedentes ficam explicitamente em `unscheduled`.
+## Validação
 
-Com os padrões atuais, um novo visitante completo pode cair no dia 2 ou 3, e os demais se distribuem pelos dias restantes. A oportunidade inicial é reservada independentemente de aceitar ou rejeitar Ricardo, atendendo também ao caso em que ele é rejeitado. Não há garantia de estoque, aceitação ou sobrevivência. Nenhum candidato é inventado para preencher vagas vazias.
+500 sementes (0 a 499), com os cadastros ordenados como na sessão normal:
 
-Sem Ricardo completo, os demais não são apresentados: o primeiro encontro obrigatório precisa ser corrigido no cadastro antes de permitir a sequência. Configurações com intervalo fora de 2–20 ou capacidade menor que 1 são rejeitadas.
+| Decisões | Chega ao dia 20 | Sobrevive também à ração do dia 20 |
+|---|---:|---:|
+| Acolher todos | 489/500 | 325/500 |
+| Acolher Ricardo; depois acolher quando o menor estoque for inferior a 5 | 453/500 | 310/500 |
+| Recusar todos | 0/500 | 0/500 |
 
-## Chegada, fila e porta
+Recusar todos causa derrota por sede no dia 3. Os testes também verificam
+ordens distintas, unicidade, calendário imutável após decisões, recuperação de
+ativação atrasada, isolamento do modo teste e todos os avanços reais pelo sono
+até o dia 20, com passagem por cômodos e bloqueio de sono enquanto houver visita.
+O teste de transições adiciona recursos apenas à sua fixture; as simulações de
+balanceamento não adicionam recursos artificiais.
 
-Assistir ao boletim inicial ativa a chegada obrigatória. O evento `day_start` consulta a agenda uma vez para o novo dia. Os visitantes daquele dia entram na fila; somente o primeiro recebe `arrived=True` e é apresentado. Enquanto alguém aguarda decisão, a fila não o substitui, e dormir continua bloqueado.
+O jogo continua suspendendo avanços no dia 20. A simulação fecha a ração desse
+dia separadamente para não confundir alcançar o dia 20 com sobreviver a ele.
 
-Ao resolver a decisão, o próximo visitante da fila é disponibilizado. `House` recebe o evento de chegada e cria uma `VisitorUI` com os assets, diálogos, sintomas e recursos daquele identificador. As imagens nunca se sobrepõem. Mudar de cômodo não limpa a fila ou o encontro atual. Um visitante futuro só entra na casa após acolhimento pelo fluxo já existente, com posição livre e colisões existentes.
+Execute `python main.py --smoke-test`. Registro: `calendario_test_results.txt`.
+Há cinco falhas preexistentes já registradas na entrega anterior: duas relativas
+ao texto da geladeira, uma de prioridade de interação perto da geladeira, uma
+de escala esperada no editor e uma de hash de `colisoes/cozinha.json`. Não foram
+alteradas imagens, cenários, colisões, histórias ou falas nesta correção.
 
-O padrão limita o planejamento a um encontro por dia; aumentar `max_per_day` habilita a fila de vários encontros. Os identificadores já apresentados não podem voltar à fila. Decisões são irreversíveis e a transferência de suprimentos continua ocorrendo uma única vez. Nenhum sorteio ocorre durante a chegada, a decisão ou o sono.
+Resultado final: 145 testes executados, 140 aprovados e as cinco falhas
+preexistentes acima. Os cinco testes novos de calendário e balanceamento passaram.
 
-## Adicionar um visitante completo
-
-1. Crie `dados/visitantes/<id>.json`, usando o formato de Ricardo como referência estrutural e um identificador único. Informe nome, idade, profissão, história, `asset_root`, retrato, altura/âncora do retrato, quatro sprites parados, sala, posição e direção inicial de morador. Use arquivos próprios do novo personagem.
-2. Cadastre as seis características em `investigation`, com `label`, `normal` e `alterado`: `manchas_maos`, `dentes_deteriorados`, `olhos_alterados`, `veias_escurecidas`, `palidez_anormal` e `tremores_involuntarios`.
-3. Forneça as animações no formato já suportado: preferencialmente `sheet_sprites: true` e `internal_sprite_manifest`, com `frames` contendo listas de caminhos por direção, relativos a `asset_root`. Também permanecem suportados os caminhos e manifestos anteriores do projeto.
-4. Crie `dados/visitantes/<id>_dialogos.json`, com `intro` e `questions` (`question` e `answer`). As respostas podem usar `{food}` e `{water}`.
-5. Configure `initial_supplies`, por exemplo `{"food": [0, 3], "water": [0, 3]}`. Sem configuração específica, continua o padrão de 0 a 3. Ricardo permanece com 2 a 3 de cada recurso.
-6. Reinicie a partida. O cadastro e os arquivos passam por validação de leitura antes de entrar na agenda. Caminhos ausentes, imagens ilegíveis, características, animações ou diálogos incompletos deixam o personagem fora das chegadas, com motivo em `session.unavailable`.
-
-Não é necessário alterar o algoritmo de planejamento ou o código principal para acrescentar Laura, Antônio, Gabriel, Helena, Daniel ou Marina quando seus materiais estiverem prontos. Não copie a aparência de Ricardo para representar esses personagens na partida normal. As simulações de múltiplos visitantes estão exclusivamente nos testes.
-
-## Arquivos e validação
-
-Criados: `casa/visitor_schedule.py`, `casa/visitor_registry.py`, `dados/agendamento_visitantes.json`, `tests/test_agendamento_visitantes.py` e este relatório.
-
-Modificados: `casa/visitors.py` (agenda, validação e notificações), `casa/game.py` (apresentação dinâmica e proteção do visitante atual), `tests/test_sobrevivencia.py` (resolver Ricardo antes de inserir moradores simulados) e README. Os cadastros e assets de Ricardo permanecem iguais.
-
-**115 testes passaram** com `python main.py --smoke-test`, incluindo sete testes novos de agendamento. Eles cobrem introdução, somente Ricardo, oportunidades sem candidatos, aleatoriedade entre partidas, estabilidade na mesma partida, capacidade e intervalo, fila múltipla, bloqueio de substituição, decisões sem retorno, duplicatas, preservação de sintomas e suprimentos, recursos sem duplicação, cadastro incompleto, chegada pelo sono e permanência dos moradores/cenários ao mudar de cômodo. As regressões existentes também verificam investigação, animações, colisões, sobrevivência, HUD e notícias. A validação usa SDL dummy; múltiplos personagens são simulados somente nos testes.
-
-## Pendências
-
-Os personagens posteriores a Laura ainda precisam de seus próprios cadastros narrativos e assets completos. A partida normal tem Ricardo e Laura e não foi artificialmente equilibrada para durar 20 dias. Regras de fome/sede, tolerância inicial, sanidade, solidão, HUD e geladeira permanecem iguais. Não foi criada persistência em disco da agenda; assim como os demais dados da partida, ela existe durante a sessão. A lógica de infecção continua reservada aos alunos.
+Arquivos alterados: `casa/visitor_schedule.py`, `casa/visitors.py`,
+`dados/agendamento_visitantes.json`, os seis cadastros com novos intervalos
+(Laura e os cinco visitantes finais), `tests/test_agendamento_visitantes.py`,
+`tests/test_laura.py` e este documento. Criados:
+`tests/test_calendario_balanceamento.py` e o registro da execução.

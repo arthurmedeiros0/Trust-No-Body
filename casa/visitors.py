@@ -75,6 +75,7 @@ class VisitorSession:
         self.days.subscribe('day_start',self._start_day)
         self.news.on_watch.append(self._news_seen)
         self.decisions=[]
+        self.test_mode=False
         self.on_arrival=[]
         self.visitors={}
         self.unavailable={}
@@ -124,6 +125,7 @@ class VisitorSession:
         if visitor_id in self.unavailable or visitor_id not in self.visitors:
             raise ValueError('Visitante indisponível: '+visitor_id)
         visitor=self.visitors[visitor_id]
+        self.test_mode=True
         if visitor_id=='gabriel':self.set_gabriel_condition(visitor,rng or random,condition)
         elif visitor_id=='antonio':self.set_antonio_condition(visitor,rng or random,condition)
         elif condition!='aleatoria':raise ValueError('Condição de teste indisponível para este visitante')
@@ -146,7 +148,7 @@ class VisitorSession:
         self.medical.learn(bulletin.investigations)
         if bulletin.day==1:
             self.intro.broadcast_seen=True
-            if self.day==1:self._arrive(self.manager.activate(1,True))
+            if self.day==1 and not self.test_mode:self._arrive(self.manager.activate(1,True))
 
     def _arrive(self,visitor):
         if visitor:
@@ -158,7 +160,7 @@ class VisitorSession:
 
     def _start_day(self,event):
         self.company_seen_today=len(self.living_ids)>1
-        self._arrive(self.manager.activate(event.day,self.intro.broadcast_seen))
+        if not self.test_mode:self._arrive(self.manager.activate(event.day,self.intro.broadcast_seen))
 
     def decide(self,visitor,decision):
         if self.visitors.get(visitor.id) is not visitor:return False

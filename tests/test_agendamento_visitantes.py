@@ -31,14 +31,14 @@ class ArrivalTests(unittest.TestCase):
     def test_only_ricardo_introduction_and_empty_early_opportunities(self):
         state=VisitorSession(random.Random(1),simulated(0));manager=state.manager
         self.assertEqual(manager.plan,{'ricardo':1})
-        self.assertEqual(manager.opportunities,{2:[],3:[]})
+        self.assertEqual(manager.opportunities,{day:[] for day in (2,4,6,9,13,17)})
         self.assertFalse(state.visitors['ricardo'].arrived)
         state.news.watch(state.news.current(1))
         self.assertEqual(manager.current,'ricardo');self.assertEqual(manager.seen,{'ricardo'})
         self.assertTrue(state.decide(state.visitors['ricardo'],'rejeitado'))
         state.survival.add_supplies(10,10) # Fixture exclusiva; permite isolar o calendario.
         self.assertTrue(state.days.advance());self.assertTrue(state.days.advance())
-        self.assertEqual(manager.opportunity_results,{2:'sem_candidatos',3:'sem_candidatos'})
+        self.assertEqual(manager.opportunity_results,{2:'sem_candidatos'})
         self.assertIsNone(manager.current)
 
     def test_random_plan_once_unique_bounded_and_early_guarantee(self):
@@ -47,7 +47,7 @@ class ArrivalTests(unittest.TestCase):
             state=session(25,seed);manager=state.manager
             self.assertEqual(manager.plan['ricardo'],1)
             days=[day for key,day in manager.plan.items() if key!='ricardo']
-            self.assertTrue(any(day in (2,3) for day in days))
+            self.assertTrue(any(day==4 for day in days))
             self.assertTrue(all(2<=day<=20 for day in days))
             self.assertEqual(len(days),len(set(days)))
             before=copy.deepcopy(manager.plan)
@@ -78,7 +78,7 @@ class ArrivalTests(unittest.TestCase):
             self.assertIn('ricardo',manager.accepted if decision=='acolhido' else manager.rejected)
 
     def test_queue_does_not_replace_current_and_only_one_arrives_at_a_time(self):
-        state=session(3,rules=ArrivalRules(first_day=2,last_day=2,max_per_day=3))
+        state=session(3,rules=ArrivalRules(fixed_visitors={'ricardo':1},arrival_days=(2,2,2)))
         manager=state.manager
         self.assertIsNone(manager.activate(2,False)) # Ricardo precisa ser o primeiro.
         state.news.watch(state.news.current(1))
@@ -114,11 +114,11 @@ class ArrivalTests(unittest.TestCase):
     def test_duplicate_ids_and_invalid_configuration_fail_explicitly(self):
         definition=simulated(0)[0]
         with self.assertRaises(ValueError):VisitorSession(definitions=[definition,definition],asset_check=lambda d:'')
-        for parameters in ({'first_day':1},{'last_day':21},{'max_per_day':0}):
+        for parameters in ({'arrival_days':(0,)},{'arrival_days':(21,)},{'arrival_days':(6,4)},{'fixed_visitors':{'ricardo':2}}):
             with self.assertRaises(ValueError):ArrivalRules(**parameters)
 
     def test_day_start_presents_dynamic_ui_and_room_changes_keep_waiting(self):
-        state=session(2,rules=ArrivalRules(first_day=2,last_day=2,max_per_day=2))
+        state=session(2,rules=ArrivalRules(fixed_visitors={'ricardo':1},arrival_days=(2,2)))
         # Apenas objetos simulados: UI sem arquivos narrativos ficticios no disco.
         with patch('casa.game.VisitorSession',return_value=state),patch('casa.game.VisitorUI',side_effect=lambda visitor,assets,callback,**kwargs:SimpleNamespace(visitor=visitor,assets=assets)):
             game=House();game.dialog=''

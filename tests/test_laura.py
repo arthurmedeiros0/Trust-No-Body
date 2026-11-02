@@ -121,11 +121,11 @@ class LauraTests(unittest.TestCase):
             for _ in range(10):state.manager.activate(1,True)
             self.assertEqual(state.manager.plan,plan)
             self.assertFalse(state.visitors['laura'].arrived)
-        self.assertEqual(dates,{2,3})
+        self.assertEqual(dates,{2})
 
     def test_dialogue_personality_supplies_and_confirmation(self):
         game=self.arrive();visitor=game.visitor_session.visitors['laura']
-        self.assertIn(visitor.food,(1,2));self.assertIn(visitor.water,(1,2))
+        self.assertIn(visitor.food,(3,4,5));self.assertIn(visitor.water,(3,4,5))
         ui=game.peephole.visitor_ui;dialogue=Dialogue(visitor)
         self.assertIn('família',dialogue.intro())
         answer=dialogue.answer(2)

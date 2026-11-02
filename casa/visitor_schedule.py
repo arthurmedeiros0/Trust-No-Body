@@ -1,18 +1,18 @@
 """Planejamento por partida e fila unica; sem inferencia sobre sintomas."""
 from collections import deque
-from dataclasses import dataclass
+from dataclasses import dataclass,field
 
 
 @dataclass(frozen=True)
 class ArrivalRules:
-    first_day: int=2
-    last_day: int=20
-    max_per_day: int=1
-    priority_days: tuple=(2,3)
-    minimum_encounters: int=1
+    fixed_visitors: dict=field(default_factory=lambda:{'ricardo':1,'laura':2})
+    arrival_days: tuple=(4,6,9,13,17)
 
     def __post_init__(self):
-        if not 2<=self.first_day<=self.last_day<=20 or self.max_per_day<1 or self.minimum_encounters<0:
+        days=list(self.fixed_visitors.values())+list(self.arrival_days)
+        if (any(type(day) is not int or not 1<=day<=20 for day in days)
+            or list(self.arrival_days)!=sorted(self.arrival_days)
+            or self.fixed_visitors.get('ricardo')!=1):
             raise ValueError('Parametros de chegada invalidos')
 
 
@@ -27,29 +27,13 @@ class VisitorManager:
         self.seen=set()
         self.checked_days=set()
         self.opportunity_results={}
-        self.opportunities={day:[] for day in self.rules.priority_days
-                            if self.rules.first_day<=day<=self.rules.last_day}
-        if 'ricardo' in self.eligible:self.plan['ricardo']=1
-        candidates=[key for key in sorted(self.eligible) if key!='ricardo']
+        self.opportunities={day:[] for day in sorted(set(self.rules.fixed_visitors.values())|set(self.rules.arrival_days)) if day>1}
+        self.plan.update({key:day for key,day in self.rules.fixed_visitors.items() if key in self.eligible})
+        candidates=[key for key in sorted(self.eligible) if key not in self.rules.fixed_visitors]
         rng.shuffle(candidates)
-        # Laura mantém a oportunidade inicial do jogo original mesmo quando
-        # novos visitantes entram no cadastro.
-        if 'laura' in candidates:
-            candidates.remove('laura')
-            candidates.insert(0,'laura')
-        slots=[day for day in range(self.rules.first_day,self.rules.last_day+1)
-               for _ in range(self.rules.max_per_day)]
-        priorities=[day for day in self.opportunities]
-        rng.shuffle(priorities)
-        # Reserva primeiro as oportunidades iniciais, sem inventar candidatos.
-        required=min(len(candidates),max(1,self.rules.minimum_encounters),len(priorities))
-        early=priorities[:required]
-        for day in early:slots.remove(day)
-        if candidates and candidates[0]=='laura':
-            slots=[day for day in slots if day not in self.opportunities]
-        rng.shuffle(slots)
-        for key,day in zip(candidates,early+slots):
+        for key,day in zip(candidates,self.rules.arrival_days):
             self.plan[key]=day
+        for key,day in self.plan.items():
             if day in self.opportunities:self.opportunities[day].append(key)
         for key,day in self.plan.items():self.visitors[key].arrival_day=day
 
@@ -78,7 +62,7 @@ class VisitorManager:
             if day in self.opportunities:
                 self.opportunity_results[day]='planejado' if self.opportunities[day] else 'sem_candidatos'
             for key,arrival in self.plan.items():
-                if arrival==day and key not in self.seen and key not in self.queue and self.visitors[key].state=='aguardando':
+                if arrival<=day and key not in self.seen and key not in self.queue and self.visitors[key].state=='aguardando':
                     self.queue.append(key)
         return self.next()
 
