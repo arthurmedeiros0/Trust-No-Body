@@ -3,6 +3,8 @@ from dataclasses import dataclass,field
 from pathlib import Path
 import json
 import random
+import inspect
+import importlib
 from .days import DayCycle
 from .news import NewsArchive
 from .config import ROOT
@@ -10,6 +12,13 @@ from .survival import Survival,Needs
 from .visitor_schedule import VisitorManager,ArrivalRules
 from .visitor_registry import readiness
 from .medical_knowledge import MedicalKnowledge
+
+# O módulo reservado pode ainda não fornecer a função do grupo.
+try:
+    infection_logic=importlib.import_module('logica_infeccao')
+except ModuleNotFoundError as error:
+    if error.name!='logica_infeccao':raise
+    infection_logic=None
 
 @dataclass
 class Visitor:
@@ -96,6 +105,26 @@ class VisitorSession:
         if arrival_rules is None:
             arrival_rules=ArrivalRules(**json.loads((ROOT/'dados/agendamento_visitantes.json').read_text(encoding='utf-8')))
         self.manager=VisitorManager(self.visitors,rng,set(self.visitors)-set(self.unavailable),arrival_rules)
+
+    def diagnosticar_visitante(self,visitante_id):
+        """Encaminha somente evidências observadas, sem inferências locais.
+
+        Sintomas desconhecidos são omitidos; False significa ausência examinada.
+        A condição real do visitante nunca é alterada por esta consulta.
+        """
+        if visitante_id not in self.visitors:raise KeyError(visitante_id)
+        sintomas=dict(self.medical.observations.get(visitante_id,{}))
+        noticias=set(self.knowledge.published)
+        if self.test_mode:
+            noticias.update(b.id for b in self.news.bulletins if b.day in (7,14,17))
+        diagnosticar=getattr(infection_logic,'diagnosticar',None)
+        if not callable(diagnosticar):return 'inconclusivo'
+        try:
+            inspect.signature(diagnosticar).bind(sintomas,noticias)
+        except (TypeError,ValueError):
+            return 'inconclusivo'
+        resultado=diagnosticar(sintomas,noticias)
+        return resultado if resultado in ('infectado','inconclusivo') else 'inconclusivo'
 
     @staticmethod
     def set_gabriel_condition(visitor,rng,condition='aleatoria'):

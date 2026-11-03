@@ -1,5 +1,4 @@
 """Dados, recursos, interfaces e decisoes; nenhuma regra de infeccao."""
-import ast
 import copy
 import hashlib
 import json
@@ -44,8 +43,10 @@ class VisitorTests(unittest.TestCase):
             self.click('talk');self.click('3');self.esc()
         self.assertEqual(before,(self.visitor.symptoms,self.visitor.food,self.visitor.water))
 
-    def test_comment_only_logic_placeholder_and_pending_state(self):
-        self.assertEqual(ast.parse((ROOT/'logica_infeccao.py').read_text(encoding='utf-8-sig')).body,[])
+    def test_diagnosis_delegation_preserves_real_state(self):
+        with patch('casa.visitors.infection_logic.diagnosticar',return_value='infectado',create=True) as diagnose:
+            self.assertEqual(self.game.visitor_session.diagnosticar_visitante(self.visitor.id),'infectado')
+            diagnose.assert_called_once_with({},set())
         self.assertEqual(self.visitor.diagnosis,'diagnostico_pendente')
         self.assertEqual(self.game.visitor_session.knowledge.published,{})
         self.game.visitor_session.knowledge.published['noticia_teste']={'texto':'Conteudo a ser escrito pelo grupo'}

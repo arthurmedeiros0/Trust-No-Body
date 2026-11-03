@@ -17,9 +17,16 @@ class VisitorUI:
         self.page='root';self.feature=None;self.decision=None
         self.response='';self.buttons={}
         self.font=pygame.font.Font(None,25);self.small=pygame.font.Font(None,22)
+        self.session = session
 
     def reset(self):
         self.page='root';self.feature=None;self.response=''
+
+    def diagnosis_indicator(self):
+        if self.session is None or self.page not in ('investigate','image'):return None
+        if not any(key in self.knowledge.known for key in self.visitor.definition['investigation']):return None
+        result=self.session.diagnosticar_visitante(self.visitor.id)
+        return ('PADRÃO DE INFECÇÃO IDENTIFICADO' if result=='infectado' else 'Diagnóstico inconclusivo')
 
     def layout(self):
         if self.page=='image' and self.feature not in self.knowledge.known:self.page='root';self.feature=None
@@ -124,6 +131,14 @@ class VisitorUI:
             before=self.dialogue.data.get('before_decision',[])
             if before:self.text(screen,'\n'.join(before),pygame.Rect(250,165,780,100))
             self.text(screen,f'Deseja {choice} {self.visitor.definition["name"]}?',pygame.Rect(315,285,650,80))
+        indicator=self.diagnosis_indicator()
+        if indicator:
+            # Faixa abaixo da imagem (que termina em y=590) e acima de Voltar.
+            area=pygame.Rect(350,552 if self.page=='investigate' else 593,580,25)
+            pygame.draw.rect(screen,'#172027',area)
+            color='#d9ab80' if indicator=='PADRÃO DE INFECÇÃO IDENTIFICADO' else '#b4b8aa'
+            text=self.small.render(indicator,True,color)
+            screen.blit(text,text.get_rect(center=area.center))
         for rect,label in self.layout().values():
             pygame.draw.rect(screen,'#344b49',rect,border_radius=5)
             text=self.small.render(label,True,'#f3e6ca');screen.blit(text,text.get_rect(center=rect.center))
