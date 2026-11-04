@@ -1,4 +1,4 @@
-"""Sobrevivencia por racoes inteiras de meia unidade; sem logica de infeccao."""
+"""Sobrevivência, exposição e desfecho por encerramento de dia."""
 from dataclasses import dataclass
 
 
@@ -43,6 +43,8 @@ class Survival:
         self.people={'protagonista':Needs()}
         self.loneliness=0;self.alive=True;self.defeat_day=None;self.defeat_cause=''
         self.reports={};self.ration_policy=protagonist_first
+        self.infection_exposure=0
+        self.won=False;self.victory_day=None
 
     @property
     def food(self):return self._food/2
@@ -71,9 +73,9 @@ class Survival:
         return Needs(0 if self._food>position else min(needs.hunger+1,3),
                      0 if self._water>position else min(needs.thirst+1,2))
 
-    def close_day(self,day,living_ids,company_seen=False):
+    def close_day(self,day,living_ids,company_seen=False,infected_present=False):
         if day in self.reports:return self.reports[day]
-        if not self.alive:raise ValueError('Partida encerrada')
+        if not self.alive or self.won:raise ValueError('Partida encerrada')
         ids=list(dict.fromkeys(living_ids))
         order=self.ration_policy(ids)
         if len(order)!=len(ids) or set(order)!=set(ids) or 'protagonista' not in ids:
@@ -92,13 +94,16 @@ class Survival:
         self.loneliness=0 if companion else self.loneliness+1
         self.change_sanity(1 if companion else -1)
         needs=self.people['protagonista']
+        self.infection_exposure=self.infection_exposure+1 if infected_present else 0
         cause=('A falta de água tornou impossível continuar.' if not tolerance and needs.thirst>=2 else
                'A falta de comida tornou impossível continuar.' if not tolerance and needs.hunger>=3 else
-               'Cinco dias de solidão tornaram impossível continuar.' if self.loneliness>=5 else '')
+               'Cinco dias de solidão tornaram impossível continuar.' if self.loneliness>=5 else
+               'Você permaneceu tempo demais em contato com pessoas infectadas. A infecção foi fatal.' if self.infection_exposure>=2 else '')
         # Os dias completos sao registrados apenas aqui, depois da distribuicao.
         needs.thirst=min(needs.thirst,2)
         needs.hunger=min(needs.hunger,3)
         if cause:self.alive=False;self.defeat_day=day;self.defeat_cause=cause
+        elif day==20:self.won=True;self.victory_day=day
         report=DailyReport(day,(before_food-self._food)/2,(before_water-self._water)/2,
                            len(ids),self.sanity,needs.hunger>0,needs.thirst>0,cause)
         self.reports[day]=report

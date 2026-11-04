@@ -109,7 +109,7 @@ class LauraTests(unittest.TestCase):
                 self.assertEqual(self.definition['investigation'][feature][variant].split('/')[-1],name)
                 self.assertIs(ui.examination_image(),self.assets.investigation[feature][variant])
         self.assertIs(self.assets.investigation['olhos_alterados']['normal'],self.assets.investigation['palidez_anormal']['normal'])
-        self.assertEqual(visitor.diagnosis,'diagnostico_pendente')
+        self.assertIn(visitor.diagnosis,('saudavel','infectado'))
 
     def test_schedule_once_first_ricardo_then_laura_two_or_three(self):
         dates=set()

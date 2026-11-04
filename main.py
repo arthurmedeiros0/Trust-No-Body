@@ -74,7 +74,7 @@ def main():
                 game.update(movement,dt);game.draw(screen)
                 if mode=='test':
                     visitor=game.visitor_session.visitors[test_choice[0]]
-                    label=f'MODO TESTE | {visitor.definition["name"]} | diagnóstico: {visitor.diagnosis} | F1: opções'
+                    label=f'MODO TESTE | {visitor.definition["name"]} | condição real: {visitor.diagnosis} | F1: opções'
                     pygame.draw.rect(screen,'#172027',(0,0,1280,34))
                     screen.blit(game.small.render(label,True,'#f1e6c8'),(20,8))
             pygame.display.flip()

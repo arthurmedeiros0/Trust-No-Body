@@ -87,7 +87,7 @@ class DaysAndTelevisionTests(unittest.TestCase):
         self.game.handle_event(pygame.event.Event(pygame.MOUSEBUTTONDOWN,button=1,pos=(450,630)))
         self.game.update((0,0),3);self.assertEqual(self.game.days.day,2)
 
-    def test_events_once_and_day20_does_not_end_game_or_advance(self):
+    def test_events_once_and_day20_victory_after_final_broadcast_and_sleep(self):
         self.resolve('acolhido');events=[]
         for event in ('day_end','day_start'):
             self.game.days.subscribe(event,lambda data,name=event:events.append((name,data.day,data.previous_day,data.next_day)))
@@ -95,11 +95,16 @@ class DaysAndTelevisionTests(unittest.TestCase):
             self.bed();self.finish_sleep();self.assertEqual(self.game.days.day,day)
         self.assertEqual(len(events),38)
         self.assertEqual(events[:2],[('day_end',1,1,2),('day_start',2,1,2)])
-        self.bed();self.assertFalse(self.game.sleep_option)
-        self.assertIn('20',self.game.dialog);self.key(pygame.K_ESCAPE)
-        self.assertFalse(self.game.days.advance());self.assertEqual(len(events),38)
+        self.key(pygame.K_RETURN)  # Fecha o resumo do dia 19 antes da TV.
         self.tv();self.click_tv('current')
         self.assertIn('cura',self.game.television.bulletin.headline)
+        self.key(pygame.K_ESCAPE);self.key(pygame.K_ESCAPE)
+        self.assertFalse(self.game.visitor_session.survival.won)
+        self.bed();self.assertTrue(self.game.sleep_option);self.key(pygame.K_s)
+        self.assertTrue(self.game.visitor_session.survival.won)
+        self.assertEqual(self.game.visitor_session.survival.victory_day,20)
+        self.assertEqual(len(events),39)
+        self.assertFalse(self.game.days.advance());self.assertEqual(len(events),39)
 
     def test_tv_current_published_history_no_future_and_escape(self):
         self.tv();self.assertEqual(self.game.news.history,[])
@@ -133,7 +138,7 @@ class DaysAndTelevisionTests(unittest.TestCase):
         self.assertIn('ausência de alterações oculares',data[7]);self.assertIn('três condições',data[7])
         self.assertIn('não significa estar saudável',data[7])
         self.assertIn('ausência de tremores involuntários',data[14]);self.assertIn('independente',data[14])
-        self.assertIn('protocolo completo',data[17]);self.assertIn('tratamento',data[20])
+        self.assertIn('olhos alterados',data[17]);self.assertIn('ausência de manchas',data[17]);self.assertIn('tratamento',data[20])
         for day in range(1,7):self.assertNotIn('combinação das três',data[day])
         self.game.draw(pygame.display.get_surface())
 

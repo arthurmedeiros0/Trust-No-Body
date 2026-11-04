@@ -177,10 +177,11 @@
   {
     "id": "boletim_17",
     "day": 17,
-    "headline": "Autoridades anunciam conclusão do protocolo de identificação",
+    "headline": "URGENTE — Cientistas identificam terceiro padrão de infecção",
     "paragraphs": [
-      "Após novas pesquisas, especialistas afirmam que os dois conjuntos de características anteriormente divulgados abrangem todos os casos de infecção conhecidos e foram validados como protocolo completo de identificação.",
-      "O protocolo revisa manchas nas mãos, dentes deteriorados, alterações nos olhos, veias escurecidas no pescoço, palidez anormal e tremores involuntários. A descoberta representa um avanço importante no combate à epidemia."
+      "Após novas análises, pesquisadores identificaram uma manifestação da doença que não corresponde aos dois padrões divulgados anteriormente.",
+      "Os novos casos apresentam uma combinação específica de olhos alterados, tremores involuntários e ausência de manchas nas mãos.",
+      "Autoridades alertam que a ausência de manchas não deve ser considerada uma garantia de segurança. O novo padrão amplia o protocolo oficial de identificação de infectados."
     ],
     "investigations": [
       "manchas_maos",

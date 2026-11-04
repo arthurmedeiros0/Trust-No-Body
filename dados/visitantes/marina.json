@@ -30,12 +30,13 @@
   "room_direction": "frente",
   "resident": {"speed": 32, "radius": 65, "wait_seconds": [2, 4], "walk_seconds": [0.7, 1.4], "frame_seconds": 0.18},
   "initial_supplies": {"food": [6, 11], "water": [6, 11]},
-  "investigation_features": ["manchas_maos", "dentes_deteriorados", "olhos_alterados", "veias_escurecidas", "palidez_anormal"],
+  "investigation_features": ["manchas_maos", "dentes_deteriorados", "olhos_alterados", "veias_escurecidas", "palidez_anormal", "tremores_involuntarios"],
   "investigation": {
     "manchas_maos": {"label": "Examinar mãos", "normal": "investigacao/mao_normal.png", "alterado": "investigacao/mao_mancha.png"},
     "dentes_deteriorados": {"label": "Examinar dentes", "normal": "investigacao/rosto_dente_normal.png", "alterado": "investigacao/rosto_dente_amarelo.png"},
     "olhos_alterados": {"label": "Examinar olhos", "normal": "investigacao/rosto_normal.png", "alterado": "investigacao/rosto_olho_vermelho.png"},
     "veias_escurecidas": {"label": "Examinar pescoço", "normal": "investigacao/rosto_normal.png", "alterado": "investigacao/pescoco_veia_escura.png"},
-    "palidez_anormal": {"label": "Examinar palidez", "normal": "investigacao/rosto_normal.png", "alterado": "investigacao/rosto_palido.png"}
+    "palidez_anormal": {"label": "Examinar palidez", "normal": "investigacao/rosto_normal.png", "alterado": "investigacao/rosto_palido.png"},
+    "tremores_involuntarios": {"label": "Examinar tremores", "normal": "investigacao/mao_normal.png", "alterado": "investigacao/mao_tremendo.png"}
   }
 }

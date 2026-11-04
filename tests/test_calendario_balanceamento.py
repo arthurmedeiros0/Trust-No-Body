@@ -19,6 +19,9 @@ class CalendarBalanceTests(unittest.TestCase):
 
     def simulate(self,seed,policy):
         state=self.session(seed)
+        # Isola o balanço de recursos: a exposição agora tem derrota própria.
+        for visitor in state.visitors.values():
+            state.set_condition(visitor,random.Random(seed),'saudavel')
         state.news.watch(state.news.current(1))
         seen=[]
         while state.survival.alive:
@@ -27,9 +30,7 @@ class CalendarBalanceTests(unittest.TestCase):
                 seen.append((state.day,visitor.id))
                 state.decide(visitor,'acolhido' if policy(state,visitor) else 'rejeitado')
             if state.day==20:
-                # O jogo limita os avanços no dia 20. Verifica também a ração
-                # desse dia separadamente, sem alterar a regra de encerramento.
-                state.survival.close_day(20,state.living_ids,state.company_seen_today)
+                state.days.close_day()
                 break
             state.days.advance()
         return state,seen
@@ -97,6 +98,7 @@ class CalendarBalanceTests(unittest.TestCase):
         import pygame
         from casa.game import House
         game=House();state=game.visitor_session
+        state.set_condition(state.visitors['ricardo'],random.Random(0),'saudavel')
         state.news.watch(state.news.current(1))
         self.assertTrue(game.decide_visitor(state.visitors['ricardo'],'acolhido'))
         # Isola transições visuais da simulação de recursos testada acima.

@@ -18,6 +18,12 @@ class VisitorTests(unittest.TestCase):
         self.game.change_room('entrada');self.game.observing=True
 
     def click(self,key):
+        if key.isdigit():
+            while self.ui.page in ('intro','answer'):self.click('continue')
+            while key not in self.ui.layout():
+                pending=next(k for k in self.ui.layout() if k.isdigit())
+                self.click(pending)
+                while self.ui.page=='answer':self.click('continue')
         rect,_=self.ui.layout()[key]
         self.game.handle_event(pygame.event.Event(pygame.MOUSEBUTTONDOWN,button=1,pos=rect.center))
 
@@ -31,14 +37,14 @@ class VisitorTests(unittest.TestCase):
         self.assertTrue(all(type(value) is bool for value in a.symptoms.values()))
         self.assertIn(a.food,range(4));self.assertIn(a.water,range(4))
         self.assertIsNot(a.symptoms,b.symptoms)
-        # Comprova as chamadas de sorteio por partida, sem testar deducoes.
-        with patch('casa.visitors.random.getrandbits',return_value=1) as symptoms,patch('casa.visitors.random.randint',return_value=3) as supplies:
+        # Cada personagem recebe uma condição e um conjunto coerente uma vez.
+        with patch.object(VisitorSession,'set_condition',wraps=VisitorSession.set_condition) as symptoms,patch('casa.visitors.random.randint',return_value=3) as supplies:
             session=VisitorSession()
-            self.assertEqual(symptoms.call_count,sum(len(v.symptoms) for v in session.visitors.values()))
+            self.assertEqual(symptoms.call_count,len(session.visitors))
             self.assertEqual(supplies.call_count,2*len(session.visitors))
-            self.assertTrue(all(v for v in session.visitors['ricardo'].symptoms.values()))
+            self.assertTrue(all(v.diagnosis in ('saudavel','infectado') for v in session.visitors.values()))
         before=(copy.deepcopy(self.visitor.symptoms),self.visitor.food,self.visitor.water)
-        with patch('casa.visitors.random.getrandbits',side_effect=AssertionError('Nao ressorteie')):
+        with patch.object(VisitorSession,'set_condition',side_effect=AssertionError('Nao ressorteie')):
             self.click('investigate');self.click('manchas_maos');self.esc();self.esc()
             self.click('talk');self.click('3');self.esc()
         self.assertEqual(before,(self.visitor.symptoms,self.visitor.food,self.visitor.water))
@@ -47,10 +53,10 @@ class VisitorTests(unittest.TestCase):
         with patch('casa.visitors.infection_logic.diagnosticar',return_value='infectado',create=True) as diagnose:
             self.assertEqual(self.game.visitor_session.diagnosticar_visitante(self.visitor.id),'infectado')
             diagnose.assert_called_once_with({},set())
-        self.assertEqual(self.visitor.diagnosis,'diagnostico_pendente')
+        self.assertEqual(self.visitor.diagnosis,'saudavel')
         self.assertEqual(self.game.visitor_session.knowledge.published,{})
         self.game.visitor_session.knowledge.published['noticia_teste']={'texto':'Conteudo a ser escrito pelo grupo'}
-        self.assertEqual(self.visitor.diagnosis,'diagnostico_pendente')
+        self.assertEqual(self.visitor.diagnosis,'saudavel')
 
     def test_all_six_features_both_visual_variants_and_seen_mark(self):
         self.click('investigate')
@@ -64,7 +70,7 @@ class VisitorTests(unittest.TestCase):
                 self.assertIn(feature,self.visitor.examined)
                 self.esc();self.assertEqual(self.ui.page,'investigate')
                 self.assertIn('[visto]',self.ui.layout()[feature][1])
-        self.assertEqual(self.visitor.diagnosis,'diagnostico_pendente')
+        self.assertEqual(self.visitor.diagnosis,'saudavel')
 
     def test_dialogue_resources_and_escape_hierarchy(self):
         before=self.game.player.feet.copy()
@@ -97,7 +103,7 @@ class VisitorTests(unittest.TestCase):
         self.assertFalse(self.game.decide_visitor(self.visitor,'acolhido'))
         self.assertEqual(len(self.game.visitor_session.decisions),1)
         self.assertEqual(before,(self.visitor.symptoms,self.visitor.food,self.visitor.water))
-        self.assertEqual(self.visitor.diagnosis,'diagnostico_pendente')
+        self.assertEqual(self.visitor.diagnosis,'saudavel')
         self.game.change_room('sala');self.game.observing=False
         with patch.object(self.game.visitor_shadow,'draw',wraps=self.game.visitor_shadow.draw) as draw:
             self.game.draw(pygame.display.get_surface());self.assertTrue(draw.called)
@@ -115,7 +121,7 @@ class VisitorTests(unittest.TestCase):
         surface=pygame.Surface((1280,720),pygame.SRCALPHA)
         self.ui.draw_portrait(surface);self.assertEqual(surface.get_bounding_rect().size,(0,0))
         self.assertNotIn(self.visitor.id,self.game.resident_positions)
-        self.assertEqual(self.visitor.diagnosis,'diagnostico_pendente')
+        self.assertEqual(self.visitor.diagnosis,'saudavel')
 
     def test_originals_transparency_and_preserved_white_coat(self):
         base=ROOT/'personagens/visitantes/ricardo'

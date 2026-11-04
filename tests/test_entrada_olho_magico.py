@@ -95,8 +95,12 @@ class EntranceTests(unittest.TestCase):
         calls=[]
         with patch.object(view,'draw_visitors',side_effect=lambda screen:calls.append('visitor')):
             class SurfaceRecorder:
+                def __init__(self):self.surface=pygame.Surface((1280,720))
                 def fill(self,*args):calls.append('background_clear')
                 def blit(self,surface,*args):calls.append('background' if surface is view.images['dia'] else 'ui_text')
+                # O texto agora respeita o recorte da superfície, como no jogo.
+                def get_clip(self):return self.surface.get_clip()
+                def set_clip(self,rect):return self.surface.set_clip(rect)
             # draw.rect requer Surface real; apenas captura ordem da camada.
             with patch('casa.peephole.pygame.draw.rect',side_effect=lambda *args,**kwargs:calls.append('ui')):
                 view.draw(SurfaceRecorder(),'dia')

@@ -1,5 +1,6 @@
 """Conhecimento aprendido, acesso protegido e interacao real com moradores."""
 import copy
+import random
 import unittest
 from unittest.mock import patch
 import pygame
@@ -83,6 +84,9 @@ class ProgressiveInvestigationTests(unittest.TestCase):
     def setUp(self):
         self.game=House();self.game.dialog=''
         self.session=self.game.visitor_session
+        # Isola a progressão dos exames da nova derrota por exposição.
+        for visitor in self.session.visitors.values():
+            self.session.set_condition(visitor,random.Random(0),'saudavel')
         self.session.news.watch(self.session.news.current(1))
 
     def watch(self,day):
@@ -178,7 +182,7 @@ class ProgressiveInvestigationTests(unittest.TestCase):
         self.watch(4);self.session.medical.discoveries.clear()
         for key in ('ricardo','laura'):
             ui=self.approach(key)
-            self.assertEqual(set(ui.layout()),{'talk','investigate','back'})
+            self.assertEqual(set(ui.layout()),{'talk','investigate','eliminate','back'})
             self.assertTrue(ui.resident)
             self.click(ui,'talk');self.assertTrue(ui.response)
             self.assertEqual(len(ui.dialogue.data['questions']),2)
@@ -193,7 +197,7 @@ class ProgressiveInvestigationTests(unittest.TestCase):
 
     def test_resident_initially_locked_pauses_and_resumes_no_remote_interaction(self):
         self.accept('ricardo');ui=self.approach('ricardo')
-        self.assertEqual(set(ui.layout()),{'talk','back'})
+        self.assertEqual(set(ui.layout()),{'talk','eliminate','back'})
         actor=self.game.residents['ricardo'];position=actor.feet.copy()
         self.assertIs(actor.image(self.game.visitor_assets['ricardo']),self.game.visitor_assets['ricardo'].sprites[actor.direction])
         self.game.update((1,0),10);self.assertEqual(actor.feet,position)

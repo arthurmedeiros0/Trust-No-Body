@@ -234,8 +234,8 @@ class SurvivalGameTests(unittest.TestCase):
         game.draw(pygame.display.get_surface())
         self.key(pygame.K_i);self.assertFalse(game.inventory.active)
         old=game.visitor_session
-        with patch('casa.visitors.random.getrandbits',return_value=1) as roll:self.key(pygame.K_RETURN)
-        self.assertEqual(roll.call_count,sum(len(v.symptoms) for v in old.visitors.values()));self.assertIsNot(game.visitor_session,old)
+        with patch.object(VisitorSession,'set_condition',wraps=VisitorSession.set_condition) as roll:self.key(pygame.K_RETURN)
+        self.assertEqual(roll.call_count,len(old.visitors));self.assertIsNot(game.visitor_session,old)
         self.assertEqual(game.room,'quarto');self.assertEqual(game.days.day,1)
         self.assertEqual((game.visitor_session.survival.food,game.visitor_session.survival.water),(0,0))
         self.assertEqual(game.visitor_session.survival.sanity,8)
@@ -265,6 +265,6 @@ class SurvivalGameTests(unittest.TestCase):
     def test_medical_schedule_preserved_and_new_context_not_diagnostics(self):
         self.introduction();news=self.game.news.bulletins
         self.assertIn('recusam',news[2].paragraphs[0]);self.assertIn('fatais',news[5].paragraphs[0])
-        for day,term in ((4,'preliminares'),(7,'três condições'),(10,'ainda não'),(14,'independente'),(17,'protocolo completo'),(20,'tratamento')):
+        for day,term in ((4,'preliminares'),(7,'três condições'),(10,'ainda não'),(14,'independente'),(17,'novo padrão'),(20,'tratamento')):
             self.assertIn(term,' '.join(news[day-1].paragraphs))
-        self.assertEqual(self.game.visitor_session.visitors['ricardo'].diagnosis,'diagnostico_pendente')
+        self.assertIn(self.game.visitor_session.visitors['ricardo'].diagnosis,('saudavel','infectado'))

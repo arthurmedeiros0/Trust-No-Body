@@ -5,13 +5,15 @@ import json
 import random
 import inspect
 import importlib
+from itertools import product
+from functools import lru_cache
 from .days import DayCycle
 from .news import NewsArchive
 from .config import ROOT
 from .survival import Survival,Needs
 from .visitor_schedule import VisitorManager,ArrivalRules
 from .visitor_registry import readiness
-from .medical_knowledge import MedicalKnowledge
+from .medical_knowledge import MedicalKnowledge,LABELS
 
 # O módulo reservado pode ainda não fornecer a função do grupo.
 try:
@@ -19,6 +21,24 @@ try:
 except ModuleNotFoundError as error:
     if error.name!='logica_infeccao':raise
     infection_logic=None
+
+PROTOCOL_NEWS=frozenset(('boletim_07','boletim_14','boletim_17'))
+
+
+@lru_cache(maxsize=32)
+def consistent_candidates(diagnose,features,condition):
+    """Enumera dados completos; somente a função do grupo classifica padrões.
+
+    'Inconclusivo' só exclui os padrões oficiais nesta validação interna com
+    TODOS os exames e notícias. Nunca prova saúde a partir de dados parciais.
+    """
+    candidates=[]
+    for values in product((False,True),repeat=len(features)):
+        result=diagnose(dict(zip(features,values)),set(PROTOCOL_NEWS))
+        if (condition=='infectado' and result=='infectado' or
+            condition=='saudavel' and result in ('inconclusivo','saudavel')):
+            candidates.append(values)
+    return tuple(candidates)
 
 @dataclass
 class Visitor:
@@ -95,10 +115,9 @@ class VisitorSession:
         for definition in definitions:
             if definition['id'] in self.visitors:raise ValueError('Identificador de visitante duplicado: '+definition['id'])
             supplies=definition.get('initial_supplies',{})
-            visitor=Visitor(definition,{key:bool(rng.getrandbits(1)) for key in definition.get('investigation',{})},
+            visitor=Visitor(definition,{},
                             rng.randint(*supplies.get('food',(0,3))),rng.randint(*supplies.get('water',(0,3))))
-            if visitor.id=='gabriel':self.set_gabriel_condition(visitor,rng)
-            elif visitor.id=='antonio':self.set_antonio_condition(visitor,rng)
+            self.set_condition(visitor,rng)
             self.visitors[visitor.id]=visitor
             reason=asset_check(definition)
             if reason:self.unavailable[visitor.id]=reason
@@ -124,30 +143,39 @@ class VisitorSession:
         except (TypeError,ValueError):
             return 'inconclusivo'
         resultado=diagnosticar(sintomas,noticias)
-        return resultado if resultado in ('infectado','inconclusivo') else 'inconclusivo'
+        return resultado if resultado in ('infectado','inconclusivo','saudavel') else 'inconclusivo'
 
     @staticmethod
-    def set_gabriel_condition(visitor,rng,condition='aleatoria'):
+    def set_condition(visitor,rng,condition='aleatoria'):
         if condition=='aleatoria':condition='infectado' if rng.random()<.5 else 'saudavel'
         if condition not in ('saudavel','infectado'):raise ValueError('Condição de teste inválida')
+        features=tuple(LABELS)
+        diagnose=getattr(infection_logic,'diagnosticar',None)
+        if not callable(diagnose):raise RuntimeError('A geração coerente requer diagnosticar(sintomas, noticias_lidas).')
+        candidates=consistent_candidates(diagnose,features,condition)
+        probabilities={key:.5 for key in features}
+        if visitor.id in ('gabriel','antonio'):
+            # Mantém sinais benignos de trabalho e doenças anteriores.
+            probabilities.update(manchas_maos=.65,dentes_deteriorados=.25)
+            if condition=='saudavel':probabilities.update(olhos_alterados=0,veias_escurecidas=0)
+        weights=[]
+        for values in candidates:
+            weight=1
+            for key,present in zip(features,values):
+                probability=probabilities[key]
+                weight*=probability if present else 1-probability
+            weights.append(weight)
+        if not candidates or not any(weights):
+            raise RuntimeError('A lógica do grupo não fornece sintomas compatíveis com a condição: '+condition)
+        values=rng.choices(candidates,weights=weights,k=1)[0]
         visitor.diagnosis=condition
-        # Graxa e solventes podem marcar as mãos de uma pessoa saudável.
-        visitor.symptoms={key:False for key in visitor.definition['investigation']}
-        visitor.symptoms['manchas_maos']=rng.random()<.65
-        visitor.symptoms['dentes_deteriorados']=rng.random()<.25
-        if condition=='infectado':
-            signs=('olhos_alterados','veias_escurecidas','palidez_anormal','tremores_involuntarios')
-            chosen=[key for key in signs if rng.random()<.5]
-            if not chosen:chosen=[rng.choice(signs)]
-            for key in chosen:visitor.symptoms[key]=True
+        visitor.symptoms=dict(zip(features,values))
 
     @staticmethod
     def set_antonio_condition(visitor,rng,condition='aleatoria'):
-        # Reutiliza o sorteio de condição já usado por Gabriel; estes sinais
-        # adicionais podem ter origem nas condições anteriores à epidemia.
-        VisitorSession.set_gabriel_condition(visitor,rng,condition)
-        for key in ('palidez_anormal','tremores_involuntarios'):
-            visitor.symptoms[key]=visitor.symptoms[key] or rng.random()<.5
+        VisitorSession.set_condition(visitor,rng,condition)
+
+    set_gabriel_condition=set_condition
 
     def start_test(self,visitor_id,condition='aleatoria',rng=None):
         """Ativa um visitante na sessão real, sem avançar dias ou disparar a agenda."""
@@ -158,6 +186,8 @@ class VisitorSession:
         if visitor_id=='gabriel':self.set_gabriel_condition(visitor,rng or random,condition)
         elif visitor_id=='antonio':self.set_antonio_condition(visitor,rng or random,condition)
         elif condition!='aleatoria':raise ValueError('Condição de teste indisponível para este visitante')
+        self.medical.observations.pop(visitor_id,None)
+        visitor.examined.clear()
         self.medical.known.update(visitor.definition['investigation'])
         self.manager.queue.clear()
         self.manager.current=visitor_id
@@ -184,14 +214,22 @@ class VisitorSession:
             for callback in tuple(self.on_arrival):callback(visitor)
 
     def _end_day(self,event):
-        self.last_report=self.survival.close_day(event.day,self.living_ids,self.company_seen_today)
-        return self.survival.alive
+        # Publicação rege o mundo; leitura e exames regem só a investigação.
+        published={b.id for b in self.news.bulletins if b.day<=event.day}
+        diagnose=getattr(infection_logic,'diagnosticar',None)
+        infected=callable(diagnose) and any(
+            v.state=='acolhido' and v.alive and v.diagnosis=='infectado' and
+            diagnose(dict(v.symptoms),set(published))=='infectado'
+            for v in self.visitors.values())
+        self.last_report=self.survival.close_day(event.day,self.living_ids,self.company_seen_today,infected)
+        return self.survival.alive and not self.survival.won
 
     def _start_day(self,event):
         self.company_seen_today=len(self.living_ids)>1
         if not self.test_mode:self._arrive(self.manager.activate(event.day,self.intro.broadcast_seen))
 
     def decide(self,visitor,decision):
+        if not self.survival.alive or self.survival.won:return False
         if self.visitors.get(visitor.id) is not visitor:return False
         if self.manager.current and self.manager.current!=visitor.id:return False
         if not visitor.decide(decision):return False
@@ -202,4 +240,15 @@ class VisitorSession:
             self.company_seen_today=True
         self.decisions.append(dict(day=self.day,visitor=visitor.id,decision=decision))
         self._arrive(self.manager.next())
+        return True
+
+    def eliminate(self,visitor_id):
+        visitor=self.visitors.get(visitor_id)
+        if (not self.survival.alive or self.survival.won or visitor is None or
+            not visitor.alive or visitor.state!='acolhido'):return False
+        visitor.alive=False;visitor.state='eliminado'
+        self.survival.people.pop(visitor_id,None)
+        self.survival.change_sanity(-2 if visitor.diagnosis=='infectado' else -3)
+        self.company_seen_today=len(self.living_ids)>1
+        self.decisions.append(dict(day=self.day,visitor=visitor_id,decision='eliminado'))
         return True

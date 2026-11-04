@@ -71,7 +71,7 @@ class RicardoCorrectionTests(unittest.TestCase):
         self.assertGreater(len(positions),10);self.assertGreater(len(directions),1)
         self.assertEqual(actor.room,'sala');self.assertEqual(self.game.room,'sala')
         self.assertEqual(self.visitor.symptoms,before)
-        self.assertEqual(self.visitor.diagnosis,'diagnostico_pendente')
+        self.assertEqual(self.visitor.diagnosis,'saudavel')
 
     def test_player_cannot_walk_through_waiting_npc(self):
         actor=self.accept();actor.remaining=100

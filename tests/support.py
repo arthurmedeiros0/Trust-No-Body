@@ -1,6 +1,7 @@
 """Cenario isolado das suites anteriores; a introducao real e testada separadamente."""
 from casa.game import House as NewGame
 from casa.medical_knowledge import LABELS
+import random
 
 
 def without_future_arrivals(game):
@@ -13,6 +14,9 @@ def without_future_arrivals(game):
 
 def exploration_house(development=False):
     game=NewGame(development)
+    # Estas suites isolam exploração/recursos; a infecção tem testes próprios.
+    for visitor in game.visitor_session.visitors.values():
+        game.visitor_session.set_condition(visitor,random.Random(0),'saudavel')
     game.visitor_session.medical.learn(LABELS)
     game.visitor_session.medical.discoveries.clear()
     without_future_arrivals(game)

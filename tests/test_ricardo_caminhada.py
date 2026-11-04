@@ -117,7 +117,7 @@ class WalkTests(unittest.TestCase):
         before=actor.feet.copy();shadow=self.game.visitor_shadow
         self.game.draw(pygame.display.get_surface())
         self.assertEqual(actor.feet,before);self.assertIs(self.game.visitor_shadow,shadow)
-        self.assertEqual(visitor.symptoms,symptoms);self.assertEqual(visitor.diagnosis,'diagnostico_pendente')
+        self.assertEqual(visitor.symptoms,symptoms);self.assertEqual(visitor.diagnosis,'saudavel')
         for feature,variants in self.assets.investigation.items():
             for variant,image in variants.items():
                 self.assertEqual(image.get_size(),EXAM_SIZE)

@@ -22,10 +22,10 @@ class DayCycle:
 
     def close_day(self):
         if self._closing:return False
-        if self.day>=self.LIMIT:return False
+        if self.day>self.LIMIT:return False
         if self._closed_day==self.day:return self._can_advance
         self._closed_day=self.day;self._can_advance=True
-        event=DayEvent(self.day,self.day,self.day+1)
+        event=DayEvent(self.day,self.day,min(self.day+1,self.LIMIT))
         self._closing=True
         try:
             for callback in tuple(self.listeners['day_end']):
@@ -37,7 +37,10 @@ class DayCycle:
         self.listeners[event].append(callback)
 
     def advance(self):
-        if self.day>=self.LIMIT or self._advancing or self._closing:return False
+        if self._advancing or self._closing:return False
+        if self.day>=self.LIMIT:
+            if self.day==self.LIMIT:self.close_day()
+            return False
         self._advancing=True
         try:
             old=self.day;new=old+1

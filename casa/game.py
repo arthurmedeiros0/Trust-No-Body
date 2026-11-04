@@ -67,7 +67,7 @@ class House:
         return True
 
     def decide_visitor(self,visitor,decision):
-        if not visitor.arrived or visitor.state!='aguardando' or not self.visitor_session.survival.alive:return False
+        if not visitor.arrived or visitor.state!='aguardando' or not self.visitor_session.survival.alive or self.visitor_session.survival.won:return False
         if self.visitor_session.manager.current and self.visitor_session.manager.current!=visitor.id:return False
         if decision=='acolhido':
             scene=self.scenes[visitor.definition['room']]
@@ -82,6 +82,15 @@ class House:
             self.residents[visitor.id]=actor
             self.resident_positions[visitor.id]=actor.feet
         return self.visitor_session.decide(visitor,decision)
+
+    def eliminate_resident(self,visitor,decision):
+        if decision!='eliminado' or not self.visitor_session.eliminate(visitor.id):return False
+        self.residents.pop(visitor.id,None)
+        self.resident_positions.pop(visitor.id,None)
+        self.resident_ui=None
+        self.player.stop()
+        self.fade.start(lambda:setattr(self,'dialog',visitor.definition['name']+' não está mais na casa. O silêncio que ficou pesa sobre você.'))
+        return True
 
     def draw_residents(self,screen,camera,foreground=False):
         for key,visitor in self.visitor_session.visitors.items():
@@ -107,14 +116,14 @@ class House:
         self.player.stop()
 
     def interact(self):
-        if not self.visitor_session.survival.alive or self.resident_ui or self.inventory.active or self.fade.active or self.sleep_transition.active or self.dialog or self.observing or self.television.active or bool(self.editor and self.editor.active): return
+        if not self.visitor_session.survival.alive or self.visitor_session.survival.won or self.resident_ui or self.inventory.active or self.fade.active or self.sleep_transition.active or self.dialog or self.observing or self.television.active or bool(self.editor and self.editor.active): return
         item=self.nearest_interaction()
         if item is None: return
         self.player.stop()
         if item.action=='resident':
             visitor=self.visitor_session.visitors[item.target]
             self.residents[item.target].rest()
-            self.resident_ui=VisitorUI(visitor,self.visitor_assets[item.target],lambda *args:False,
+            self.resident_ui=VisitorUI(visitor,self.visitor_assets[item.target],self.eliminate_resident,
                 knowledge=self.visitor_session.medical,resident=True,session=self.visitor_session)
         elif item.action=='door':
             self.fade.start(lambda:self.change_room(item.target,direction=item.direction))
@@ -150,11 +159,11 @@ class House:
 
     @property
     def captures_escape(self):
-        return bool(self.resident_ui) or self.observing or self.fade.active or self.sleep_transition.active or self.television.active or self.inventory.active or bool(self.dialog) or bool(self.editor and self.editor.active)
+        return self.visitor_session.survival.won or not self.visitor_session.survival.alive or bool(self.resident_ui) or self.observing or self.fade.active or self.sleep_transition.active or self.television.active or self.inventory.active or bool(self.dialog) or bool(self.editor and self.editor.active)
 
     def sleep_block_reason(self):
         if not self.visitor_session.intro.broadcast_seen:return 'Assista ao noticiário do primeiro dia antes de encerrar o dia.'
-        if self.days.day>=self.days.LIMIT:return 'O dia 20 foi alcançado. A partida continua disponível; novos avanços estão suspensos.'
+        if self.visitor_session.survival.won or not self.visitor_session.survival.alive:return 'A partida foi encerrada.'
         if any(v.arrived and v.state=='aguardando' for v in self.visitor_session.visitors.values()):
             return 'Resolva a situação do visitante aguardando na porta antes de dormir.'
         return ''
@@ -183,7 +192,7 @@ class House:
 
     def handle_event(self, event):
         if event.type==pygame.KEYUP and event.key==pygame.K_e:self.sleep_held=False
-        if not self.visitor_session.survival.alive:
+        if not self.visitor_session.survival.alive or self.visitor_session.survival.won:
             if (event.type==pygame.KEYDOWN and event.key in (pygame.K_RETURN,pygame.K_r)) or (event.type==pygame.MOUSEBUTTONDOWN and event.button==1 and self.inventory.restart.collidepoint(event.pos)):
                 self.__init__(self.development)
             return
@@ -232,7 +241,7 @@ class House:
 
     def update(self, movement, dt):
         self.show_discoveries()
-        if not self.visitor_session.survival.alive or self.inventory.active or self.resident_ui:
+        if not self.visitor_session.survival.alive or self.visitor_session.survival.won or self.inventory.active or self.resident_ui:
             self.player.stop()
         elif self.sleep_transition.active:
             self.player.stop();self.sleep_transition.update(dt)
@@ -257,7 +266,7 @@ class House:
                 actor.update(dt,ActorCollisions(self.scene.collisions,blocked))
 
     def draw(self, screen):
-        if not self.visitor_session.survival.alive:
+        if not self.visitor_session.survival.alive or self.visitor_session.survival.won:
             self.inventory.draw(screen);return
         if self.observing:
             self.peephole.draw(screen,self.period)
