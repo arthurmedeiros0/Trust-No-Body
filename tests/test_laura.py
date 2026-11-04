@@ -171,14 +171,16 @@ class LauraTests(unittest.TestCase):
         game=self.arrive();state=game.visitor_session
         game.decide_visitor(state.visitors['laura'],'acolhido')
         game.dialog='';game.change_room('sala')
-        scene=game.scene;actors=list(game.residents.values());moved=set()
+        actors=list(game.residents.values());moved=set()
         positions={a.visitor_id:a.feet.copy() for a in actors}
-        for _ in range(600):
-            game.update((0,0),1/60)
-            for actor in actors:
-                self.assertTrue(scene.collisions.allows(actor.feet))
-                self.assertFalse(feet_rect(actor.feet).colliderect(feet_rect(game.player.feet)))
-                if actor.feet.distance_to(positions[actor.visitor_id])>1:moved.add(actor.visitor_id)
-            self.assertFalse(feet_rect(actors[0].feet).colliderect(feet_rect(actors[1].feet)))
+        for room in {a.room for a in actors}:
+            game.change_room(room)
+            for _ in range(900):
+                game.update((0,0),1/60)
+                for actor in actors:
+                    self.assertTrue(game.scenes[actor.room].collisions.allows(actor.feet))
+                    if actor.room==game.room:self.assertFalse(feet_rect(actor.feet).colliderect(feet_rect(game.player.feet)))
+                    if actor.feet.distance_to(positions[actor.visitor_id])>1:moved.add(actor.visitor_id)
+                if actors[0].room==actors[1].room:self.assertFalse(feet_rect(actors[0].feet).colliderect(feet_rect(actors[1].feet)))
         self.assertEqual(moved,{'ricardo','laura'})
         self.assertIsNot(actors[0].image(game.visitor_assets[actors[0].visitor_id]),actors[1].image(game.visitor_assets[actors[1].visitor_id]))

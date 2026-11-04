@@ -1,5 +1,6 @@
-﻿"""Observacao frontal: fundo, camada futura de visitante, interface."""
+"""Observacao frontal: fundo, camada futura de visitante, interface."""
 import pygame
+from . import ui_theme as theme
 from .config import ROOT,PEEPHOLE_IMAGES,PEEPHOLE_VIEWPORT,FUTURE_VISITOR_POSITION,FUTURE_VISITOR_SCALE
 
 class Peephole:
@@ -46,10 +47,9 @@ class Peephole:
         if self.visitor_ui and self.visitor_ui.visitor.state=='aguardando':
             self.visitor_ui.draw(screen)
             return
-        pygame.draw.rect(screen,'#172027',(0,640,1280,80))
+        theme.panel(screen,(400,640,480,68))
         for button,label in ((self.observe_button,'Observar'),(self.back_button,'Voltar')):
-            pygame.draw.rect(screen,'#34423f',button,border_radius=6)
-            text=self.font.render(label,True,'#f1e6c8');screen.blit(text,text.get_rect(center=button.center))
+            theme.button(screen,button,label,typeface=self.font)
         title=self.font.render('Olho mágico | '+period.capitalize(),True,'#f1e6c8')
         screen.blit(title,(20,20))
         if self.observing:

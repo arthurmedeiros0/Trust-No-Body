@@ -1,4 +1,4 @@
-﻿"""Morador simples: pausas, passos curtos e colisoes pelos pes."""
+"""Morador simples: pausas, passos curtos e colisoes pelos pes."""
 import math
 import random
 import pygame
@@ -22,12 +22,21 @@ def free_spawn(scene,preferred,blocked=(),reserved=()):
             candidates.extend(preferred+pygame.Vector2(x,y) for x,y in ((offset,-radius),(offset,radius),(-radius,offset),(radius,offset)))
     return next((p for p in candidates if collisions.allows(p) and all(p.distance_to(door)>=48 for door in reserved)),None)
 
+def clear_segment(start,end,allows,step=3):
+    """Valida todo o trecho com a mesma hitbox dos pes, sem teletransporte."""
+    start=pygame.Vector2(start);end=pygame.Vector2(end)
+    count=max(1,math.ceil(start.distance_to(end)/step))
+    return all(allows(start.lerp(end,i/count)) for i in range(count+1))
+
 class Resident:
-    def __init__(self,visitor_id,room,feet,direction='frente',settings=None,rng=None,reserved=()):
+    def __init__(self,visitor_id,room,feet,direction='frente',settings=None,rng=None,reserved=(),waypoints=None):
         settings=settings or {}
         self.visitor_id=visitor_id;self.room=room
         self.feet=pygame.Vector2(feet);self.origin=self.feet.copy()
         self.reserved=[pygame.Vector2(point) for point in reserved]
+        self.waypoints=None if waypoints is None else [pygame.Vector2(p) for p in waypoints]
+        self.target=None
+        self.interaction_clearance=settings.get('interaction_clearance',40)
         self.direction=direction
         self.speed=settings.get('speed',34)
         self.radius=settings.get('radius',72)
@@ -42,15 +51,36 @@ class Resident:
         self.remaining=self.rng.uniform(*self.wait_range)
 
     def rest(self):
+        self.target=None
         self.walking=False;self.velocity.update(0,0)
         self.moving=False;self.animation_elapsed=0.
         self.remaining=self.rng.uniform(*self.wait_range)
 
     def _allowed(self,point,collisions):
         return (point.distance_to(self.origin)<=self.radius and collisions.allows(point)
-                and all(point.distance_to(door)>=40 for door in self.reserved))
+                and all(point.distance_to(door)>=self.interaction_clearance for door in self.reserved))
+
+    def pause(self):
+        """Pausa visual sem consumir tempo ou sortear outra rotina."""
+        self.moving=False;self.animation_elapsed=0.
+
+    def _choose_waypoint(self,collisions):
+        options=list(self.waypoints);self.rng.shuffle(options)
+        for target in options:
+            delta=target-self.feet
+            if delta.length_squared()<1e-6:continue
+            if abs(delta.x)>1e-5 and abs(delta.y)>1e-5:continue
+            if not clear_segment(self.feet,target,lambda p:self._allowed(p,collisions)):continue
+            self.target=target.copy();self.velocity=delta.normalize()*self.speed
+            self.direction=('direita' if delta.x>0 else 'esquerda') if abs(delta.x)>1e-5 else ('frente' if delta.y>0 else 'costas')
+            self.animation_elapsed=0.;self.walking=True;self.remaining=delta.length()/self.speed
+            return
+        self.direction=self.rng.choice(('frente','costas','direita','esquerda'))
+        self.rest()
 
     def _choose(self,collisions):
+        if self.waypoints is not None:
+            self._choose_waypoint(collisions);return
         options=[('frente',(0,1)),('costas',(0,-1)),('direita',(1,0)),('esquerda',(-1,0))]
         self.rng.shuffle(options)
         for direction,vector in options:

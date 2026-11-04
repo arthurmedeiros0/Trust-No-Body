@@ -1,4 +1,4 @@
-﻿"""Diário: privacidade, eventos reais, controles e persistência da sessão."""
+"""Diário: privacidade, eventos reais, controles e persistência da sessão."""
 import os
 os.environ.setdefault('SDL_VIDEODRIVER','dummy')
 os.environ.setdefault('SDL_AUDIODRIVER','dummy')
@@ -27,30 +27,40 @@ class JournalTests(unittest.TestCase):
         v=self.session.visitors[key];v.arrived=True;self.session._arrive(v)
         return v
 
+    def accept(self,key='ricardo'):
+        v=self.arrive(key);self.session.manager.current=key
+        self.assertTrue(self.session.decide(v,'acolhido'))
+        return v
+
     def click(self,kind,value):
         self.ui.draw(pygame.display.get_surface())
+        if (kind,value) not in self.ui.buttons:
+            for scroll in range(0,self.ui.max_scroll+101,100):
+                self.ui.scroll=scroll;self.ui.draw(pygame.display.get_surface())
+                if (kind,value) in self.ui.buttons:break
         rect=self.ui.buttons[(kind,value)]
         self.ui.handle_event(pygame.event.Event(pygame.MOUSEBUTTONDOWN,button=1,pos=rect.center))
 
-    def test_only_encountered_and_independent_cases(self):
+    def test_only_accepted_and_independent_cases(self):
         self.assertFalse(self.j.cases)
-        self.arrive();self.arrive('laura');self.arrive()
+        self.arrive();self.assertFalse(self.j.cases)
+        self.accept();self.accept('laura');self.arrive()
         self.assertEqual(list(self.j.cases),['ricardo','laura'])
-        self.assertEqual(len(self.j.timeline),2)
+        self.assertEqual(len(self.j.timeline),4)
         self.ui.open()
         for key in self.j.cases:
             self.click('case',key);self.assertEqual(self.ui.selected,key)
             self.assertEqual(set(self.j.cases[key].marks.values()),{MARKS[0]})
 
     def test_exams_do_not_fill_manual_marks_and_wrong_conclusions_persist(self):
-        v=self.arrive();self.ui.open();case=self.j.cases[v.id]
+        v=self.accept();self.ui.open();case=self.j.cases[v.id]
         self.session.medical.learn(v.symptoms)
         for key in v.symptoms:self.session.medical.observe(v,key)
         self.assertEqual(set(case.marks.values()),{MARKS[0]})
         for key in case.marks:
             for expected in (MARKS[1],MARKS[2],MARKS[0],MARKS[1]):
-                self.click('mark',key);self.assertEqual(case.marks[key],expected)
-        self.ui.scroll=180;self.click('conclusion','');self.click('conclusion','')
+                self.click('mark',(key,expected));self.assertEqual(case.marks[key],expected)
+        self.click('conclusion',CONCLUSIONS[1]);self.click('conclusion',CONCLUSIONS[2])
         self.assertEqual(case.conclusion,CONCLUSIONS[2])
         self.session.set_condition(v,random.Random(3),'infectado')
         actual=v.diagnosis
@@ -71,9 +81,9 @@ class JournalTests(unittest.TestCase):
 
     def test_dynamic_answers_snapshot_and_no_future_questions(self):
         v=self.arrive('marina');d=Dialogue(v,self.session)
-        self.assertFalse(self.j.cases[v.id].conversations)
+        self.assertFalse(self.j.record(v.id).conversations)
         self.assertTrue(d.ask(d.pending()[0]))
-        records=self.j.cases[v.id].conversations
+        records=self.j.record(v.id).conversations
         self.assertEqual(len(records),1)
         self.assertEqual(records[0][2],d.progress.answer_text)
         original=records[0]
@@ -82,7 +92,7 @@ class JournalTests(unittest.TestCase):
         self.assertFalse(d.ask(d.progress.question));self.assertEqual(len(records),1)
 
     def test_unicode_editing_cursor_scroll_and_reopen(self):
-        self.arrive();self.ui.open();self.ui.tab='Anotações';self.ui.focus(True)
+        self.accept();self.ui.open();self.ui.tab='Anotações';self.ui.focus(True)
         def key(k):self.ui.handle_event(pygame.event.Event(pygame.KEYDOWN,key=k))
         def text(t):self.ui.handle_event(pygame.event.Event(pygame.TEXTINPUT,text=t))
         text('Antônio, mãos e saúde.');key(pygame.K_LEFT);key(pygame.K_BACKSPACE);text('!')
@@ -94,7 +104,7 @@ class JournalTests(unittest.TestCase):
 
     def test_decisions_days_new_session_and_internal_logic(self):
         v=self.arrive();self.session.manager.current=v.id
-        case=self.j.cases[v.id];case.notes='Minha suspeita';case.conclusion=CONCLUSIONS[1]
+        case=self.j.drafts[v.id];case.notes='Minha suspeita';case.conclusion=CONCLUSIONS[1]
         self.assertTrue(self.session.decide(v,'acolhido'))
         self.assertEqual(case.situation,'acolhido')
         self.session.survival.add_supplies(100,100)
@@ -130,11 +140,11 @@ class JournalTests(unittest.TestCase):
     def test_rejection_is_known_without_hidden_condition(self):
         v=self.arrive();self.session.manager.current=v.id
         self.assertTrue(self.session.decide(v,'rejeitado'))
-        self.assertEqual(self.j.cases[v.id].situation,'rejeitado')
+        self.assertNotIn(v.id,self.j.cases);self.assertNotIn(v.id,self.j.drafts)
         self.assertEqual(self.j.timeline[-1],(1,'Ricardo: rejeitado.'))
 
     def test_all_sections_long_pages_and_all_visitors_render(self):
-        for key in self.session.visitors:self.arrive(key)
+        for key in self.session.visitors:self.accept(key)
         self.ui.open()
         screen=pygame.display.get_surface()
         for key in self.j.cases:

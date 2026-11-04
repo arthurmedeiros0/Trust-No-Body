@@ -1,4 +1,4 @@
-﻿"""Exploracao da casa. Execute: python main.py. Testes: python main.py --smoke-test."""
+"""Exploracao da casa. Execute: python main.py. Testes: python main.py --smoke-test."""
 import argparse
 import os
 
@@ -72,10 +72,10 @@ def main():
                 movement=(int(keys[pygame.K_d] or keys[pygame.K_RIGHT])-int(keys[pygame.K_a] or keys[pygame.K_LEFT]),
                           int(keys[pygame.K_s] or keys[pygame.K_DOWN])-int(keys[pygame.K_w] or keys[pygame.K_UP]))
                 game.update(movement,dt);game.draw(screen)
-                if mode=='test':
+                if mode=='test' and not game.journal_ui.active:
                     visitor=game.visitor_session.visitors[test_choice[0]]
                     label=f'MODO TESTE | {visitor.definition["name"]} | condição real: {visitor.diagnosis} | F1: opções'
-                    pygame.draw.rect(screen,'#172027',(0,0,1280,34))
+                    pygame.draw.rect(screen,'#172027',(0,0,1184,34))
                     screen.blit(game.small.render(label,True,'#f1e6c8'),(20,8))
             pygame.display.flip()
     finally:

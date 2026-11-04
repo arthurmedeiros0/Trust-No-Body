@@ -13,7 +13,8 @@ from .visitors import VisitorSession
 from .visitor_assets import load_assets
 from .visitor_ui import VisitorUI
 from .shadow import Shadow
-from .resident import Resident,ActorCollisions,free_spawn
+from .resident import ActorCollisions,free_spawn
+from .resident_manager import ResidentManager
 from .resident_render import resident_frame
 from .sleep import SleepTransition
 from .television import Television
@@ -51,8 +52,10 @@ class House:
         self.journal_ui.assets=self.visitor_assets
         self.visitor_session.on_arrival.append(lambda visitor:self.present_visitor(visitor.id))
         self.visitor_shadow=Shadow()
-        self.resident_positions={}
-        self.residents={}
+        self.resident_manager=ResidentManager(self)
+        self.resident_positions=self.resident_manager.positions
+        self.residents=self.resident_manager.actors
+        self.days.subscribe('day_start',self.resident_manager.start_day)
         self.resident_ui=None
 
     def news_seen(self,bulletin):
@@ -72,24 +75,15 @@ class House:
     def decide_visitor(self,visitor,decision):
         if not visitor.arrived or visitor.state!='aguardando' or not self.visitor_session.survival.alive or self.visitor_session.survival.won:return False
         if self.visitor_session.manager.current and self.visitor_session.manager.current!=visitor.id:return False
-        if decision=='acolhido':
-            scene=self.scenes[visitor.definition['room']]
-            desired=scene.point(visitor.definition['room_position'])
-            occupied=[feet_rect(actor.feet) for actor in self.residents.values() if actor.room==scene.name]
-            if self.room==scene.name:occupied.append(feet_rect(self.player.feet))
-            reserved=[scene.spawn]+[scene.point(item.arrival) for other in self.scenes.values()
-                for item in other.interactions if item.target==scene.name and item.arrival]
-            feet=free_spawn(scene,desired,occupied,reserved)
-            if feet is None:return False
-            actor=Resident(visitor.id,scene.name,feet,visitor.definition['room_direction'],visitor.definition.get('resident'),reserved=reserved)
-            self.residents[visitor.id]=actor
-            self.resident_positions[visitor.id]=actor.feet
-        return self.visitor_session.decide(visitor,decision)
+        placement=self.resident_manager.prepare(visitor) if decision=='acolhido' else None
+        if decision=='acolhido' and placement is None:return False
+        if not self.visitor_session.decide(visitor,decision):return False
+        if decision=='acolhido':self.resident_manager.add(visitor,placement)
+        return True
 
     def eliminate_resident(self,visitor,decision):
         if decision!='eliminado' or not self.visitor_session.eliminate(visitor.id):return False
-        self.residents.pop(visitor.id,None)
-        self.resident_positions.pop(visitor.id,None)
+        self.resident_manager.remove(visitor.id)
         self.resident_ui=None
         self.player.stop()
         self.fade.start(lambda:setattr(self,'dialog',visitor.definition['name']+' não está mais na casa. O silêncio que ficou pesa sobre você.'))
@@ -97,8 +91,9 @@ class House:
 
     def draw_residents(self,screen,camera,foreground=False):
         for key,visitor in self.visitor_session.visitors.items():
-            if visitor.state!='acolhido' or not visitor.alive or visitor.definition['room']!=self.room:continue
-            feet=self.resident_positions[key]
+            actor=self.residents.get(key)
+            if visitor.state!='acolhido' or not visitor.alive or actor is None or actor.room!=self.room:continue
+            feet=actor.feet
             if (feet.y>self.player.feet.y)!=foreground:continue
             image=self.residents[key].image(self.visitor_assets[key])
             scale=visitor.definition.get('visual_scale')
@@ -113,6 +108,7 @@ class House:
         return self.scenes[self.room]
 
     def change_room(self, name, feet=None, direction='frente'):
+        self.resident_manager.pause(self.room)
         self.room=name
         self.player.feet=pygame.Vector2(feet if feet is not None else self.scene.spawn)
         self.player.direction=direction
@@ -148,7 +144,7 @@ class House:
             self.dialog=reason or 'Deseja dormir e avançar para o próximo dia?'
             self.sleep_option=not bool(reason)
         elif item.action=='journal':
-            self.journal_ui.open()
+            self.open_journal()
         elif item.action=='television':
             self.television.open()
         elif item.action=='fridge':
@@ -195,6 +191,27 @@ class House:
         if not self.fade.active:
             self.fade.start(lambda:setattr(self,'observing',False))
 
+    @property
+    def journal_allowed(self):
+        state=self.visitor_session.survival
+        return (state.alive and not state.won and not self.fade.active and
+                not self.sleep_transition.active and not self.inventory.active and
+                not self.television.active and not bool(self.editor and self.editor.active))
+
+    def open_journal(self):
+        if not self.journal_allowed or self.journal_ui.active:return False
+        context=self.resident_ui
+        if context is None and self.observing:context=self.peephole.visitor_ui
+        visitor=context.visitor if context is not None and context.visitor.arrived else None
+        if visitor is not None:self.visitor_session.journal.meet(visitor,self.days.day)
+        self.journal_ui.open(visitor.id if visitor else None)
+        self.player.stop()
+        return True
+
+    def draw_journal(self,screen):
+        if self.journal_ui.active:self.journal_ui.draw(screen)
+        elif self.journal_allowed:self.journal_ui.draw_access(screen)
+
     def handle_event(self, event):
         if event.type==pygame.KEYUP and event.key==pygame.K_e:self.sleep_held=False
         if not self.visitor_session.survival.alive or self.visitor_session.survival.won:
@@ -204,6 +221,10 @@ class House:
         if self.journal_ui.active:
             self.journal_ui.handle_event(event)
             return
+        shortcut=event.type==pygame.KEYDOWN and event.key==pygame.K_j and not getattr(event,'repeat',False)
+        icon=(event.type==pygame.MOUSEBUTTONDOWN and event.button==1 and self.journal_ui.access_rect.collidepoint(event.pos))
+        if (shortcut or icon) and self.journal_allowed:
+            self.open_journal();return
         if self.inventory.active:
             if event.type==pygame.KEYDOWN and event.key in (pygame.K_i,pygame.K_ESCAPE):self.inventory.active=False
             return
@@ -249,6 +270,8 @@ class House:
 
     def update(self, movement, dt):
         self.show_discoveries()
+        self.resident_manager.cleanup()
+        if self.captures_escape:self.resident_manager.pause(self.room)
         if not self.visitor_session.survival.alive or self.visitor_session.survival.won or self.journal_ui.active or self.inventory.active or self.resident_ui:
             self.player.stop()
         elif self.sleep_transition.active:
@@ -267,11 +290,9 @@ class House:
         elif self.dialog:
             self.player.stop()
         else:
-            actors=[actor for actor in self.residents.values() if actor.room==self.room and self.visitor_session.visitors[actor.visitor_id].alive]
+            actors=self.resident_manager.visible(self.room)
             self.player.update(movement,dt,ActorCollisions(self.scene.collisions,[feet_rect(actor.feet) for actor in actors]))
-            for actor in actors:
-                blocked=[feet_rect(self.player.feet)]+[feet_rect(other.feet) for other in actors if other is not actor]
-                actor.update(dt,ActorCollisions(self.scene.collisions,blocked))
+            self.resident_manager.update(self.room,dt)
 
     def draw(self, screen):
         if not self.visitor_session.survival.alive or self.visitor_session.survival.won:
@@ -279,6 +300,7 @@ class House:
         if self.observing:
             self.peephole.draw(screen,self.period)
             self.fade.draw(screen)
+            self.draw_journal(screen)
             return
         screen.fill('#101419')
         camera=self.editor.camera() if self.editor and self.editor.active else self.scene.camera_for(self.player.feet)
@@ -300,7 +322,7 @@ class House:
         objective=self.visitor_session.intro.objective
         if objective and not self.debug:
             screen.blit(self.small.render('Objetivo: '+objective,True,'#d5c59f'),(20,43))
-        controls='WASD / Setas: mover   E: interagir   I: suprimentos   F6: dia/noite   F3: colisoes   ESC: sair'
+        controls='WASD / Setas: mover   E: interagir   I: suprimentos   J: diário   F6: dia/noite   F3: colisoes   ESC: sair'
         screen.blit(self.small.render(controls,True,'#bbbfc4'),(20,690))
         if self.debug:
             source=self.scene.source_point(self.player.feet)
@@ -338,16 +360,17 @@ class House:
         if self.editor:self.editor.draw(screen)
         if self.television.active:self.television.draw(screen)
         if self.inventory.active:self.inventory.draw(screen)
-        if self.journal_ui.active:self.journal_ui.draw(screen)
         if self.resident_ui:self.resident_ui.draw(screen)
         self.sleep_transition.draw(screen)
+        self.draw_journal(screen)
 
     def nearest_interaction(self):
         items=list(self.scene.interactions)
         for key,actor in self.residents.items():
             visitor=self.visitor_session.visitors[key]
             if actor.room==self.room and visitor.alive and visitor.state=='acolhido':
-                items.append(Interaction(visitor.definition['name'],actor.feet,'resident',target=key,region=feet_rect(actor.feet)))
+                item=Interaction(visitor.definition['name'],actor.feet,'resident',target=key,region=feet_rect(actor.feet))
+                if item.distance(self.player.feet)<=item.radius and self.resident_manager.can_interact(actor):items.append(item)
         return nearest(items,self.player.feet)
 
     def show_discoveries(self):

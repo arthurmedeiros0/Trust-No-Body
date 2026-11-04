@@ -203,8 +203,11 @@ class ProgressiveInvestigationTests(unittest.TestCase):
         self.game.update((1,0),10);self.assertEqual(actor.feet,position)
         self.game.handle_event(pygame.event.Event(pygame.KEYDOWN,key=pygame.K_ESCAPE))
         self.assertIsNone(self.game.resident_ui)
-        for _ in range(400):self.game.update((0,0),.025)
-        self.assertNotEqual(actor.feet,position)
+        moved=False
+        for _ in range(400):
+            self.game.update((0,0),.025)
+            moved=moved or actor.feet!=position
+        self.assertTrue(moved)
         self.game.change_room('corredor');self.game.interact()
         self.assertIsNone(self.game.resident_ui)
 

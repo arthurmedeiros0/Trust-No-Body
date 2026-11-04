@@ -147,14 +147,15 @@ class DaysAndTelevisionTests(unittest.TestCase):
             self.game=House();visitor=self.resolve(decision)
             identity=id(visitor);snapshot=copy.deepcopy(vars(visitor))
             actors=dict(self.game.residents)
-            positions={k:a.feet.copy() for k,a in actors.items()}
             self.bed()
             with patch('casa.visitors.random.getrandbits',side_effect=AssertionError('novo sorteio')):
                 self.finish_sleep()
             self.assertEqual(id(self.game.visitor_session.visitors['ricardo']),identity)
             self.assertEqual(vars(visitor),snapshot)
             self.assertEqual(self.game.residents,actors)
-            for key,actor in actors.items():self.assertEqual(actor.feet,positions[key])
+            for key,actor in actors.items():
+                self.assertTrue(self.game.scenes[actor.room].collisions.allows(actor.feet))
+                self.assertIs(self.game.resident_positions[key],actor.feet)
             self.assertEqual(self.game.visitor_session.day,2)
 
     def test_modal_guards_and_f6_inside_tv_does_not_change_news(self):

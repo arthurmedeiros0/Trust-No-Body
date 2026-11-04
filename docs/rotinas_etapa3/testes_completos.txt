@@ -1,0 +1,603 @@
+python : test_accept_and_reject_never_return_or_reroll_or_duplicate_resources 
+(test_agendamento_visitantes.ArrivalTests.test_accept_and_reject_never_return_or_reroll_or_duplicate_resources) ... ok
+No linha:2 caractere:35
++ ... TECODE='1'; python main.py --smoke-test *> docs/rotinas_etapa3/testes ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_accept_and...sources) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_day_start_presents_dynamic_ui_and_room_changes_keep_waiting 
+(test_agendamento_visitantes.ArrivalTests.test_day_start_presents_dynamic_ui_and_room_changes_keep_waiting) ... ok
+test_duplicate_ids_and_invalid_configuration_fail_explicitly 
+(test_agendamento_visitantes.ArrivalTests.test_duplicate_ids_and_invalid_configuration_fail_explicitly) ... ok
+test_only_ricardo_introduction_and_empty_early_opportunities 
+(test_agendamento_visitantes.ArrivalTests.test_only_ricardo_introduction_and_empty_early_opportunities) ... ok
+test_queue_does_not_replace_current_and_only_one_arrives_at_a_time 
+(test_agendamento_visitantes.ArrivalTests.test_queue_does_not_replace_current_and_only_one_arrives_at_a_time) ... ok
+test_random_plan_once_unique_bounded_and_early_guarantee 
+(test_agendamento_visitantes.ArrivalTests.test_random_plan_once_unique_bounded_and_early_guarantee) ... ok
+test_registry_blocks_missing_images_dialogue_and_walks 
+(test_agendamento_visitantes.ArrivalTests.test_registry_blocks_missing_images_dialogue_and_walks) ... ok
+test_assets_dialogue_menu_and_frames (test_antonio.AntonioTests.test_assets_dialogue_menu_and_frames) ... ok
+test_conditions_schedule_and_stable_examinations 
+(test_antonio.AntonioTests.test_conditions_schedule_and_stable_examinations) ... ok
+test_real_door_accept_reject_render_movement_and_resources 
+(test_antonio.AntonioTests.test_real_door_accept_reject_render_movement_and_resources) ... ok
+test_500_seeds_calendar_order_unique_and_decisions_do_not_change_plan (test_calendario_balanceamento.CalendarBalanceTes
+ts.test_500_seeds_calendar_order_unique_and_decisions_do_not_change_plan) ... ok
+test_delayed_activation_recovers_due_visitor 
+(test_calendario_balanceamento.CalendarBalanceTests.test_delayed_activation_recovers_due_visitor) ... ok
+test_real_sleep_transitions_present_every_scheduled_visitor 
+(test_calendario_balanceamento.CalendarBalanceTests.test_real_sleep_transitions_present_every_scheduled_visitor) ... ok
+test_resources_allow_success_and_failure_without_guarantee 
+(test_calendario_balanceamento.CalendarBalanceTests.test_resources_allow_success_and_failure_without_guarantee) ... ok
+test_test_mode_immediate_and_no_calendar_arrivals 
+(test_calendario_balanceamento.CalendarBalanceTests.test_test_mode_immediate_and_no_calendar_arrivals) ... ok
+test_bed_edges_distance_collision_and_far_away 
+(test_cama_hud.BedAndHUDTests.test_bed_edges_distance_collision_and_far_away) ... ok
+test_day_three_is_fully_playable_and_thirst_only_at_its_end 
+(test_cama_hud.BedAndHUDTests.test_day_three_is_fully_playable_and_thirst_only_at_its_end) ... ok
+test_debug_draws_bed_region_with_camera (test_cama_hud.BedAndHUDTests.test_debug_draws_bed_region_with_camera) ... ok
+test_fridge_opens_same_stock_only_inventory (test_cama_hud.BedAndHUDTests.test_fridge_opens_same_stock_only_inventory) 
+... FAIL
+test_hud_reads_live_state_all_rooms_and_fits_header 
+(test_cama_hud.BedAndHUDTests.test_hud_reads_live_state_all_rooms_and_fits_header) ... ok
+test_repeated_confirmation_does_not_consume_twice 
+(test_cama_hud.BedAndHUDTests.test_repeated_confirmation_does_not_consume_twice) ... ok
+test_visitor_supplies_rescue_critical_day_without_early_consumption 
+(test_cama_hud.BedAndHUDTests.test_visitor_supplies_rescue_critical_day_without_early_consumption) ... ok
+test_water_on_third_day_resets_thirst_and_hunger_ends_fourth_day 
+(test_cama_hud.BedAndHUDTests.test_water_on_third_day_resets_thirst_and_hunger_ends_fourth_day) ... ok
+test_conversation_geometry_preserves_portrait_and_separates_regions (test_conversas_progressivas.ProgressiveConversatio
+nTests.test_conversation_geometry_preserves_portrait_and_separates_regions) ... ok
+test_door_resident_other_visitors_and_new_session_have_separate_progress (test_conversas_progressivas.ProgressiveConver
+sationTests.test_door_resident_other_visitors_and_new_session_have_separate_progress) ... ok
+test_dynamic_supplies_and_decisions_do_not_require_exhausting_questions (test_conversas_progressivas.ProgressiveConvers
+ationTests.test_dynamic_supplies_and_decisions_do_not_require_exhausting_questions) ... ERROR
+test_every_question_reachable_in_any_order_all_visitors_both_contexts (test_conversas_progressivas.ProgressiveConversat
+ionTests.test_every_question_reachable_in_any_order_all_visitors_both_contexts) ... ok
+test_long_response_restores_page_and_continue_reads_every_page (test_conversas_progressivas.ProgressiveConversationTest
+s.test_long_response_restores_page_and_continue_reads_every_page) ... ok
+test_unselected_question_persists_and_answer_resumes_after_recreating_ui (test_conversas_progressivas.ProgressiveConver
+sationTests.test_unselected_question_persists_and_answer_resumes_after_recreating_ui) ... ok
+test_corridor_lower_corners_in_both_periods 
+(test_correcoes.CorrectionTests.test_corridor_lower_corners_in_both_periods) ... ok
+test_lateral_idle_step_cycle_and_stop (test_correcoes.CorrectionTests.test_lateral_idle_step_cycle_and_stop) ... ok
+test_new_living_room_and_resource_integrity 
+(test_correcoes.CorrectionTests.test_new_living_room_and_resource_integrity) ... ok
+test_scale_camera_mapping_and_fixed_player (test_correcoes.CorrectionTests.test_scale_camera_mapping_and_fixed_player) 
+... ok
+test_trash_and_chair_block_movement_with_free_sidewalk 
+(test_correcoes.CorrectionTests.test_trash_and_chair_block_movement_with_free_sidewalk) ... ok
+test_available_module_delegation (test_diagnostico.DiagnosisTests.test_available_module_delegation) ... ok
+test_day_does_not_grant_news_but_history_does 
+(test_diagnostico.DiagnosisTests.test_day_does_not_grant_news_but_history_does) ... ok
+test_missing_incompatible_and_pending_function 
+(test_diagnostico.DiagnosisTests.test_missing_incompatible_and_pending_function) ... ok
+test_observed_only_copies_and_different_visitors 
+(test_diagnostico.DiagnosisTests.test_observed_only_copies_and_different_visitors) ... ok
+test_test_mode_provides_protocol_without_reading_or_advancing 
+(test_diagnostico.DiagnosisTests.test_test_mode_provides_protocol_without_reading_or_advancing) ... ok
+test_ui_hides_diagnosis_after_observation_and_news 
+(test_diagnostico.DiagnosisTests.test_ui_hides_diagnosis_after_observation_and_news) ... ok
+test_all_original_intros_answers_and_resident_lines_fit_without_loss 
+(test_dialogos_paginados.PaginatedDialogueTests.test_all_original_intros_answers_and_resident_lines_fit_without_loss) 
+... ok
+test_long_unbroken_word_and_paragraphs_preserve_every_character 
+(test_dialogos_paginados.PaginatedDialogueTests.test_long_unbroken_word_and_paragraphs_preserve_every_character) ... ok
+test_mouse_keyboard_navigation_bounds_and_new_answer_resets_page 
+(test_dialogos_paginados.PaginatedDialogueTests.test_mouse_keyboard_navigation_bounds_and_new_answer_resets_page) ... 
+ok
+test_portrait_identity_and_dimensions_preserved_across_dialogue_pages 
+(test_dialogos_paginados.PaginatedDialogueTests.test_portrait_identity_and_dimensions_preserved_across_dialogue_pages) 
+... ok
+test_renderer_clips_height_width_and_preserves_caller_clip 
+(test_dialogos_paginados.PaginatedDialogueTests.test_renderer_clips_height_width_and_preserves_caller_clip) ... ok
+test_short_and_very_long_responses_root_talk_and_confirmation 
+(test_dialogos_paginados.PaginatedDialogueTests.test_short_and_very_long_responses_root_talk_and_confirmation) ... ok
+test_all_sections_long_pages_and_all_visitors_render 
+(test_diario.JournalTests.test_all_sections_long_pages_and_all_visitors_render) ... ok
+test_decisions_days_new_session_and_internal_logic 
+(test_diario.JournalTests.test_decisions_days_new_session_and_internal_logic) ... ok
+test_diagnostic_ui_never_calls_internal_classifier 
+(test_diario.JournalTests.test_diagnostic_ui_never_calls_internal_classifier) ... ok
+test_dynamic_answers_snapshot_and_no_future_questions 
+(test_diario.JournalTests.test_dynamic_answers_snapshot_and_no_future_questions) ... ok
+test_exams_do_not_fill_manual_marks_and_wrong_conclusions_persist 
+(test_diario.JournalTests.test_exams_do_not_fill_manual_marks_and_wrong_conclusions_persist) ... ok
+test_only_accepted_and_independent_cases (test_diario.JournalTests.test_only_accepted_and_independent_cases) ... ok
+test_rejection_is_known_without_hidden_condition 
+(test_diario.JournalTests.test_rejection_is_known_without_hidden_condition) ... ok
+test_room_range_modal_movement_escape_and_restart 
+(test_diario.JournalTests.test_room_range_modal_movement_escape_and_restart) ... ok
+test_unicode_editing_cursor_scroll_and_reopen (test_diario.JournalTests.test_unicode_editing_cursor_scroll_and_reopen) 
+... ok
+test_watched_history_patterns_and_timeline (test_diario.JournalTests.test_watched_history_patterns_and_timeline) ... ok
+test_every_door_stage_returns_same_object_and_full_context 
+(test_diario_etapa2.JournalModalTests.test_every_door_stage_returns_same_object_and_full_context) ... ok
+test_icon_and_bedroom_object_and_blocked_transitions 
+(test_diario_etapa2.JournalModalTests.test_icon_and_bedroom_object_and_blocked_transitions) ... ok
+test_icon_tooltip_and_hud_do_not_overlap 
+(test_diario_etapa2.JournalModalTests.test_icon_tooltip_and_hud_do_not_overlap) ... ok
+test_j_inside_text_is_character_and_underlying_response_is_unchanged 
+(test_diario_etapa2.JournalModalTests.test_j_inside_text_is_character_and_underlying_response_is_unchanged) ... ok
+test_resident_context_click_capture_and_topmost_layer 
+(test_diario_etapa2.JournalModalTests.test_resident_context_click_capture_and_topmost_layer) ... ok
+test_shortcut_every_room_movement_capture_and_j_close 
+(test_diario_etapa2.JournalModalTests.test_shortcut_every_room_movement_capture_and_j_close) ... ok
+test_sleep_and_victory_block_shortcut (test_diario_etapa2.JournalModalTests.test_sleep_and_victory_block_shortcut) ... 
+ok
+test_draft_is_promoted_without_copying_or_losing_notes 
+(test_diario_etapa2.JournalStageTwoTests.test_draft_is_promoted_without_copying_or_losing_notes) ... ok
+test_editor_unicode_arrows_j_and_separate_records 
+(test_diario_etapa2.JournalStageTwoTests.test_editor_unicode_arrows_j_and_separate_records) ... ok
+test_elimination_preserves_data_and_strikes_both_names 
+(test_diario_etapa2.JournalStageTwoTests.test_elimination_preserves_data_and_strikes_both_names) ... ok
+test_exam_status_does_not_read_results_or_call_classifier 
+(test_diario_etapa2.JournalStageTwoTests.test_exam_status_does_not_read_results_or_call_classifier) ... ok
+test_layout_all_tabs_seven_names_and_scroll_limits 
+(test_diario_etapa2.JournalStageTwoTests.test_layout_all_tabs_seven_names_and_scroll_limits) ... ok
+test_long_editor_scroll_cursor_bounds_and_all_character_positions 
+(test_diario_etapa2.JournalStageTwoTests.test_long_editor_scroll_cursor_bounds_and_all_character_positions) ... ok
+test_manual_marks_ignore_actual_exams_and_can_be_changed 
+(test_diario_etapa2.JournalStageTwoTests.test_manual_marks_ignore_actual_exams_and_can_be_changed) ... ok
+test_normal_face_shared_with_stage_one 
+(test_diario_etapa2.JournalStageTwoTests.test_normal_face_shared_with_stage_one) ... ok
+test_persistence_through_days_and_fresh_session 
+(test_diario_etapa2.JournalStageTwoTests.test_persistence_through_days_and_fresh_session) ... ok
+test_rejected_never_becomes_permanent_even_after_conversation 
+(test_diario_etapa2.JournalStageTwoTests.test_rejected_never_becomes_permanent_even_after_conversation) ... ok
+test_symptoms_require_watched_bulletins_and_recap_uses_known 
+(test_diario_etapa2.JournalStageTwoTests.test_symptoms_require_watched_bulletins_and_recap_uses_known) ... ok
+test_waiting_and_conversation_only_create_draft 
+(test_diario_etapa2.JournalStageTwoTests.test_waiting_and_conversation_only_create_draft) ... ok
+test_watched_news_patterns_and_chronological_timeline 
+(test_diario_etapa2.JournalStageTwoTests.test_watched_news_patterns_and_chronological_timeline) ... ok
+test_accepted_and_rejected_visitor_preserved_no_randomization 
+(test_dias_tv.DaysAndTelevisionTests.test_accepted_and_rejected_visitor_preserved_no_randomization) ... ok
+test_all_20_bulletins_pagination_and_narrative_schedule 
+(test_dias_tv.DaysAndTelevisionTests.test_all_20_bulletins_pagination_and_narrative_schedule) ... ok
+test_day_transition_duration_is_fps_independent 
+(test_dias_tv.DaysAndTelevisionTests.test_day_transition_duration_is_fps_independent) ... ok
+test_events_once_and_day20_victory_after_final_broadcast_and_sleep 
+(test_dias_tv.DaysAndTelevisionTests.test_events_once_and_day20_victory_after_final_broadcast_and_sleep) ... ok
+test_initial_state_no_clock_advance_and_f6_does_not_unlock 
+(test_dias_tv.DaysAndTelevisionTests.test_initial_state_no_clock_advance_and_f6_does_not_unlock) ... ok
+test_modal_guards_and_f6_inside_tv_does_not_change_news 
+(test_dias_tv.DaysAndTelevisionTests.test_modal_guards_and_f6_inside_tv_does_not_change_news) ... ok
+test_mouse_confirmation_and_cancel (test_dias_tv.DaysAndTelevisionTests.test_mouse_confirmation_and_cancel) ... ok
+test_sleep_fade_midpoint_arrival_and_held_e_exactly_one_day 
+(test_dias_tv.DaysAndTelevisionTests.test_sleep_fade_midpoint_arrival_and_held_e_exactly_one_day) ... ok
+test_tv_current_published_history_no_future_and_escape 
+(test_dias_tv.DaysAndTelevisionTests.test_tv_current_published_history_no_future_and_escape) ... ok
+test_waiting_visitor_blocks_sleep_and_cancel_never_advances 
+(test_dias_tv.DaysAndTelevisionTests.test_waiting_visitor_blocks_sleep_and_cancel_never_advances) ... ok
+test_create_move_resize_cancel_and_delete (test_editor_colisoes.EditorTests.test_create_move_resize_cancel_and_delete) 
+... ok
+test_development_only_and_import_preservation 
+(test_editor_colisoes.EditorTests.test_development_only_and_import_preservation) ... FAIL
+test_editor_camera_all_rooms_and_floor (test_editor_colisoes.EditorTests.test_editor_camera_all_rooms_and_floor) ... ok
+test_save_reload_backup_and_invalid_data (test_editor_colisoes.EditorTests.test_save_reload_backup_and_invalid_data) 
+... ok
+test_sofa_and_table_stop_feet_and_passage_is_free 
+(test_editor_colisoes.EditorTests.test_sofa_and_table_stop_feet_and_passage_is_free) ... ok
+test_buttons_and_day_night_in_view (test_entrada_olho_magico.EntranceTests.test_buttons_and_day_night_in_view) ... ok
+test_entrada_closed_door_obstacles_period_and_editor 
+(test_entrada_olho_magico.EntranceTests.test_entrada_closed_door_obstacles_period_and_editor) ... ok
+test_observation_layer_order_and_original_assets 
+(test_entrada_olho_magico.EntranceTests.test_observation_layer_order_and_original_assets) ... ok
+test_observe_freezes_position_hides_player_and_esc_returns 
+(test_entrada_olho_magico.EntranceTests.test_observe_freezes_position_hides_player_and_esc_returns) ... ok
+test_sala_entrada_return_and_lower_door 
+(test_entrada_olho_magico.EntranceTests.test_sala_entrada_return_and_lower_door) ... ok
+test_actual_draw_keeps_feet_collision_shadow_cycle_and_portrait 
+(test_escala_ricardo.ResidentScaleTests.test_actual_draw_keeps_feet_collision_shadow_cycle_and_portrait) ... ok
+test_every_idle_and_step_same_scale_and_exact_ground_anchor 
+(test_escala_ricardo.ResidentScaleTests.test_every_idle_and_step_same_scale_and_exact_ground_anchor) ... ok
+test_all_interactions_reachable_from_spawn 
+(test_exploracao.ExplorationTests.test_all_interactions_reachable_from_spawn) ... ok
+test_assets_and_originals (test_exploracao.ExplorationTests.test_assets_and_originals) ... ok
+test_collision_and_movement (test_exploracao.ExplorationTests.test_collision_and_movement) ... ok
+test_doors_return_fade_and_period (test_exploracao.ExplorationTests.test_doors_return_fade_and_period) ... ok
+test_messages_sleep_and_render (test_exploracao.ExplorationTests.test_messages_sleep_and_render) ... ok
+test_both_patterns_use_day_seven_and_no_retroactive_count 
+(test_exposicao_publicacao.PublicationExposureTests.test_both_patterns_use_day_seven_and_no_retroactive_count) ... ok
+test_diagnosis_requires_watched_news_and_observed_symptoms 
+(test_exposicao_publicacao.PublicationExposureTests.test_diagnosis_requires_watched_news_and_observed_symptoms) ... ok
+test_elimination_of_only_relevant_infected_interrupts_exposure 
+(test_exposicao_publicacao.PublicationExposureTests.test_elimination_of_only_relevant_infected_interrupts_exposure) 
+... ok
+test_first_pattern_day_one_through_eight_without_reading 
+(test_exposicao_publicacao.PublicationExposureTests.test_first_pattern_day_one_through_eight_without_reading) ... ok
+test_healthy_never_exposes_even_with_infected_looking_test_data 
+(test_exposicao_publicacao.PublicationExposureTests.test_healthy_never_exposes_even_with_infected_looking_test_data) 
+... ok
+test_multiple_relevant_residents_count_once_and_interfaces_do_not_reset (test_exposicao_publicacao.PublicationExposureT
+ests.test_multiple_relevant_residents_count_once_and_interfaces_do_not_reset) ... ok
+test_second_pattern_exclusively_day_one_through_fifteen 
+(test_exposicao_publicacao.PublicationExposureTests.test_second_pattern_exclusively_day_one_through_fifteen) ... ok
+test_world_validation_uses_real_data_and_only_published_news 
+(test_exposicao_publicacao.PublicationExposureTests.test_world_validation_uses_real_data_and_only_published_news) ... 
+ok
+test_marina_six_real_images_normal_and_test_modes 
+(test_infeccao_sobrevivencia.InfectionInterfaceTests.test_marina_six_real_images_normal_and_test_modes) ... ok
+test_resident_confirmation_cancel_eliminate_and_no_movement 
+(test_infeccao_sobrevivencia.InfectionInterfaceTests.test_resident_confirmation_cancel_eliminate_and_no_movement) ... 
+ok
+test_victory_and_infection_defeat_screens_restart_and_freeze 
+(test_infeccao_sobrevivencia.InfectionInterfaceTests.test_victory_and_infection_defeat_screens_restart_and_freeze) ... 
+ok
+test_all_losses_override_victory_on_day_twenty 
+(test_infeccao_sobrevivencia.InfectionSurvivalTests.test_all_losses_override_victory_on_day_twenty) ... ok
+test_all_seven_conditions_consistent_for_many_seeds 
+(test_infeccao_sobrevivencia.InfectionSurvivalTests.test_all_seven_conditions_consistent_for_many_seeds) ... ok
+test_elimination_cost_uses_real_condition_once_and_removes_needs 
+(test_infeccao_sobrevivencia.InfectionSurvivalTests.test_elimination_cost_uses_real_condition_once_and_removes_needs) 
+... ok
+test_first_night_and_second_night_defeat_idempotently 
+(test_infeccao_sobrevivencia.InfectionSurvivalTests.test_first_night_and_second_night_defeat_idempotently) ... ok
+test_future_healthy_result_is_forwarded_without_using_real_condition (test_infeccao_sobrevivencia.InfectionSurvivalTest
+s.test_future_healthy_result_is_forwarded_without_using_real_condition) ... ok
+test_multiple_infected_count_only_once_and_elimination_interrupts 
+(test_infeccao_sobrevivencia.InfectionSurvivalTests.test_multiple_infected_count_only_once_and_elimination_interrupts) 
+... ok
+test_rejected_or_waiting_infected_do_not_expose 
+(test_infeccao_sobrevivencia.InfectionSurvivalTests.test_rejected_or_waiting_infected_do_not_expose) ... ok
+test_remaining_infected_still_causes_defeat 
+(test_infeccao_sobrevivencia.InfectionSurvivalTests.test_remaining_infected_still_causes_defeat) ... ok
+test_selected_conditions_consistent_and_no_observation_resampling 
+(test_infeccao_sobrevivencia.InfectionSurvivalTests.test_selected_conditions_consistent_and_no_observation_resampling) 
+... ok
+test_win_only_after_final_day_and_restart_interface 
+(test_infeccao_sobrevivencia.InfectionSurvivalTests.test_win_only_after_final_day_and_restart_interface) ... ok
+test_all_bulletins_are_complete_paginated_and_originals_preserved 
+(test_interfaces_etapa1.InterfaceTests.test_all_bulletins_are_complete_paginated_and_originals_preserved) ... ok
+test_danger_is_separated_and_confirmation_has_no_secret_or_penalty 
+(test_interfaces_etapa1.InterfaceTests.test_danger_is_separated_and_confirmation_has_no_secret_or_penalty) ... ok
+test_decisions_work_without_exhausting_questions 
+(test_interfaces_etapa1.InterfaceTests.test_decisions_work_without_exhausting_questions) ... ok
+test_dialogue_states_layout_and_two_choices_for_all_visitors 
+(test_interfaces_etapa1.InterfaceTests.test_dialogue_states_layout_and_two_choices_for_all_visitors) ... ok
+test_inspection_layout_scales_with_count_and_every_image_keeps_ratio 
+(test_interfaces_etapa1.InterfaceTests.test_inspection_layout_scales_with_count_and_every_image_keeps_ratio) ... ok
+test_long_tv_pages_keyboard_mouse_and_bounds 
+(test_interfaces_etapa1.InterfaceTests.test_long_tv_pages_keyboard_mouse_and_bounds) ... ok
+test_normal_faces_for_all_seven_and_missing_asset_fallback 
+(test_interfaces_etapa1.InterfaceTests.test_normal_faces_for_all_seven_and_missing_asset_fallback) ... ok
+test_shared_button_hover_pressed_disabled_and_clipping 
+(test_interfaces_etapa1.InterfaceTests.test_shared_button_hover_pressed_disabled_and_clipping) ... ok
+test_tv_history_navigation_and_watch_unlocks_only_chosen_bulletin 
+(test_interfaces_etapa1.InterfaceTests.test_tv_history_navigation_and_watch_unlocks_only_chosen_bulletin) ... ok
+test_both_residents_share_knowledge_but_keep_images_and_observations (test_investigacao_progressiva.ProgressiveInvestig
+ationTests.test_both_residents_share_knowledge_but_keep_images_and_observations) ... ok
+test_days_alone_do_not_unlock_and_watch_progression_is_idempotent (test_investigacao_progressiva.ProgressiveInvestigati
+onTests.test_days_alone_do_not_unlock_and_watch_progression_is_idempotent) ... ok
+test_discovery_notice_only_after_closing_tv_and_not_repeated (test_investigacao_progressiva.ProgressiveInvestigationTes
+ts.test_discovery_notice_only_after_closing_tv_and_not_repeated) ... ok
+test_door_filters_and_denies_direct_locked_image_access 
+(test_investigacao_progressiva.ProgressiveInvestigationTests.test_door_filters_and_denies_direct_locked_image_access) 
+... ok
+test_future_and_current_cannot_be_opened_as_old_news_and_recap_still_works (test_investigacao_progressiva.ProgressiveIn
+vestigationTests.test_future_and_current_cannot_be_opened_as_old_news_and_recap_still_works) ... ok
+test_initial_locked_but_talk_accept_reject_work 
+(test_investigacao_progressiva.ProgressiveInvestigationTests.test_initial_locked_but_talk_accept_reject_work) ... ok
+test_later_recap_unlocks_only_mentioned_features 
+(test_investigacao_progressiva.ProgressiveInvestigationTests.test_later_recap_unlocks_only_mentioned_features) ... ok
+test_missed_day_four_recovered_at_day_five_once_for_door_and_residents (test_investigacao_progressiva.ProgressiveInvest
+igationTests.test_missed_day_four_recovered_at_day_five_once_for_door_and_residents) ... ok
+test_nearest_object_wins_and_never_opens_two_interfaces 
+(test_investigacao_progressiva.ProgressiveInvestigationTests.test_nearest_object_wins_and_never_opens_two_interfaces) 
+... ERROR
+test_new_game_resets_all_medical_data 
+(test_investigacao_progressiva.ProgressiveInvestigationTests.test_new_game_resets_all_medical_data) ... ok
+test_resident_initially_locked_pauses_and_resumes_no_remote_interaction (test_investigacao_progressiva.ProgressiveInves
+tigationTests.test_resident_initially_locked_pauses_and_resumes_no_remote_interaction) ... ok
+test_sleep_and_room_changes_preserve_knowledge_observations_and_real_symptoms (test_investigacao_progressiva.Progressiv
+eInvestigationTests.test_sleep_and_room_changes_preserve_knowledge_observations_and_real_symptoms) ... ok
+test_twenty_day_archive_pages_include_every_unread_previous_bulletin (test_investigacao_progressiva.ProgressiveInvestig
+ationTests.test_twenty_day_archive_pages_include_every_unread_previous_bulletin) ... ok
+test_accept_two_residents_once_sleep_counts_three_and_preserves_symptoms 
+(test_laura.LauraTests.test_accept_two_residents_once_sleep_counts_three_and_preserves_symptoms) ... ok
+test_both_npcs_move_collide_and_keep_independent_images 
+(test_laura.LauraTests.test_both_npcs_move_collide_and_keep_independent_images) ... ok
+test_dialogue_personality_supplies_and_confirmation 
+(test_laura.LauraTests.test_dialogue_personality_supplies_and_confirmation) ... ok
+test_exact_investigation_mapping_and_shared_normal_face 
+(test_laura.LauraTests.test_exact_investigation_mapping_and_shared_normal_face) ... ok
+test_frames_feet_mirror_height_scale_and_portrait 
+(test_laura.LauraTests.test_frames_feet_mirror_height_scale_and_portrait) ... ok
+test_originals_and_derived_hashes_and_exact_nearest_pixels 
+(test_laura.LauraTests.test_originals_and_derived_hashes_and_exact_nearest_pixels) ... ok
+test_rejected_laura_never_returns_or_transfers_resources 
+(test_laura.LauraTests.test_rejected_laura_never_returns_or_transfers_resources) ... ok
+test_schedule_once_first_ricardo_then_laura_two_or_three 
+(test_laura.LauraTests.test_schedule_once_first_ricardo_then_laura_two_or_three) ... ok
+test_step_idle_step_idle_and_immediate_rest_all_directions 
+(test_laura.LauraTests.test_step_idle_step_idle_and_immediate_rest_all_directions) ... ok
+test_all_32_sprites_one_component_and_aligned_feet 
+(test_limpeza_animacao.SpritePolishTests.test_all_32_sprites_one_component_and_aligned_feet) ... ok
+test_classic_player_and_unchanged_resident_cycles 
+(test_limpeza_animacao.SpritePolishTests.test_classic_player_and_unchanged_resident_cycles) ... ok
+test_cleanup_discards_detached_noise_and_thin_ground_spur_preserves_colors 
+(test_limpeza_animacao.SpritePolishTests.test_cleanup_discards_detached_noise_and_thin_ground_spur_preserves_colors) 
+... ok
+test_official_lateral_reference_is_the_loaded_idle 
+(test_limpeza_animacao.SpritePolishTests.test_official_lateral_reference_is_the_loaded_idle) ... ok
+test_player_animation_phase_at_30_60_120_fps_and_restart 
+(test_limpeza_animacao.SpritePolishTests.test_player_animation_phase_at_30_60_120_fps_and_restart) ... ok
+test_ricardo_rest_uses_idle_at_exact_end_and_with_stale_moving_flag 
+(test_limpeza_animacao.SpritePolishTests.test_ricardo_rest_uses_idle_at_exact_end_and_with_stale_moving_flag) ... ok
+test_verified_hook_residue_beside_front_shoe_removed 
+(test_limpeza_animacao.SpritePolishTests.test_verified_hook_residue_beside_front_shoe_removed) ... ok
+test_walks_keep_original_body_pixels (test_limpeza_animacao.SpritePolishTests.test_walks_keep_original_body_pixels) 
+... ok
+test_all_corridor_connections_both_ways 
+(test_orientacao_transicoes.ArrivalDirectionTests.test_all_corridor_connections_both_ways) ... ok
+test_connection_direction_override_is_used_by_each_transition_type 
+(test_orientacao_transicoes.ArrivalDirectionTests.test_connection_direction_override_is_used_by_each_transition_type) 
+... ok
+test_sala_entrada_both_ways (test_orientacao_transicoes.ArrivalDirectionTests.test_sala_entrada_both_ways) ... ok
+test_bathroom_obstacles_and_lower_door (test_pes_sombra_sala.FeetAndRoomTests.test_bathroom_obstacles_and_lower_door) 
+... ok
+test_feet_hitbox_is_frame_independent (test_pes_sombra_sala.FeetAndRoomTests.test_feet_hitbox_is_frame_independent) 
+... ok
+test_living_room_lower_entry_and_upper_passage 
+(test_pes_sombra_sala.FeetAndRoomTests.test_living_room_lower_entry_and_upper_passage) ... ok
+test_shadow_alpha_position_and_draw_order 
+(test_pes_sombra_sala.FeetAndRoomTests.test_shadow_alpha_position_and_draw_order) ... ok
+test_walk_between_sofa_and_table_both_directions 
+(test_pes_sombra_sala.FeetAndRoomTests.test_walk_between_sofa_and_table_both_directions) ... ok
+test_original_bytes_and_loaded_frames_in_every_direction 
+(test_protagonista_classico.ClassicTests.test_original_bytes_and_loaded_frames_in_every_direction) ... ok
+test_recent_protagonist_files_preserved 
+(test_protagonista_classico.ClassicTests.test_recent_protagonist_files_preserved) ... ok
+test_animation_all_directions_three_frames_and_rest 
+(test_ricardo_caminhada.WalkTests.test_animation_all_directions_three_frames_and_rest) ... ok
+test_border_black_removal_preserves_internal_dark_details 
+(test_ricardo_caminhada.WalkTests.test_border_black_removal_preserves_internal_dark_details) ... ok
+test_fps_and_direction_reset_keep_feet_and_hitbox 
+(test_ricardo_caminhada.WalkTests.test_fps_and_direction_reset_keep_feet_and_hitbox) ... ok
+test_left_is_mirrored_from_available_right_and_coat_stays_light 
+(test_ricardo_caminhada.WalkTests.test_left_is_mirrored_from_available_right_and_coat_stays_light) ... ok
+test_nine_archived_originals_and_two_active_frames_per_direction 
+(test_ricardo_caminhada.WalkTests.test_nine_archived_originals_and_two_active_frames_per_direction) ... ok
+test_rendering_uses_animation_without_changing_shadow_or_symptoms 
+(test_ricardo_caminhada.WalkTests.test_rendering_uses_animation_without_changing_shadow_or_symptoms) ... ok
+test_wrist_mask_removes_external_gray_but_keeps_skin_highlights_and_coat 
+(test_ricardo_caminhada.WalkTests.test_wrist_mask_removes_external_gray_but_keeps_skin_highlights_and_coat) ... ok
+test_acceptance_uses_alternative_when_player_occupies_preferred_point 
+(test_ricardo_correcoes.RicardoCorrectionTests.test_acceptance_uses_alternative_when_player_occupies_preferred_point) 
+... ok
+test_investigation_twelve_matching_dark_panels 
+(test_ricardo_correcoes.RicardoCorrectionTests.test_investigation_twelve_matching_dark_panels) ... ok
+test_large_npc_step_cannot_tunnel_and_pause_interfaces 
+(test_ricardo_correcoes.RicardoCorrectionTests.test_large_npc_step_cannot_tunnel_and_pause_interfaces) ... ok
+test_npc_cannot_walk_through_player 
+(test_ricardo_correcoes.RicardoCorrectionTests.test_npc_cannot_walk_through_player) ... ok
+test_npc_moves_slowly_stays_in_room_and_never_crosses_furniture 
+(test_ricardo_correcoes.RicardoCorrectionTests.test_npc_moves_slowly_stays_in_room_and_never_crosses_furniture) ... ok
+test_player_cannot_walk_through_waiting_npc 
+(test_ricardo_correcoes.RicardoCorrectionTests.test_player_cannot_walk_through_waiting_npc) ... ok
+test_rejected_visitor_has_no_actor_and_other_rooms_are_unaffected 
+(test_ricardo_correcoes.RicardoCorrectionTests.test_rejected_visitor_has_no_actor_and_other_rooms_are_unaffected) ... 
+ok
+test_safe_spawn_distant_from_player_and_doors 
+(test_ricardo_correcoes.RicardoCorrectionTests.test_safe_spawn_distant_from_player_and_doors) ... ok
+test_white_matte_is_removed_without_erasing_internal_coat 
+(test_ricardo_correcoes.RicardoCorrectionTests.test_white_matte_is_removed_without_erasing_internal_coat) ... ok
+test_blocked_by_wall_furniture_player_and_zero_velocity_returns_idle 
+(test_ricardo_individual.IndividualTests.test_blocked_by_wall_furniture_player_and_zero_velocity_returns_idle) ... ok
+test_each_direction_cycle_and_rest_at_every_phase 
+(test_ricardo_individual.IndividualTests.test_each_direction_cycle_and_rest_at_every_phase) ... ok
+test_external_white_flood_preserves_enclosed_white_coat_and_black_hair 
+(test_ricardo_individual.IndividualTests.test_external_white_flood_preserves_enclosed_white_coat_and_black_hair) ... ok
+test_loaded_assets_and_original_alpha_pixels_without_erosion 
+(test_ricardo_individual.IndividualTests.test_loaded_assets_and_original_alpha_pixels_without_erosion) ... ok
+test_sources_protagonist_door_exams_dialogues_and_maps_unchanged 
+(test_ricardo_individual.IndividualTests.test_sources_protagonist_door_exams_dialogues_and_maps_unchanged) ... FAIL
+test_all_allowed_room_interactions_and_journal_preserve_progress 
+(test_rotinas_moradores.RoutineTests.test_all_allowed_room_interactions_and_journal_preserve_progress) ... ok
+test_all_routines_leave_conditions_supplies_and_survival_unchanged 
+(test_rotinas_moradores.RoutineTests.test_all_routines_leave_conditions_supplies_and_survival_unchanged) ... ok
+test_daily_changes_never_teleport_visible_people_or_spawn_into_view 
+(test_rotinas_moradores.RoutineTests.test_daily_changes_never_teleport_visible_people_or_spawn_into_view) ... ok
+test_daily_failure_keeps_the_whole_old_plan 
+(test_rotinas_moradores.RoutineTests.test_daily_failure_keeps_the_whole_old_plan) ... ok
+test_dynamic_room_controls_draw_not_static_definition 
+(test_rotinas_moradores.RoutineTests.test_dynamic_room_controls_draw_not_static_definition) ... ok
+test_elimination_any_room_removes_motion_and_preserves_diary_sanity 
+(test_rotinas_moradores.RoutineTests.test_elimination_any_room_removes_motion_and_preserves_diary_sanity) ... ok
+test_every_allowed_room_has_reachable_valid_points_and_safe_routes 
+(test_rotinas_moradores.RoutineTests.test_every_allowed_room_has_reachable_valid_points_and_safe_routes) ... ok
+test_existing_test_mode_still_accepts_and_distributes 
+(test_rotinas_moradores.RoutineTests.test_existing_test_mode_still_accepts_and_distributes) ... ok
+test_external_elimination_is_cleaned_and_stops_occupying_space 
+(test_rotinas_moradores.RoutineTests.test_external_elimination_is_cleaned_and_stops_occupying_space) ... ok
+test_failed_placement_is_atomic_and_safe_alternative_is_used 
+(test_rotinas_moradores.RoutineTests.test_failed_placement_is_atomic_and_safe_alternative_is_used) ... ok
+test_interaction_cannot_cross_solid_armrest_or_room_boundary 
+(test_rotinas_moradores.RoutineTests.test_interaction_cannot_cross_solid_armrest_or_room_boundary) ... ok
+test_interaction_pause_does_not_reset_timers_or_plan_every_frame 
+(test_rotinas_moradores.RoutineTests.test_interaction_pause_does_not_reset_timers_or_plan_every_frame) ... ok
+test_large_steps_do_not_tunnel_and_player_cannot_cross_resident 
+(test_rotinas_moradores.RoutineTests.test_large_steps_do_not_tunnel_and_player_cannot_cross_resident) ... ok
+test_managed_movement_is_consistent_across_frame_rates 
+(test_rotinas_moradores.RoutineTests.test_managed_movement_is_consistent_across_frame_rates) ... ok
+test_many_daily_plans_remain_safe_and_reuse_actor_instances 
+(test_rotinas_moradores.RoutineTests.test_many_daily_plans_remain_safe_and_reuse_actor_instances) ... ok
+test_no_per_frame_planning_no_image_reload_and_offscreen_actors_frozen 
+(test_rotinas_moradores.RoutineTests.test_no_per_frame_planning_no_image_reload_and_offscreen_actors_frozen) ... ok
+test_passages_and_progression_objects_remain_reachable_with_seven 
+(test_rotinas_moradores.RoutineTests.test_passages_and_progression_objects_remain_reachable_with_seven) ... ok
+test_profiles_give_retired_resident_slower_steps_and_longer_pauses 
+(test_rotinas_moradores.RoutineTests.test_profiles_give_retired_resident_slower_steps_and_longer_pauses) ... ok
+test_real_new_day_changes_routines_once_but_f6_does_not 
+(test_rotinas_moradores.RoutineTests.test_real_new_day_changes_routines_once_but_f6_does_not) ... ok
+test_safe_recovery_uses_existing_free_spawn_when_curated_slots_are_unavailable 
+(test_rotinas_moradores.RoutineTests.test_safe_recovery_uses_existing_free_spawn_when_curated_slots_are_unavailable) 
+... ok
+test_seven_coexist_in_different_safe_rooms_without_bedroom_or_street 
+(test_rotinas_moradores.RoutineTests.test_seven_coexist_in_different_safe_rooms_without_bedroom_or_street) ... ok
+test_state_is_stable_when_player_leaves_returns_and_renders 
+(test_rotinas_moradores.RoutineTests.test_state_is_stable_when_player_leaves_returns_and_renders) ... ok
+test_walks_never_cross_furniture_player_or_other_npcs 
+(test_rotinas_moradores.RoutineTests.test_walks_never_cross_furniture_player_or_other_npcs) ... ok
+test_waypoint_direction_animation_stop_and_blocked_movement_recovery 
+(test_rotinas_moradores.RoutineTests.test_waypoint_direction_animation_stop_and_blocked_movement_recovery) ... ok
+test_background_connectivity_preserves_dark_interior 
+(test_sheets.SheetTests.test_background_connectivity_preserves_dark_interior) ... ok
+test_door_exams_and_previous_design_preserved (test_sheets.SheetTests.test_door_exams_and_previous_design_preserved) 
+... ok
+test_game_loads_sheet_pixels_without_white_background_processing 
+(test_sheets.SheetTests.test_game_loads_sheet_pixels_without_white_background_processing) ... ok
+test_sources_outputs_and_foot_alignment (test_sheets.SheetTests.test_sources_outputs_and_foot_alignment) ... ok
+test_accept_transfer_once_rejection_no_transfer_and_no_eviction 
+(test_sobrevivencia.SurvivalGameTests.test_accept_transfer_once_rejection_no_transfer_and_no_eviction) ... ok
+test_defeat_does_not_advance_day_and_restart_resets_real_state 
+(test_sobrevivencia.SurvivalGameTests.test_defeat_does_not_advance_day_and_restart_resets_real_state) ... ok
+test_fridge_never_generates_and_first_broadcast_brings_ricardo_once 
+(test_sobrevivencia.SurvivalGameTests.test_fridge_never_generates_and_first_broadcast_brings_ricardo_once) ... FAIL
+test_inventory_pauses_and_closes_i_or_escape 
+(test_sobrevivencia.SurvivalGameTests.test_inventory_pauses_and_closes_i_or_escape) ... ok
+test_medical_schedule_preserved_and_new_context_not_diagnostics 
+(test_sobrevivencia.SurvivalGameTests.test_medical_schedule_preserved_and_new_context_not_diagnostics) ... ok
+test_multiple_living_residents_and_dead_excluded 
+(test_sobrevivencia.SurvivalGameTests.test_multiple_living_residents_and_dead_excluded) ... ok
+test_real_new_game_starts_bedroom_empty_and_visitor_absent 
+(test_sobrevivencia.SurvivalGameTests.test_real_new_game_starts_bedroom_empty_and_visitor_absent) ... ok
+test_sleep_consumes_once_summary_preserves_visitor_and_npc 
+(test_sobrevivencia.SurvivalGameTests.test_sleep_consumes_once_summary_preserves_visitor_and_npc) ... ok
+test_company_resets_loneliness_sanity_once_and_zero_is_not_death 
+(test_sobrevivencia.SurvivalUnitTests.test_company_resets_loneliness_sanity_once_and_zero_is_not_death) ... ok
+test_critical_forecast_survives_exploration_then_recovers_or_dies_at_sleep 
+(test_sobrevivencia.SurvivalUnitTests.test_critical_forecast_survives_exploration_then_recovers_or_dies_at_sleep) ... 
+ok
+test_day_one_tolerance_for_all_residents_and_normal_day_two 
+(test_sobrevivencia.SurvivalUnitTests.test_day_one_tolerance_for_all_residents_and_normal_day_two) ... ok
+test_death_hunger_three_thirst_two_loneliness_five 
+(test_sobrevivencia.SurvivalUnitTests.test_death_hunger_three_thirst_two_loneliness_five) ... ok
+test_forecast_is_pure_respects_ration_order_and_preserves_history 
+(test_sobrevivencia.SurvivalUnitTests.test_forecast_is_pure_respects_ration_order_and_preserves_history) ... ok
+test_initial_values_and_any_household_size 
+(test_sobrevivencia.SurvivalUnitTests.test_initial_values_and_any_household_size) ... ok
+test_invalid_resources_and_configurable_ration_order 
+(test_sobrevivencia.SurvivalUnitTests.test_invalid_resources_and_configurable_ration_order) ... ok
+test_reset_hunger_and_thirst_independently 
+(test_sobrevivencia.SurvivalUnitTests.test_reset_hunger_and_thirst_independently) ... ok
+test_sanity_from_day_one_partial_company_and_no_zero_defeat 
+(test_sobrevivencia.SurvivalUnitTests.test_sanity_from_day_one_partial_company_and_no_zero_defeat) ... ok
+test_shortage_priority_zero_floor_and_separate_rations 
+(test_sobrevivencia.SurvivalUnitTests.test_shortage_priority_zero_floor_and_separate_rations) ... ok
+test_terceiro_padrao (unittest.loader._FailedTest.test_terceiro_padrao) ... ERROR
+test_accept_confirmation_retains_data_and_places_resident 
+(test_visitantes.VisitorTests.test_accept_confirmation_retains_data_and_places_resident) ... ok
+test_all_six_features_both_visual_variants_and_seen_mark 
+(test_visitantes.VisitorTests.test_all_six_features_both_visual_variants_and_seen_mark) ... ok
+test_diagnosis_delegation_preserves_real_state 
+(test_visitantes.VisitorTests.test_diagnosis_delegation_preserves_real_state) ... ok
+test_dialogue_resources_and_escape_hierarchy 
+(test_visitantes.VisitorTests.test_dialogue_resources_and_escape_hierarchy) ... ok
+test_originals_transparency_and_preserved_white_coat 
+(test_visitantes.VisitorTests.test_originals_transparency_and_preserved_white_coat) ... ok
+test_randomization_only_at_session_start_and_ranges 
+(test_visitantes.VisitorTests.test_randomization_only_at_session_start_and_ranges) ... ok
+test_reject_confirmation_registers_and_does_not_respawn 
+(test_visitantes.VisitorTests.test_reject_confirmation_registers_and_does_not_respawn) ... ok
+
+======================================================================
+ERROR: test_dynamic_supplies_and_decisions_do_not_require_exhausting_questions (test_conversas_progressivas.Progressive
+ConversationTests.test_dynamic_supplies_and_decisions_do_not_require_exhausting_questions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Arthur\Desktop\Faculdade\Segundo Per�odo\Resolu��o de Problemas com L�gica Matem�tica\Trust No 
+Body\tests\test_conversas_progressivas.py", line 102, in 
+test_dynamic_supplies_and_decisions_do_not_require_exhausting_questions
+    game=House();s=game.visitor_session;s.start_test('ricardo','padrao_3')
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arthur\Desktop\Faculdade\Segundo Per�odo\Resolu��o de Problemas com L�gica Matem�tica\Trust No 
+Body\casa\visitors.py", line 191, in start_test
+    elif condition!='aleatoria':raise ValueError('Condi��o de teste indispon�vel para este visitante')
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Condi��o de teste indispon�vel para este visitante
+
+======================================================================
+ERROR: test_nearest_object_wins_and_never_opens_two_interfaces 
+(test_investigacao_progressiva.ProgressiveInvestigationTests.test_nearest_object_wins_and_never_opens_two_interfaces)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Arthur\Desktop\Faculdade\Segundo Per�odo\Resolu��o de Problemas com L�gica Matem�tica\Trust No 
+Body\tests\test_investigacao_progressiva.py", line 219, in test_nearest_object_wins_and_never_opens_two_interfaces
+    self.assertEqual(game.nearest_interaction().action,'fridge')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'action'
+
+======================================================================
+ERROR: test_terceiro_padrao (unittest.loader._FailedTest.test_terceiro_padrao)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_terceiro_padrao
+Traceback (most recent call last):
+  File "C:\Users\Arthur\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arthur\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 339, in 
+_get_module_from_name
+    __import__(name)
+  File "C:\Users\Arthur\Desktop\Faculdade\Segundo Per�odo\Resolu��o de Problemas com L�gica Matem�tica\Trust No 
+Body\tests\test_terceiro_padrao.py", line 5, in <module>
+    from casa.visitors import VisitorSession,PATTERN_CONDITIONS,PROTOCOL_NEWS
+ImportError: cannot import name 'PATTERN_CONDITIONS' from 'casa.visitors' (C:\Users\Arthur\Desktop\Faculdade\Segundo 
+Per�odo\Resolu��o de Problemas com L�gica Matem�tica\Trust No Body\casa\visitors.py)
+
+
+======================================================================
+FAIL: test_fridge_opens_same_stock_only_inventory 
+(test_cama_hud.BedAndHUDTests.test_fridge_opens_same_stock_only_inventory)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Arthur\Desktop\Faculdade\Segundo Per�odo\Resolu��o de Problemas com L�gica Matem�tica\Trust No 
+Body\tests\test_cama_hud.py", line 137, in test_fridge_opens_same_stock_only_inventory
+    game.interact();self.assertIn('geladeira est� vazia',game.dialog)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'geladeira est� vazia' not found in ''
+
+======================================================================
+FAIL: test_development_only_and_import_preservation 
+(test_editor_colisoes.EditorTests.test_development_only_and_import_preservation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Arthur\Desktop\Faculdade\Segundo Per�odo\Resolu��o de Problemas com L�gica Matem�tica\Trust No 
+Body\tests\test_editor_colisoes.py", line 125, in test_development_only_and_import_preservation
+    self.assertEqual(actual,expected)
+AssertionError: 0.44 != 0.9
+
+======================================================================
+FAIL: test_sources_protagonist_door_exams_dialogues_and_maps_unchanged 
+(test_ricardo_individual.IndividualTests.test_sources_protagonist_door_exams_dialogues_and_maps_unchanged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Arthur\Desktop\Faculdade\Segundo Per�odo\Resolu��o de Problemas com L�gica Matem�tica\Trust No 
+Body\tests\test_ricardo_individual.py", line 49, in test_sources_protagonist_door_exams_dialogues_and_maps_unchanged
+    self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),digest,name)
+AssertionError: 'd9f0fe2fc063475d23969983075c2b3670030b563f6bc3feca6fd52b1c811d8e' != 
+'1ef97b0895a9585b644a3275df384ac5f23fc59606134e8d36ceb3832a51b9dd'
+- d9f0fe2fc063475d23969983075c2b3670030b563f6bc3feca6fd52b1c811d8e
++ 1ef97b0895a9585b644a3275df384ac5f23fc59606134e8d36ceb3832a51b9dd
+ : colisoes\cozinha.json
+
+======================================================================
+FAIL: test_fridge_never_generates_and_first_broadcast_brings_ricardo_once 
+(test_sobrevivencia.SurvivalGameTests.test_fridge_never_generates_and_first_broadcast_brings_ricardo_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Arthur\Desktop\Faculdade\Segundo Per�odo\Resolu��o de Problemas com L�gica Matem�tica\Trust No 
+Body\tests\test_sobrevivencia.py", line 182, in test_fridge_never_generates_and_first_broadcast_brings_ricardo_once
+    game.interact();self.assertIn('geladeira est� vazia',game.dialog)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'geladeira est� vazia' not found in ''
+
+----------------------------------------------------------------------
+Ran 248 tests in 89.728s
+
+FAILED (failures=4, errors=3)
+pygame 2.6.1 (SDL 2.28.4, Python 3.12.10)
+Hello from the pygame community. https://www.pygame.org/contribute.html

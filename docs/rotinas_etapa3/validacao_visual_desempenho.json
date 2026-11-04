@@ -1,0 +1,102 @@
+{
+  "resolution": [
+    1280,
+    720
+  ],
+  "configured_fps": 60,
+  "driver": "dummy",
+  "initial": {
+    "ricardo": {
+      "room": "sala",
+      "source_feet": [
+        860.0,
+        575.0
+      ]
+    },
+    "laura": {
+      "room": "corredor",
+      "source_feet": [
+        420.0,
+        232.00000000000003
+      ]
+    },
+    "antonio": {
+      "room": "cozinha",
+      "source_feet": [
+        560.0,
+        540.0000000000001
+      ]
+    },
+    "gabriel": {
+      "room": "entrada",
+      "source_feet": [
+        480.0,
+        520.0
+      ]
+    },
+    "helena": {
+      "room": "sala",
+      "source_feet": [
+        190.00000000000006,
+        354.99999999999994
+      ]
+    },
+    "daniel": {
+      "room": "corredor",
+      "source_feet": [
+        1320.0,
+        232.00000000000003
+      ]
+    },
+    "marina": {
+      "room": "cozinha",
+      "source_feet": [
+        500.00000000000006,
+        785.0
+      ]
+    }
+  },
+  "new_days": [
+    {
+      "day": 2,
+      "locations": {
+        "ricardo": "entrada",
+        "laura": "sala",
+        "antonio": "cozinha",
+        "gabriel": "corredor",
+        "helena": "cozinha",
+        "daniel": "banheiro",
+        "marina": "sala"
+      }
+    }
+  ],
+  "performance": {
+    "sala": {
+      "mean_ms": 0.42058124998523755,
+      "p95_ms": 0.5206999994697981,
+      "frames": 240
+    },
+    "cozinha": {
+      "mean_ms": 0.43813458329016913,
+      "p95_ms": 0.5369999998947605,
+      "frames": 240
+    },
+    "corredor": {
+      "mean_ms": 0.3815074999541442,
+      "p95_ms": 0.4554999995889375,
+      "frames": 240
+    },
+    "entrada": {
+      "mean_ms": 0.3264812499613375,
+      "p95_ms": 0.3783000011026161,
+      "frames": 240
+    },
+    "banheiro": {
+      "mean_ms": 0.3585616666138473,
+      "p95_ms": 0.4279000004316913,
+      "frames": 240
+    }
+  },
+  "planning_runs_during_frames": 0,
+  "geometry_builds_during_frames": 0
+}

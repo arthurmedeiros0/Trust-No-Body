@@ -212,12 +212,13 @@ class SurvivalGameTests(unittest.TestCase):
     def test_sleep_consumes_once_summary_preserves_visitor_and_npc(self):
         self.introduction();game=self.game;session=game.visitor_session
         visitor=session.visitors['ricardo'];game.decide_visitor(visitor,'acolhido')
-        snapshot=copy.deepcopy(vars(visitor));actor=game.residents['ricardo'];feet=actor.feet.copy()
+        snapshot=copy.deepcopy(vars(visitor));actor=game.residents['ricardo']
         stocks=(session.survival.food,session.survival.water)
         with patch('casa.visitors.random.getrandbits',side_effect=AssertionError('novo sorteio')):self.sleep()
         self.assertEqual(game.days.day,2)
         self.assertEqual((session.survival.food,session.survival.water),stocks)
-        self.assertEqual(vars(visitor),snapshot);self.assertEqual(actor.feet,feet)
+        self.assertEqual(vars(visitor),snapshot);self.assertIs(game.residents['ricardo'],actor)
+        self.assertTrue(game.scenes[actor.room].collisions.allows(actor.feet))
         self.assertIn('Resumo do dia anterior',game.dialog)
         self.assertEqual(len(session.survival.reports),1)
         game.confirm_sleep();game.update((0,0),10)
