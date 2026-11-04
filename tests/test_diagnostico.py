@@ -66,26 +66,20 @@ class DiagnosisTests(unittest.TestCase):
             with self.subTest(logic=logic),patch('casa.visitors.infection_logic',logic):
                 self.assertEqual(self.session.diagnosticar_visitante('ricardo'),'inconclusivo')
 
-    def test_ui_refreshes_after_observation_and_news_without_changing_real_state(self):
+    def test_ui_hides_diagnosis_after_observation_and_news(self):
         s=self.session
         ui=VisitorUI(self.visitor,None,lambda *args:False,knowledge=s.medical,session=s)
         state=self.visitor.diagnosis
-        self.assertIsNone(ui.diagnosis_indicator())
         ui.page='investigate'
-        # Simula só o retorno do grupo; nenhuma implicação é reproduzida aqui.
-        with patch('casa.visitors.infection_logic',SimpleNamespace(diagnosticar=Mock(side_effect=['inconclusivo','inconclusivo','infectado']))) as logic:
-            self.assertEqual(ui.diagnosis_indicator(),'Diagnóstico inconclusivo')
+        with patch('casa.visitors.infection_logic',SimpleNamespace(diagnosticar=Mock())) as logic:
+            self.assertIsNone(ui.diagnosis_indicator())
             rect=ui.layout()['manchas_maos'][0]
             ui.handle_event(pygame.event.Event(pygame.MOUSEBUTTONDOWN,button=1,pos=rect.center))
-            self.assertEqual(ui.page,'image')
-            self.assertEqual(ui.diagnosis_indicator(),'Diagnóstico inconclusivo')
-            self.assertEqual(logic.diagnosticar.call_args.args[0],{'manchas_maos':self.visitor.symptoms['manchas_maos']})
+            self.assertIsNone(ui.diagnosis_indicator())
             s.news.unlock(7);s.news.watch(s.news.current(7))
-            self.assertEqual(ui.diagnosis_indicator(),'PADRÃO DE INFECÇÃO IDENTIFICADO')
-            self.assertEqual(logic.diagnosticar.call_args.args[1],{'boletim_07'})
+            self.assertIsNone(ui.diagnosis_indicator())
+            logic.diagnosticar.assert_not_called()
         self.assertEqual(self.visitor.diagnosis,state)
-        s.medical.known.clear()
-        self.assertIsNone(ui.diagnosis_indicator())
 
     def test_available_module_delegation(self):
         from casa.visitors import infection_logic

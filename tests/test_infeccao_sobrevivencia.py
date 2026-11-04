@@ -161,8 +161,8 @@ class InfectionSurvivalTests(unittest.TestCase):
         ui=VisitorUI(s.visitors['ricardo'],None,lambda *args:False,knowledge=s.medical,session=s)
         s.medical.known.update(LABELS);ui.page='investigate'
         with patch('casa.visitors.infection_logic.diagnosticar',return_value='saudavel') as diagnose:
-            self.assertEqual(ui.diagnosis_indicator(),'Diagnóstico: saudável')
-            diagnose.assert_called_once_with({}, {'boletim_01','boletim_07','boletim_14','boletim_17'})
+            self.assertIsNone(ui.diagnosis_indicator())
+            diagnose.assert_not_called()
         self.assertEqual(s.visitors['ricardo'].diagnosis,'infectado')
 
 

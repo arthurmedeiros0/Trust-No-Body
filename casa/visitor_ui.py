@@ -69,10 +69,8 @@ class VisitorUI:
         self.remember_conversation()
 
     def diagnosis_indicator(self):
-        if self.session is None or self.page not in ('investigate','image'):return None
-        if not any(key in self.knowledge.known for key in self.visitor.definition['investigation']):return None
-        result=self.session.diagnosticar_visitante(self.visitor.id)
-        return {'infectado':'PADRÃO DE INFECÇÃO IDENTIFICADO','saudavel':'Diagnóstico: saudável'}.get(result,'Diagnóstico inconclusivo')
+        """A interface deixa a interpretacao das pistas a cargo do jogador."""
+        return None
 
     def layout(self):
         if self.page=='image' and self.feature not in self.knowledge.known:self.page='root';self.feature=None
@@ -244,14 +242,6 @@ class VisitorUI:
             self.text(screen,item['label'],pygame.Rect(220,125,840,35))
         elif self.page=='confirm':
             self.draw_speech(screen)
-        indicator=self.diagnosis_indicator()
-        if indicator:
-            # Faixa abaixo da imagem (que termina em y=590) e acima de Voltar.
-            area=pygame.Rect(350,552 if self.page=='investigate' else 593,580,25)
-            pygame.draw.rect(screen,'#172027',area)
-            color='#d9ab80' if indicator=='PADRÃO DE INFECÇÃO IDENTIFICADO' else '#b4b8aa'
-            text=self.small.render(indicator,True,color)
-            screen.blit(text,text.get_rect(center=area.center))
         for rect,label in self.layout().values():
             pygame.draw.rect(screen,'#344b49',rect,border_radius=5)
             # Perguntas também respeitam a caixa; os textos originais cabem nela.

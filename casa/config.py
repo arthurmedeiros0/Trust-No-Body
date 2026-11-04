@@ -39,6 +39,7 @@ ROOMS = {
   'spawn': (403,452),
   'interactions': [dict(label='Voltar ao corredor',point=(403,482),action='exit',direction='frente'),
     dict(label='Televisao',point=(110,267),action='television'),
+    dict(label='Diário',point=(160,390),action='journal',prompt='[E] Consultar diário de investigação'),
     dict(label='Cama',point=(299,339),region=(232,125,131,215),action='sleep')],
  },
  'cozinha': {

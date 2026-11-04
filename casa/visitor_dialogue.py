@@ -27,6 +27,9 @@ class Dialogue:
     def ask(self,index):
         if index not in self.pending():return False
         self.progress.answer_text=self.answer(index)
+        if self.session and self.visitor.arrived:
+            self.session.journal.conversation(self.visitor,self.session.day,
+                self.data['questions'][index]['question'],self.progress.answer_text)
         self.progress.question=index
         self.progress.asked.add(index)
         self.progress.stage='answer';self.progress.text_page=0

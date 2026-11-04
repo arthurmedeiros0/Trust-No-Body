@@ -1,0 +1,86 @@
+Baseline HEAD em memoria, com inicializacao de conversations para superar o bloqueio preexistente do dialogo.
+test_fridge_opens_same_stock_only_inventory (test_cama_hud.BedAndHUDTests.test_fridge_opens_same_stock_only_inventory) ... FAIL
+test_fridge_never_generates_and_first_broadcast_brings_ricardo_once (test_sobrevivencia.SurvivalGameTests.test_fridge_never_generates_and_first_broadcast_brings_ricardo_once) ... FAIL
+test_nearest_object_wins_and_never_opens_two_interfaces (test_investigacao_progressiva.ProgressiveInvestigationTests.test_nearest_object_wins_and_never_opens_two_interfaces) ... FAIL
+test_sources_protagonist_door_exams_dialogues_and_maps_unchanged (test_ricardo_individual.IndividualTests.test_sources_protagonist_door_exams_dialogues_and_maps_unchanged) ... FAIL
+test_development_only_and_import_preservation (test_editor_colisoes.EditorTests.test_development_only_and_import_preservation) ... FAIL
+test_dynamic_supplies_and_decisions_do_not_require_exhausting_questions (test_conversas_progressivas.ProgressiveConversationTests.test_dynamic_supplies_and_decisions_do_not_require_exhausting_questions) ... ERROR
+test_terceiro_padrao (unittest.loader._FailedTest.test_terceiro_padrao) ... ERROR
+
+======================================================================
+ERROR: test_dynamic_supplies_and_decisions_do_not_require_exhausting_questions (test_conversas_progressivas.ProgressiveConversationTests.test_dynamic_supplies_and_decisions_do_not_require_exhausting_questions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Arthur\Desktop\Faculdade\Segundo Período\Resolução de Problemas com Lógica Matemática\Trust No Body\tests\test_conversas_progressivas.py", line 102, in test_dynamic_supplies_and_decisions_do_not_require_exhausting_questions
+    game=House();s=game.visitor_session;s.start_test('ricardo','padrao_3')
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "baseline/visitors.py", line 188, in start_test
+    self.test_mode=True
+                        
+ValueError: Condição de teste indisponível para este visitante
+
+======================================================================
+ERROR: test_terceiro_padrao (unittest.loader._FailedTest.test_terceiro_padrao)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_terceiro_padrao
+Traceback (most recent call last):
+  File "C:\Users\Arthur\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Arthur\Desktop\Faculdade\Segundo Período\Resolução de Problemas com Lógica Matemática\Trust No Body\tests\test_terceiro_padrao.py", line 5, in <module>
+    from casa.visitors import VisitorSession,PATTERN_CONDITIONS,PROTOCOL_NEWS
+ImportError: cannot import name 'PATTERN_CONDITIONS' from 'casa.visitors' (C:\Users\Arthur\Desktop\Faculdade\Segundo Período\Resolução de Problemas com Lógica Matemática\Trust No Body\casa\visitors.py)
+
+
+======================================================================
+FAIL: test_fridge_opens_same_stock_only_inventory (test_cama_hud.BedAndHUDTests.test_fridge_opens_same_stock_only_inventory)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Arthur\Desktop\Faculdade\Segundo Período\Resolução de Problemas com Lógica Matemática\Trust No Body\tests\test_cama_hud.py", line 137, in test_fridge_opens_same_stock_only_inventory
+    game.interact();self.assertIn('geladeira está vazia',game.dialog)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'geladeira está vazia' not found in ''
+
+======================================================================
+FAIL: test_fridge_never_generates_and_first_broadcast_brings_ricardo_once (test_sobrevivencia.SurvivalGameTests.test_fridge_never_generates_and_first_broadcast_brings_ricardo_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Arthur\Desktop\Faculdade\Segundo Período\Resolução de Problemas com Lógica Matemática\Trust No Body\tests\test_sobrevivencia.py", line 182, in test_fridge_never_generates_and_first_broadcast_brings_ricardo_once
+    game.interact();self.assertIn('geladeira está vazia',game.dialog)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'geladeira está vazia' not found in ''
+
+======================================================================
+FAIL: test_nearest_object_wins_and_never_opens_two_interfaces (test_investigacao_progressiva.ProgressiveInvestigationTests.test_nearest_object_wins_and_never_opens_two_interfaces)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Arthur\Desktop\Faculdade\Segundo Período\Resolução de Problemas com Lógica Matemática\Trust No Body\tests\test_investigacao_progressiva.py", line 216, in test_nearest_object_wins_and_never_opens_two_interfaces
+    self.assertEqual(game.nearest_interaction().action,'fridge')
+AssertionError: 'resident' != 'fridge'
+- resident
++ fridge
+
+
+======================================================================
+FAIL: test_sources_protagonist_door_exams_dialogues_and_maps_unchanged (test_ricardo_individual.IndividualTests.test_sources_protagonist_door_exams_dialogues_and_maps_unchanged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Arthur\Desktop\Faculdade\Segundo Período\Resolução de Problemas com Lógica Matemática\Trust No Body\tests\test_ricardo_individual.py", line 49, in test_sources_protagonist_door_exams_dialogues_and_maps_unchanged
+    self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),digest,name)
+AssertionError: 'd9f0fe2fc063475d23969983075c2b3670030b563f6bc3feca6fd52b1c811d8e' != '1ef97b0895a9585b644a3275df384ac5f23fc59606134e8d36ceb3832a51b9dd'
+- d9f0fe2fc063475d23969983075c2b3670030b563f6bc3feca6fd52b1c811d8e
++ 1ef97b0895a9585b644a3275df384ac5f23fc59606134e8d36ceb3832a51b9dd
+ : colisoes\cozinha.json
+
+======================================================================
+FAIL: test_development_only_and_import_preservation (test_editor_colisoes.EditorTests.test_development_only_and_import_preservation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Arthur\Desktop\Faculdade\Segundo Período\Resolução de Problemas com Lógica Matemática\Trust No Body\tests\test_editor_colisoes.py", line 125, in test_development_only_and_import_preservation
+    self.assertEqual(actual,expected)
+AssertionError: 0.44 != 0.9
+
+----------------------------------------------------------------------
+Ran 7 tests in 3.262s
+
+FAILED (failures=5, errors=2)

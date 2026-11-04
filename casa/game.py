@@ -18,6 +18,7 @@ from .resident_render import resident_frame
 from .sleep import SleepTransition
 from .television import Television
 from .survival_ui import SurvivalUI
+from .diario_ui import JournalUI
 
 class House:
     def __init__(self, development=False):
@@ -41,11 +42,13 @@ class House:
         self.sleep_transition=SleepTransition(self.days)
         self.television=Television(self.news,self.days)
         self.inventory=SurvivalUI(self.visitor_session)
+        self.journal_ui=JournalUI(self.visitor_session)
         self.news.on_watch.append(self.news_seen)
         self.summary_pending=False
         self.sleep_held=False
         self.visitor_assets={key:load_assets(v.definition) for key,v in self.visitor_session.visitors.items()
                              if key not in self.visitor_session.unavailable}
+        self.journal_ui.assets=self.visitor_assets
         self.visitor_session.on_arrival.append(lambda visitor:self.present_visitor(visitor.id))
         self.visitor_shadow=Shadow()
         self.resident_positions={}
@@ -116,7 +119,7 @@ class House:
         self.player.stop()
 
     def interact(self):
-        if not self.visitor_session.survival.alive or self.visitor_session.survival.won or self.resident_ui or self.inventory.active or self.fade.active or self.sleep_transition.active or self.dialog or self.observing or self.television.active or bool(self.editor and self.editor.active): return
+        if not self.visitor_session.survival.alive or self.visitor_session.survival.won or self.resident_ui or self.journal_ui.active or self.inventory.active or self.fade.active or self.sleep_transition.active or self.dialog or self.observing or self.television.active or bool(self.editor and self.editor.active): return
         item=self.nearest_interaction()
         if item is None: return
         self.player.stop()
@@ -144,6 +147,8 @@ class House:
             reason=self.sleep_block_reason()
             self.dialog=reason or 'Deseja dormir e avançar para o próximo dia?'
             self.sleep_option=not bool(reason)
+        elif item.action=='journal':
+            self.journal_ui.open()
         elif item.action=='television':
             self.television.open()
         elif item.action=='fridge':
@@ -159,7 +164,7 @@ class House:
 
     @property
     def captures_escape(self):
-        return self.visitor_session.survival.won or not self.visitor_session.survival.alive or bool(self.resident_ui) or self.observing or self.fade.active or self.sleep_transition.active or self.television.active or self.inventory.active or bool(self.dialog) or bool(self.editor and self.editor.active)
+        return self.visitor_session.survival.won or not self.visitor_session.survival.alive or bool(self.resident_ui) or self.observing or self.fade.active or self.sleep_transition.active or self.television.active or self.journal_ui.active or self.inventory.active or bool(self.dialog) or bool(self.editor and self.editor.active)
 
     def sleep_block_reason(self):
         if not self.visitor_session.intro.broadcast_seen:return 'Assista ao noticiário do primeiro dia antes de encerrar o dia.'
@@ -195,6 +200,9 @@ class House:
         if not self.visitor_session.survival.alive or self.visitor_session.survival.won:
             if (event.type==pygame.KEYDOWN and event.key in (pygame.K_RETURN,pygame.K_r)) or (event.type==pygame.MOUSEBUTTONDOWN and event.button==1 and self.inventory.restart.collidepoint(event.pos)):
                 self.__init__(self.development)
+            return
+        if self.journal_ui.active:
+            self.journal_ui.handle_event(event)
             return
         if self.inventory.active:
             if event.type==pygame.KEYDOWN and event.key in (pygame.K_i,pygame.K_ESCAPE):self.inventory.active=False
@@ -241,7 +249,7 @@ class House:
 
     def update(self, movement, dt):
         self.show_discoveries()
-        if not self.visitor_session.survival.alive or self.visitor_session.survival.won or self.inventory.active or self.resident_ui:
+        if not self.visitor_session.survival.alive or self.visitor_session.survival.won or self.journal_ui.active or self.inventory.active or self.resident_ui:
             self.player.stop()
         elif self.sleep_transition.active:
             self.player.stop();self.sleep_transition.update(dt)
@@ -330,6 +338,7 @@ class House:
         if self.editor:self.editor.draw(screen)
         if self.television.active:self.television.draw(screen)
         if self.inventory.active:self.inventory.draw(screen)
+        if self.journal_ui.active:self.journal_ui.draw(screen)
         if self.resident_ui:self.resident_ui.draw(screen)
         self.sleep_transition.draw(screen)
 
@@ -342,7 +351,7 @@ class House:
         return nearest(items,self.player.feet)
 
     def show_discoveries(self):
-        if (self.television.active or self.resident_ui or self.inventory.active or self.observing or self.dialog or
+        if (self.journal_ui.active or self.television.active or self.resident_ui or self.inventory.active or self.observing or self.dialog or
             self.fade.active or self.sleep_transition.active or not self.visitor_session.survival.alive):return
         self.dialog=self.visitor_session.medical.take_notice()
 

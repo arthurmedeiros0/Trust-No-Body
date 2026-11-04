@@ -108,6 +108,8 @@ class EditorTests(unittest.TestCase):
             legacy=before['ROOMS'][name]
             for key in ('art_scale','source_size','spawn','interactions'):
                 actual=cfg[key][:1] if name=='sala' and key=='interactions' else cfg[key]
+                if name=='quarto' and key=='interactions':
+                    actual=[item for item in actual if item['action']!='journal']
                 if key=='interactions':
                     # Apenas a orientacao de chegada mudou nesta etapa.
                     actual=[{k:v for k,v in item.items() if k!='direction'} for item in actual]

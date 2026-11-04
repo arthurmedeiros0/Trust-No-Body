@@ -7,6 +7,7 @@ import inspect
 import importlib
 from itertools import product
 from functools import lru_cache
+from .diario import InvestigationJournal
 from .days import DayCycle
 from .news import NewsArchive
 from .config import ROOT
@@ -49,6 +50,7 @@ class Visitor:
     state: str = 'aguardando'
     diagnosis: str = 'diagnostico_pendente'
     examined: set[str] = field(default_factory=set)
+    conversations: dict = field(default_factory=dict)
     talked: bool = False
     arrived: bool = False
     alive: bool = True
@@ -91,6 +93,7 @@ class JournalKnowledge:
 class VisitorSession:
     def __init__(self, rng=None, definitions=None, arrival_rules=None, asset_check=readiness):
         rng=rng if rng is not None else random
+        self.journal=InvestigationJournal()
         self.days=DayCycle()
         self.survival=Survival()
         self.intro=Introduction()
@@ -204,6 +207,7 @@ class VisitorSession:
         return (['protagonista'] if self.survival.alive else [])+[v.id for v in self.visitors.values() if v.state=='acolhido' and v.alive]
 
     def _news_seen(self,bulletin):
+        self.journal.watch(bulletin,self.day)
         self.medical.learn(bulletin.investigations)
         if bulletin.day==1:
             self.intro.broadcast_seen=True
@@ -211,6 +215,7 @@ class VisitorSession:
 
     def _arrive(self,visitor):
         if visitor:
+            self.journal.meet(visitor,self.day)
             for callback in tuple(self.on_arrival):callback(visitor)
 
     def _end_day(self,event):
@@ -238,6 +243,7 @@ class VisitorSession:
             visitor.supplies_transferred=True
             self.survival.people.setdefault(visitor.id,Needs())
             self.company_seen_today=True
+        self.journal.decision(visitor,self.day,decision)
         self.decisions.append(dict(day=self.day,visitor=visitor.id,decision=decision))
         self._arrive(self.manager.next())
         return True
@@ -250,5 +256,6 @@ class VisitorSession:
         self.survival.people.pop(visitor_id,None)
         self.survival.change_sanity(-2 if visitor.diagnosis=='infectado' else -3)
         self.company_seen_today=len(self.living_ids)>1
+        self.journal.decision(visitor,self.day,'eliminado')
         self.decisions.append(dict(day=self.day,visitor=visitor_id,decision='eliminado'))
         return True
