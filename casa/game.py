@@ -20,6 +20,8 @@ from .sleep import SleepTransition
 from .television import Television
 from .survival_ui import SurvivalUI
 from .diario_ui import JournalUI
+from .message_ui import MessageUI
+from . import hud
 
 class House:
     def __init__(self, development=False):
@@ -29,6 +31,8 @@ class House:
         self.period='dia'
         self.debug=False
         self.dialog='Você acorda com uma sensação de fome. Não se lembra da última vez que fez uma refeição de verdade.'
+        self.message_ui=MessageUI()
+        self.dialog_kind='narrative'
         self.sleep_option=False
         self.fade=Fade()
         self.player=Player(*load_sprites(),free_spawn(self.scene,self.scene.point((345,365))) or self.scene.spawn)
@@ -247,15 +251,11 @@ class House:
             self.show_discoveries()
             return
         if self.fade.active and not (event.type==pygame.KEYDOWN and event.key in (pygame.K_F3,pygame.K_F6)):return
-        if self.sleep_option and event.type==pygame.MOUSEBUTTONDOWN and event.button==1:
-            if pygame.Rect(340,615,240,42).collidepoint(event.pos):self.confirm_sleep()
-            elif pygame.Rect(700,615,240,42).collidepoint(event.pos):self.dialog='';self.sleep_option=False
-            return
-        if self.dialog and event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE:
-            self.dialog='';self.sleep_option=False;return
-        if self.dialog and event.type==pygame.KEYDOWN and event.key not in (pygame.K_F3,pygame.K_F6):
-            if self.sleep_option and event.key in (pygame.K_s,pygame.K_RETURN):self.confirm_sleep()
-            elif event.key in (pygame.K_n,pygame.K_RETURN,pygame.K_SPACE):self.dialog='';self.sleep_option=False
+        if self.dialog and not (event.type==pygame.KEYDOWN and event.key in (pygame.K_F3,pygame.K_F6)):
+            self.prepare_message()
+            action=self.message_ui.handle_event(event)
+            if action=='confirm':self.confirm_sleep()
+            elif action=='close':self.dialog='';self.sleep_option=False
             return
         if self.editor and self.editor.handle_event(event): return
         if event.type!=pygame.KEYDOWN: return
@@ -279,6 +279,7 @@ class House:
             if not self.sleep_transition.active and self.summary_pending:
                 self.summary_pending=False
                 self.dialog=self.visitor_session.last_report.text()
+                self.dialog_kind='summary'
         elif self.television.active:
             self.player.stop()
         elif self.editor and self.editor.active:
@@ -316,12 +317,7 @@ class House:
             shadow_rect=self.player.shadow.rect(self.player.feet,camera)
             pygame.draw.ellipse(screen,'#d68bfa',shadow_rect,1)
         screen.set_clip(previous_clip)
-        title=f'Trust No Body | {self.room.capitalize()} | {self.period.capitalize()}'
-        screen.blit(self.font.render(title,True,'#f1e6c8'),(20,18))
-        screen.blit(self.small.render(self.survival_hud(),True,'#f1e6c8'),(490,18))
-        objective=self.visitor_session.intro.objective
-        if objective and not self.debug:
-            screen.blit(self.small.render('Objetivo: '+objective,True,'#d5c59f'),(20,43))
+        hud.draw(screen,self)
         controls='WASD / Setas: mover   E: interagir   I: suprimentos   J: diário   F6: dia/noite   F3: colisoes   ESC: sair'
         screen.blit(self.small.render(controls,True,'#bbbfc4'),(20,690))
         if self.debug:
@@ -329,7 +325,7 @@ class House:
             info=(f'{self.room} | escala {self.scene.scale:.4f} | '
                   f'pes na arte: ({source.x:.1f}, {source.y:.1f}) | '
                   f'camera: ({camera.x:.0f}, {camera.y:.0f})')
-            screen.blit(self.small.render(info,True,'#8de5df'),(20,43))
+            screen.blit(self.small.render(info,True,'#8de5df'),(20,58))
         item=self.nearest_interaction()
         if item and not self.resident_ui and not self.dialog and not self.fade.active and not self.sleep_transition.active and not self.television.active:
             label=self.font.render(item.prompt or '[E] Interagir - '+item.label,True,'#fff1b8')
@@ -337,25 +333,8 @@ class House:
             pygame.draw.rect(screen,'#172027',box,border_radius=6)
             screen.blit(label,label.get_rect(center=box.center))
         if self.dialog:
-            words=self.dialog.split();lines=[];line=''
-            for word in words:
-                trial=(line+' '+word).strip()
-                if self.font.size(trial)[0]>970:
-                    lines.append(line);line=word
-                else: line=trial
-            lines.append(line)
-            height=max(130,len(lines)*27+65)
-            box=pygame.Rect(130,670-height,1020,height)
-            pygame.draw.rect(screen,'#18222e',box,border_radius=8)
-            pygame.draw.rect(screen,'#d5bf86',box,2,border_radius=8)
-            for i,line in enumerate(lines):
-                screen.blit(self.font.render(line,True,'#f5e9cf'),(150,box.y+18+i*27))
-            if not self.sleep_option:
-                screen.blit(self.small.render('Enter / Espaco: fechar',True,'#bbc6d0'),(150,638))
-            else:
-                for rect,label in ((pygame.Rect(340,615,240,42),'Dormir [S / Enter]'),(pygame.Rect(700,615,240,42),'Cancelar [N / ESC]')):
-                    pygame.draw.rect(screen,'#34424c',rect)
-                    text=self.font.render(label,True,'#f5e9cf');screen.blit(text,text.get_rect(center=rect.center))
+            self.prepare_message()
+            self.message_ui.draw(screen)
         self.fade.draw(screen)
         if self.editor:self.editor.draw(screen)
         if self.television.active:self.television.draw(screen)
@@ -363,6 +342,13 @@ class House:
         if self.resident_ui:self.resident_ui.draw(screen)
         self.sleep_transition.draw(screen)
         self.draw_journal(screen)
+
+    def prepare_message(self):
+        kind='confirmation' if self.sleep_option else self.message_ui.kind if self.message_ui.value==self.dialog else self.dialog_kind
+        if self.message_ui.value!=self.dialog and kind not in ('summary','important','confirmation'):
+            kind='narrative' if self.days.day==1 and not self.visitor_session.intro.fridge_checked else 'info'
+        self.message_ui.prepare(self.dialog,self.sleep_option,kind)
+        self.dialog_kind='info'
 
     def nearest_interaction(self):
         items=list(self.scene.interactions)
@@ -377,6 +363,7 @@ class House:
         if (self.journal_ui.active or self.television.active or self.resident_ui or self.inventory.active or self.observing or self.dialog or
             self.fade.active or self.sleep_transition.active or not self.visitor_session.survival.alive):return
         self.dialog=self.visitor_session.medical.take_notice()
+        if self.dialog:self.dialog_kind='important'
 
     def survival_hud(self):
         state=self.visitor_session.survival

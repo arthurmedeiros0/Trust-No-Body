@@ -56,11 +56,10 @@ class EntranceTests(unittest.TestCase):
         self.assertEqual(game.player.direction,direction)
 
     def test_buttons_and_day_night_in_view(self):
-        # A interface antiga de observar continua disponivel sem visitante.
+        # Sem visitante, somente o retorno permanece disponivel.
         self.game.visitor_session.visitors['ricardo'].state='rejeitado'
         self.open_view();game=self.game;before=game.player.feet.copy();collisions=game.scene.collisions
-        game.handle_event(pygame.event.Event(pygame.MOUSEBUTTONDOWN,button=1,pos=game.peephole.observe_button.center))
-        self.assertTrue(game.peephole.observing)
+        self.assertFalse(hasattr(game.peephole,'observe_button'))
         self.assertNotEqual(pygame.image.tobytes(game.peephole.images['dia'],'RGB'),pygame.image.tobytes(game.peephole.images['noite'],'RGB'))
         for period in ('noite','dia'):
             self.key(pygame.K_F6);self.assertEqual(game.period,period)

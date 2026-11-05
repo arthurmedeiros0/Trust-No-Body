@@ -50,10 +50,8 @@ class AntonioTests(unittest.TestCase):
         for index in range(len(dialogue.data['questions'])):
             self.assertTrue(dialogue.answer(index))
         menu=GameMenu(session.visitors)
-        menu.choose('test');menu.choose('antonio')
-        self.assertIn('condition',dict(menu.entries()))
-        menu.choose('condition')
-        self.assertEqual(menu.choose('start'),('test','antonio','saudavel'))
+        self.assertEqual(menu.entries(),[('normal','JOGAR'),('quit','SAIR')])
+        self.assertIsNone(menu.choose('test'))
 
     def test_real_door_accept_reject_render_movement_and_resources(self):
         for decision in ('acolhido','rejeitado'):

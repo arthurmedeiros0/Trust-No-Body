@@ -66,14 +66,12 @@ class ThirdPatternTests(unittest.TestCase):
         self.assertTrue(s.eliminate('ricardo'))
         self.assertTrue(s.days.close_day());self.assertEqual(s.survival.infection_exposure,0)
 
-    def test_test_menu_can_select_each_exclusive_pattern_for_every_visitor(self):
+    def test_internal_debug_patterns_remain_available_without_test_menu(self):
         s=VisitorSession(random.Random(2));menu=GameMenu(s.visitors)
         for key in s.visitors:
-            menu.choose('test');menu.choose(key)
-            self.assertIn('condition',dict(menu.entries()))
+            self.assertIsNone(menu.choose('test'))
+            self.assertEqual([k for k,_ in menu.entries()],['normal','quit'])
             for index,(condition,news) in enumerate(PATTERN_CONDITIONS.items(),3):
-                menu.condition=index
-                self.assertEqual(menu.choose('start'),('test',key,condition))
                 v=s.start_test(key,condition,random.Random(9))
                 self.assertEqual(v.infection_pattern,news)
                 self.assertEqual(v.infection_patterns,frozenset((news,)))

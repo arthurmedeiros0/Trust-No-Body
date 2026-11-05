@@ -18,9 +18,7 @@ class Peephole:
         self.visitor_position=FUTURE_VISITOR_POSITION
         self.visitor_scale=FUTURE_VISITOR_SCALE
         self.font=pygame.font.Font(None,27)
-        self.observe_button=pygame.Rect(420,655,200,44)
-        self.back_button=pygame.Rect(660,655,200,44)
-        self.observing=False
+        self.back_button=pygame.Rect(1070,650,170,44)
         self.visitor_ui=None
 
     def handle_event(self,event):
@@ -29,7 +27,6 @@ class Peephole:
         if event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE:return 'back'
         if event.type==pygame.MOUSEBUTTONDOWN and event.button==1:
             if self.back_button.collidepoint(event.pos):return 'back'
-            if self.observe_button.collidepoint(event.pos):self.observing=True
         return None
 
     def draw_visitors(self,screen):
@@ -47,10 +44,4 @@ class Peephole:
         if self.visitor_ui and self.visitor_ui.visitor.state=='aguardando':
             self.visitor_ui.draw(screen)
             return
-        theme.panel(screen,(400,640,480,68))
-        for button,label in ((self.observe_button,'Observar'),(self.back_button,'Voltar')):
-            theme.button(screen,button,label,typeface=self.font)
-        title=self.font.render('Olho mágico | '+period.capitalize(),True,'#f1e6c8')
-        screen.blit(title,(20,20))
-        if self.observing:
-            text=self.font.render('Observando a rua',True,'#bbc6d0');screen.blit(text,(970,665))
+        theme.button(screen,self.back_button,'Voltar',typeface=self.font)
