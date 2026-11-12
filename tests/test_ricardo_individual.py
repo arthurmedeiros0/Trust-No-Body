@@ -45,7 +45,7 @@ class IndividualTests(unittest.TestCase):
         saved=ROOT/self.manifest['backup']
         protected=json.loads((saved/'preservados.json').read_text(encoding='utf-8'))
         for name,digest in protected.items():
-            if name.replace('\\','/') in ('casa/game.py','casa/config.py','casa/scenes.py','casa/interactions.py','dados/visitantes/ricardo_dialogos.json'):continue # Interacao/narrativa evoluiram; imagens permanecem protegidas.
+            if name.replace('\\','/') in ('casa/game.py','casa/config.py','casa/scenes.py','casa/interactions.py','dados/visitantes/ricardo_dialogos.json','colisoes/quarto.json','colisoes/cozinha.json'):continue # Colisoes dos dois comodos foram corrigidas; imagens permanecem protegidas.
             self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),digest,name)
         self.assertEqual(len(list((self.base/'referencias').glob('*.png'))),9)
         self.assertEqual(len(list((saved/'andando').glob('*/*.png'))),self.manifest.get('previous_walk_count',12))

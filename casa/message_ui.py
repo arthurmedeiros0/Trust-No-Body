@@ -9,6 +9,17 @@ class MessageUI:
     def prepare(self,value,confirmation=False,kind='narrative'):
         if self.value!=value:self.value=value;self.page=0
         self.confirmation=confirmation;self.kind=kind
+        if kind=='objective':
+            face=ui.font(25)
+            width=680
+            body_height=len(ui.wrapped_lines(value,width-48,face))*max(26,face.get_linesize())
+            height=body_height+114
+            self.box=pygame.Rect(300,650-height,width,height)
+            self.body=pygame.Rect(self.box.x+24,self.box.y+48,width-48,body_height)
+            self.pages=ui.text_pages(value,self.body,face)
+            self.page=min(self.page,len(self.pages)-1)
+            self.buttons={'close':(pygame.Rect(self.box.right-176,self.box.bottom-54,152,36),'Continuar')}
+            return
         lines=ui.wrapped_lines(value,872,ui.font(25))
         height=min(260,max(26,len(lines)*26))
         self.box=pygame.Rect(180,676-(height+132),920,height+132)
@@ -45,7 +56,8 @@ class MessageUI:
         ui.panel(screen,self.box,accent=accent)
         labels={'narrative':'RELATO','info':'INFORMAÇÃO','important':'ATENÇÃO','summary':'RESUMO DO DIA','confirmation':'ENCERRAR O DIA'}
         if self.kind=='objective':labels['objective']=f'OBJETIVO — DIA {self.objective_day}'
-        ui.text(screen,labels[self.kind],(204,self.box.y+20,700,24),ui.font(20),accent,line_height=22)
+        title_x=self.box.x+24 if self.kind=='objective' else 204
+        ui.text(screen,labels[self.kind],(title_x,self.box.y+18,self.box.width-48,24),ui.font(20),accent,line_height=22)
         ui.text(screen,self.value,self.body,ui.font(25),page=self.page)
         for rect,label in self.buttons.values():ui.button(screen,rect,label,typeface=ui.font(22))
         if len(self.pages)>1:ui.text(screen,f'{self.page+1} / {len(self.pages)}',(466,self.box.bottom-48,120,24),ui.font(20),ui.MUTED)

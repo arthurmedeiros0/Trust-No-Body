@@ -2,6 +2,55 @@
 import argparse
 import os
 
+
+class GameFlow:
+    """Encaminha menu, introdução e partida sem sobrepor seus eventos."""
+    def __init__(self, house_factory, development=False):
+        from casa.menu import GameMenu
+        self.menu=GameMenu()
+        self.house_factory=house_factory
+        self.development=development
+        self.game=None
+        self.intro=None
+
+    def handle_event(self,event):
+        import pygame
+        from casa.intro_ui import IntroUI
+        if self.intro is not None:
+            if self.intro.handle_event(event):
+                self.intro=None
+                self.game=self.house_factory(development=self.development)
+                self.game.defer_restart=True
+            return None
+        if self.game is None or self.menu.page=='pause':
+            action=self.menu.handle_event(event)
+            if action:
+                kind,_,_=action
+                if kind=='quit':return 'quit'
+                if kind=='normal':
+                    self.intro=IntroUI()
+                    self.menu.page='playing'
+                elif kind=='main':self.game=None
+                elif kind=='resume':self.menu.page='playing'
+            return None
+        if event.type==pygame.KEYDOWN and event.key==pygame.K_F1:
+            self.menu.page='pause';self.menu.selected=0;return None
+        if event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE and not self.game.captures_escape:
+            self.menu.page='pause';self.menu.selected=0;return None
+        if self.game.handle_event(event)=='restart':
+            self.game=None
+            self.intro=IntroUI()
+        return None
+
+    def update(self,movement,dt):
+        if self.intro is not None:self.intro.update(dt)
+        elif self.game is not None and self.menu.page=='playing':self.game.update(movement,dt)
+
+    def draw(self,screen):
+        if self.intro is not None:self.intro.draw(screen)
+        elif self.game is None or self.menu.page in ('main','pause'):self.menu.draw(screen)
+        else:self.game.draw(screen)
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--smoke-test',action='store_true')
@@ -13,7 +62,6 @@ def main():
     import pygame
     from casa.config import WINDOW,FPS
     from casa.game import House
-    from casa.menu import GameMenu
     pygame.init()
     try:
         screen=pygame.display.set_mode(WINDOW)
@@ -24,37 +72,19 @@ def main():
             result=unittest.TextTestRunner(verbosity=2).run(suite)
             if not result.wasSuccessful(): raise SystemExit(1)
             return
-        menu=GameMenu()
-        game=None
+        flow=GameFlow(House,args.dev)
         clock=pygame.time.Clock();running=True
 
         while running:
             dt=min(clock.tick(FPS)/1000,.05)
             for event in pygame.event.get():
                 if event.type==pygame.QUIT:running=False;continue
-                if game is None or menu.page=='pause':
-                    action=menu.handle_event(event)
-                    if action:
-                        kind,character,condition=action
-                        if kind=='quit':running=False
-                        elif kind=='normal':
-                            game=House(development=args.dev)
-                            menu.page='playing'
-                        elif kind=='main':game=None
-                        elif kind=='resume':menu.page='playing'
-                    continue
-                if event.type==pygame.KEYDOWN and event.key==pygame.K_F1:
-                    menu.page='pause';menu.selected=0;continue
-                if event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE and not game.captures_escape:
-                    menu.page='pause';menu.selected=0;continue
-                game.handle_event(event)
-            if game is None or menu.page in ('main','pause'):
-                menu.draw(screen)
-            else:
-                keys=pygame.key.get_pressed()
-                movement=(int(keys[pygame.K_d] or keys[pygame.K_RIGHT])-int(keys[pygame.K_a] or keys[pygame.K_LEFT]),
-                          int(keys[pygame.K_s] or keys[pygame.K_DOWN])-int(keys[pygame.K_w] or keys[pygame.K_UP]))
-                game.update(movement,dt);game.draw(screen)
+                if flow.handle_event(event)=='quit':running=False
+            keys=pygame.key.get_pressed()
+            movement=(int(keys[pygame.K_d] or keys[pygame.K_RIGHT])-int(keys[pygame.K_a] or keys[pygame.K_LEFT]),
+                      int(keys[pygame.K_s] or keys[pygame.K_DOWN])-int(keys[pygame.K_w] or keys[pygame.K_UP]))
+            flow.update(movement,dt)
+            flow.draw(screen)
             pygame.display.flip()
     finally:
         pygame.quit()

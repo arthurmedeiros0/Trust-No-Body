@@ -22,10 +22,10 @@ class ObjectiveGuide:
         bulletin = session.news.current(day)
         if not bulletin.read:
             if day == 4:
-                return Objective('Assista ao noticiário na sala.', 'Novas características podem ser reveladas.')
+                return Objective('Assista ao noticiário no quarto.', 'Novas características podem ser reveladas.')
             if day == 7:
-                return Objective('Assista ao noticiário na sala.', 'Novas informações sobre a infecção podem ajudar.')
-            return Objective('Assista ao noticiário na sala.')
+                return Objective('Assista ao noticiário no quarto.', 'Novas informações sobre a infecção podem ajudar.')
+            return Objective('Assista ao noticiário no quarto.')
 
         visitor = session.visitors.get(session.manager.current)
         if visitor and visitor.arrived and visitor.state == 'aguardando':
@@ -33,8 +33,6 @@ class ObjectiveGuide:
                 return Objective('Investigue quem está na porta da entrada.')
             return Objective('Investigue o visitante na entrada e decida.', self._discovery_hint(bulletin))
 
-        if day == 1 and not intro.door_checked:
-            return Objective('Investigue quem está na porta da entrada.')
         return Objective('Volte ao quarto e durma para avançar.', self._discovery_hint(bulletin) or
                          ('Opcional: revise suas observações no diário.' if day == 5 else ''))
 

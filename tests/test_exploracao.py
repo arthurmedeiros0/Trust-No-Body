@@ -2,15 +2,18 @@
 import hashlib
 import json
 import unittest
+from unittest.mock import patch
 from collections import deque
 from PIL import Image,ImageChops,ImageOps
 import pygame
+from casa import config
 from casa.config import ROOT,ROOMS,DOOR_X,FRAME_TIME,SPEED
 from support import exploration_house as House
 from casa.interactions import nearest
 
 class ExplorationTests(unittest.TestCase):
     def setUp(self):
+        enabled=patch.object(config,'DEBUG',True);enabled.start();self.addCleanup(enabled.stop)
         self.game=House()
 
     def reachable(self, scene):

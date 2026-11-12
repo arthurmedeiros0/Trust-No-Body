@@ -7,6 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 WINDOW = (1280, 720)
 VIEWPORT = (20, 65, 1240, 610)
 FPS = 60
+DEBUG = False  # Atalhos F3/F6 reservados ao desenvolvimento.
 SPEED = 220
 FRAME_TIME = .14
 PLAYER_ASSET_ROOT = ROOT/'personagens/protagonista/classicos'

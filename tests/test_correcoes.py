@@ -2,13 +2,16 @@
 import hashlib
 import json
 import unittest
+from unittest.mock import patch
 import pygame
+from casa import config
 from casa.config import ROOT,ROOMS,SCENE_SCALE,FRAME_TIME,PLAYER_SIZE
 from support import exploration_house as House
 from casa.interactions import nearest
 
 class CorrectionTests(unittest.TestCase):
     def setUp(self):
+        enabled=patch.object(config,'DEBUG',True);enabled.start();self.addCleanup(enabled.stop)
         self.game=House()
 
     def test_lateral_idle_step_cycle_and_stop(self):

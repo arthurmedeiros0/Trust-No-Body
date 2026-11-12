@@ -3,13 +3,16 @@ import copy
 import unittest
 from unittest.mock import patch
 import pygame
+from casa import config
 from support import exploration_house as House
 from casa.days import DayCycle
 from casa.interactions import nearest
 
 
 class DaysAndTelevisionTests(unittest.TestCase):
-    def setUp(self):self.game=House()
+    def setUp(self):
+        enabled=patch.object(config,'DEBUG',True);enabled.start();self.addCleanup(enabled.stop)
+        self.game=House()
 
     def key(self,key):self.game.handle_event(pygame.event.Event(pygame.KEYDOWN,key=key))
 
@@ -21,6 +24,7 @@ class DaysAndTelevisionTests(unittest.TestCase):
     def bed(self):
         game=self.game;scene=game.scenes['quarto']
         if game.dialog.startswith('Resumo do dia anterior'):self.key(pygame.K_RETURN)
+        if game.objective_notice:self.key(pygame.K_RETURN)
         game.change_room('quarto',scene.point((345,365)))
         self.assertTrue(scene.collisions.allows(game.player.feet))
         self.assertEqual(nearest(scene.interactions,game.player.feet).action,'sleep')
@@ -33,6 +37,7 @@ class DaysAndTelevisionTests(unittest.TestCase):
 
     def tv(self):
         game=self.game;scene=game.scenes['quarto']
+        if game.objective_notice:self.key(pygame.K_RETURN)
         game.change_room('quarto',scene.point((135,267)))
         self.assertTrue(scene.collisions.allows(game.player.feet))
         self.assertEqual(nearest(scene.interactions,game.player.feet).action,'television')

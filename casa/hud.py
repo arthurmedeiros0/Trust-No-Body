@@ -14,11 +14,25 @@ def fitted_text(screen, value, rect, size, color=ui.TEXT):
     ui.text(screen,value,rect,face,color,line_height=height)
 
 
-def layout(width, journal_rect):
+def objective_size(width, objective):
+    """Altura suficiente para o texto real, sem aumentar a barra de status."""
+    text_width=width-28
+    action_line=max(17,ui.font(17).get_linesize())
+    hint_line=max(15,ui.font(14).get_linesize())
+    action_height=len(ui.wrapped_lines(objective.action,text_width,ui.font(17)))*action_line
+    hint_y=34+action_height+4
+    hint_height=(len(ui.wrapped_lines(objective.hint,text_width,ui.font(14)))*hint_line
+                 if objective.hint else 0)
+    height=(hint_y+hint_height+10) if objective.hint else (34+action_height+10)
+    return height,action_height,hint_y,hint_height
+
+
+def layout(width, journal_rect, objective=None):
     """Reserva o alvo real do diário e distribui o espaço restante."""
     right=min(width-20,journal_rect.left-12)
     left_width=min(400,round(right*.35))
-    location=pygame.Rect(20,9,left_width,100)
+    height=objective_size(left_width,objective)[0] if objective else 64
+    location=pygame.Rect(20,9,left_width,height)
     start=location.right+12
     status=pygame.Rect(start,9,right-start,44)
     weights=(1.15,1.0,1.0,1.0)
@@ -39,17 +53,18 @@ def status_values(house):
 
 
 def draw(screen,house):
-    location,status,cells=layout(screen.get_width(),house.journal_ui.access_rect)
+    objective=house.objectives.current()
+    location,status,cells=layout(screen.get_width(),house.journal_ui.access_rect,objective)
+    _,action_height,hint_y,hint_height=objective_size(location.width,objective)
     ui.panel(screen,location,alpha=248,accent=ui.PAPER)
     ui.panel(screen,status,alpha=248)
     period=house.period.capitalize()
     fitted_text(screen,f'{house.room.capitalize()}  /  {period}',
                  (location.x+14,13,location.width-124,20),24,ui.PAPER)
     fitted_text(screen,'OBJETIVO',(location.right-108,15,96,18),16,ui.MUTED)
-    objective=house.objectives.current()
-    ui.text(screen,objective.action,(location.x+14,34,location.width-28,34),ui.font(17),ui.TEXT,line_height=17)
+    ui.text(screen,objective.action,(location.x+14,34,location.width-28,action_height),ui.font(17),ui.TEXT,line_height=max(17,ui.font(17).get_linesize()))
     if objective.hint:
-        ui.text(screen,objective.hint,(location.x+14,70,location.width-28,32),ui.font(14),ui.MUTED,line_height=15)
+        ui.text(screen,objective.hint,(location.x+14,hint_y,location.width-28,hint_height),ui.font(14),ui.MUTED,line_height=max(15,ui.font(14).get_linesize()))
     for i,(cell,(label,value)) in enumerate(zip(cells,status_values(house))):
         if i:pygame.draw.line(screen,ui.BORDER,(cell.x,19),(cell.x,43))
         fitted_text(screen,label,(cell.x+14,13,cell.width-28,14),16,ui.MUTED)

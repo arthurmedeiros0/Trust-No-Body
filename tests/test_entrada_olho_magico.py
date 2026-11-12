@@ -4,13 +4,16 @@ import tempfile
 import unittest
 from unittest.mock import patch
 import pygame
+from casa import config
 from casa.config import ROOT,ROOMS,PLAYER_SIZE
 from support import exploration_house as House
 from casa.collision_data import save,load
 from casa.interactions import nearest
 
 class EntranceTests(unittest.TestCase):
-    def setUp(self):self.game=House()
+    def setUp(self):
+        enabled=patch.object(config,'DEBUG',True);enabled.start();self.addCleanup(enabled.stop)
+        self.game=House()
 
     def key(self,key):self.game.handle_event(pygame.event.Event(pygame.KEYDOWN,key=key))
 

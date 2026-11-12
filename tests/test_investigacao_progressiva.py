@@ -214,7 +214,7 @@ class ProgressiveInvestigationTests(unittest.TestCase):
     def test_nearest_object_wins_and_never_opens_two_interfaces(self):
         self.accept('ricardo');game=self.game;actor=game.residents['ricardo']
         game.change_room('quarto',game.scenes['quarto'].point((635,250)))
-        game.change_room('cozinha',game.scenes['cozinha'].point((635,250)))
+        game.change_room('cozinha',game.scenes['cozinha'].point((1290,435)))
         actor.room='cozinha';actor.feet=game.player.feet+pygame.Vector2(0,56)
         self.assertEqual(game.nearest_interaction().action,'fridge')
         game.interact();self.assertIsNone(game.resident_ui);self.assertTrue(game.inventory.active)

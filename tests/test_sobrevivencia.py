@@ -152,12 +152,14 @@ class SurvivalGameTests(unittest.TestCase):
 
     def introduction(self):
         self.key(pygame.K_RETURN)
+        if self.game.objective_notice:self.key(pygame.K_RETURN)
         self.game.news.watch(self.game.news.current(1))
 
     def sleep(self):
         game=self.game
         without_future_arrivals(game)
         if game.dialog:self.key(pygame.K_RETURN)
+        if game.objective_notice:self.key(pygame.K_RETURN)
         game.change_room('quarto',game.scenes['quarto'].point((345,365)))
         game.handle_event(pygame.event.Event(pygame.KEYUP,key=pygame.K_e))
         self.key(pygame.K_e);self.assertTrue(game.sleep_option)
@@ -177,8 +179,8 @@ class SurvivalGameTests(unittest.TestCase):
         game.draw(pygame.display.get_surface())
 
     def test_fridge_never_generates_and_first_broadcast_brings_ricardo_once(self):
-        game=self.game;session=game.visitor_session;self.key(pygame.K_RETURN)
-        game.change_room('cozinha',game.scenes['cozinha'].point((635,250)))
+        game=self.game;session=game.visitor_session;self.key(pygame.K_RETURN);self.key(pygame.K_RETURN)
+        game.change_room('cozinha',game.scenes['cozinha'].point((1290,435)))
         game.interact();self.assertIn('geladeira está vazia',game.dialog)
         self.assertIn('garrafa de água',game.dialog)
         self.assertIn('noticiário',session.intro.objective)
@@ -243,7 +245,7 @@ class SurvivalGameTests(unittest.TestCase):
         self.assertIsNone(game.peephole.visitor_ui);self.assertFalse(game.residents)
 
     def test_inventory_pauses_and_closes_i_or_escape(self):
-        self.key(pygame.K_RETURN);self.key(pygame.K_i)
+        self.key(pygame.K_RETURN);self.key(pygame.K_RETURN);self.key(pygame.K_i)
         self.assertTrue(self.game.inventory.active);self.assertTrue(self.game.captures_escape)
         before=self.game.player.feet.copy();self.game.update((1,0),5)
         self.assertEqual(self.game.player.feet,before)

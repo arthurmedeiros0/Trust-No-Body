@@ -133,7 +133,7 @@ class BedAndHUDTests(unittest.TestCase):
 
     def test_fridge_opens_same_stock_only_inventory(self):
         game=self.game;state=game.visitor_session.survival
-        game.change_room('cozinha',game.scenes['cozinha'].point((635,250)))
+        game.change_room('cozinha',game.scenes['cozinha'].point((1290,435)))
         game.interact();self.assertIn('geladeira está vazia',game.dialog)
         game.dialog='';state.add_supplies(2.5,1.5);game.interact()
         self.assertTrue(game.inventory.active)

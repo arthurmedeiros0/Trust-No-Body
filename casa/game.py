@@ -1,6 +1,7 @@
 """Controle da exploracao e interface das interacoes basicas."""
 import pygame
 from .config import ROOMS, DOOR_X, CORRIDOR_RETURN_Y
+from . import config
 from .collisions import feet_rect
 from .sprites import load_sprites
 from .scenes import Scene
@@ -27,11 +28,13 @@ from . import hud
 class House:
     def __init__(self, development=False):
         self.development=development
+        self.defer_restart=False
         self.scenes={name:Scene(name) for name in ROOMS}
         self.room='quarto'
         self.period='dia'
         self.debug=False
         self.dialog='Você acorda com uma sensação de fome. Não se lembra da última vez que fez uma refeição de verdade.'
+        self.initial_dialog=self.dialog
         self.message_ui=MessageUI()
         self.objective_ui=MessageUI()
         self.objective_notice=''
@@ -110,7 +113,7 @@ class House:
             image,anchor=resident_frame(key,image) if scale is None else resident_frame(key,image,scale)
             point=feet-camera;self.visitor_shadow.draw(screen,feet,camera)
             screen.blit(image,(round(point.x)-anchor[0],round(point.y)-anchor[1]))
-            if self.debug:
+            if config.DEBUG and self.debug:
                 pygame.draw.rect(screen,'#ffac66',feet_rect(feet).move(-round(camera.x),-round(camera.y)),1)
 
     @property
@@ -125,7 +128,7 @@ class House:
         self.player.stop()
 
     def interact(self):
-        if not self.visitor_session.survival.alive or self.visitor_session.survival.won or self.resident_ui or self.journal_ui.active or self.inventory.active or self.fade.active or self.sleep_transition.active or self.dialog or self.observing or self.television.active or bool(self.editor and self.editor.active): return
+        if not self.visitor_session.survival.alive or self.visitor_session.survival.won or self.resident_ui or self.journal_ui.active or self.inventory.active or self.fade.active or self.sleep_transition.active or self.dialog or self.objective_notice or self.observing or self.television.active or bool(self.editor and self.editor.active): return
         item=self.nearest_interaction()
         if item is None: return
         self.player.stop()
@@ -170,7 +173,7 @@ class House:
 
     @property
     def captures_escape(self):
-        return self.visitor_session.survival.won or not self.visitor_session.survival.alive or bool(self.resident_ui) or self.observing or self.fade.active or self.sleep_transition.active or self.television.active or self.journal_ui.active or self.inventory.active or bool(self.dialog) or bool(self.editor and self.editor.active)
+        return self.visitor_session.survival.won or not self.visitor_session.survival.alive or bool(self.resident_ui) or self.observing or self.fade.active or self.sleep_transition.active or self.television.active or self.journal_ui.active or self.inventory.active or bool(self.dialog) or bool(self.objective_notice) or bool(self.editor and self.editor.active)
 
     def sleep_block_reason(self):
         if not self.visitor_session.intro.broadcast_seen:return 'Assista ao noticiário do primeiro dia antes de encerrar o dia.'
@@ -206,7 +209,7 @@ class House:
     def journal_allowed(self):
         state=self.visitor_session.survival
         return (state.alive and not state.won and not self.fade.active and
-                not self.sleep_transition.active and not self.inventory.active and
+                not self.sleep_transition.active and not self.inventory.active and not self.objective_notice and
                 not self.television.active and not bool(self.editor and self.editor.active))
 
     def open_journal(self):
@@ -224,10 +227,16 @@ class House:
         elif self.journal_allowed:self.journal_ui.draw_access(screen)
 
     def handle_event(self, event):
+        if event.type==pygame.KEYDOWN and event.key in (pygame.K_F3,pygame.K_F6) and not config.DEBUG:return
         if event.type==pygame.KEYUP and event.key==pygame.K_e:self.sleep_held=False
         if not self.visitor_session.survival.alive or self.visitor_session.survival.won:
             if (event.type==pygame.KEYDOWN and event.key in (pygame.K_RETURN,pygame.K_r)) or (event.type==pygame.MOUSEBUTTONDOWN and event.button==1 and self.inventory.restart.collidepoint(event.pos)):
+                if self.defer_restart:return 'restart'
                 self.__init__(self.development)
+            return
+        if self.objective_notice:
+            self.objective_ui.prepare(self.objective_notice,kind='objective')
+            if self.objective_ui.handle_event(event)=='close':self.objective_notice=''
             return
         if self.journal_ui.active:
             self.journal_ui.handle_event(event)
@@ -258,19 +267,15 @@ class House:
             self.show_discoveries()
             return
         if self.fade.active and not (event.type==pygame.KEYDOWN and event.key in (pygame.K_F3,pygame.K_F6)):return
-        if self.objective_notice:
-            if event.type==pygame.KEYDOWN and event.key in (pygame.K_RETURN,pygame.K_SPACE,pygame.K_ESCAPE):
-                self.objective_notice='';return
-            if event.type==pygame.KEYDOWN and event.key in (pygame.K_e,pygame.K_i,pygame.K_j):
-                self.objective_notice=''
         if self.dialog and not (event.type==pygame.KEYDOWN and event.key in (pygame.K_F3,pygame.K_F6)):
             self.prepare_message()
             action=self.message_ui.handle_event(event)
             if action=='confirm':self.confirm_sleep()
             elif action=='close':
                 was_summary=self.message_ui.kind=='summary'
+                was_initial=self.days.day==1 and self.dialog==self.initial_dialog
                 self.dialog='';self.sleep_option=False
-                if was_summary or self.opening_pending==1:
+                if was_summary or was_initial:
                     self.show_opening_objective()
             return
         if self.editor and self.editor.handle_event(event): return
@@ -304,7 +309,7 @@ class House:
             self.player.stop();self.fade.update(dt)
         elif self.observing:
             self.player.stop()
-        elif self.dialog:
+        elif self.dialog or self.objective_notice:
             self.player.stop()
         else:
             actors=self.resident_manager.visible(self.room)
@@ -323,11 +328,11 @@ class House:
         camera=self.editor.camera() if self.editor and self.editor.active else self.scene.camera_for(self.player.feet)
         previous_clip=screen.get_clip()
         screen.set_clip(self.scene.viewport)
-        self.scene.draw(screen,self.period,self.debug or bool(self.editor and self.editor.active),camera)
+        self.scene.draw(screen,self.period,(config.DEBUG and self.debug) or bool(self.editor and self.editor.active),camera)
         self.draw_residents(screen,camera)
         self.player.draw(screen,camera)
         self.draw_residents(screen,camera,foreground=True)
-        if self.debug:
+        if config.DEBUG and self.debug:
             body=feet_rect(self.player.feet).move(-round(camera.x),-round(camera.y))
             pygame.draw.rect(screen,'cyan',body,1)
             shadow_rect=self.player.shadow.rect(self.player.feet,camera)
@@ -337,16 +342,17 @@ class House:
         if self.objective_notice and not (self.dialog or self.television.active or self.inventory.active or self.resident_ui or self.observing):
             self.objective_ui.prepare(self.objective_notice,kind='objective')
             self.objective_ui.draw(screen)
-        controls='WASD / Setas: mover   E: interagir   I: suprimentos   J: diário   F6: dia/noite   F3: colisoes   ESC: sair'
+        controls='WASD / Setas: mover   E: interagir   I: suprimentos   J: diário   ESC: sair'
+        if config.DEBUG:controls+='   F6: dia/noite   F3: colisões'
         screen.blit(self.small.render(controls,True,'#bbbfc4'),(20,690))
-        if self.debug:
+        if config.DEBUG and self.debug:
             source=self.scene.source_point(self.player.feet)
             info=(f'{self.room} | escala {self.scene.scale:.4f} | '
                   f'pes na arte: ({source.x:.1f}, {source.y:.1f}) | '
                   f'camera: ({camera.x:.0f}, {camera.y:.0f})')
             screen.blit(self.small.render(info,True,'#8de5df'),(20,58))
         item=self.nearest_interaction()
-        if item and not self.resident_ui and not self.dialog and not self.fade.active and not self.sleep_transition.active and not self.television.active:
+        if item and not self.resident_ui and not self.dialog and not self.objective_notice and not self.fade.active and not self.sleep_transition.active and not self.television.active:
             label=self.font.render(item.prompt or '[E] Interagir - '+item.label,True,'#fff1b8')
             box=label.get_rect(midbottom=(640,665)).inflate(24,12)
             pygame.draw.rect(screen,'#172027',box,border_radius=6)
@@ -376,6 +382,8 @@ class House:
         self.opening_pending=None
         self.objective_ui.objective_day=day
         self.objective_notice=self.objectives.opening()
+        self.objective_ui.prepare(self.objective_notice,kind='objective')
+        self.player.stop()
 
     def nearest_interaction(self):
         items=list(self.scene.interactions)
@@ -387,7 +395,7 @@ class House:
         return nearest(items,self.player.feet)
 
     def show_discoveries(self):
-        if (self.journal_ui.active or self.television.active or self.resident_ui or self.inventory.active or self.observing or self.dialog or
+        if (self.journal_ui.active or self.television.active or self.resident_ui or self.inventory.active or self.observing or self.dialog or self.objective_notice or
             self.fade.active or self.sleep_transition.active or not self.visitor_session.survival.alive):return
         self.dialog=self.visitor_session.medical.take_notice()
         if self.dialog:self.dialog_kind='important'

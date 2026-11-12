@@ -7,6 +7,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 import pygame
+from casa import config
 from support import exploration_house as House
 from casa.config import ROOT,ROOMS
 from casa.collision_data import load,save,validate
@@ -14,6 +15,7 @@ from casa.collisions import feet_rect
 
 class EditorTests(unittest.TestCase):
     def setUp(self):
+        enabled=patch.object(config,'DEBUG',True);enabled.start();self.addCleanup(enabled.stop)
         self.game=House(development=True)
         self.game.change_room('sala');self.editor=self.game.editor
         self.key(pygame.K_F4)
@@ -125,8 +127,11 @@ class EditorTests(unittest.TestCase):
                 self.assertEqual(actual,expected)
             original=json.loads((ROOT/f'backups/colisoes_antes_editor/{name}.json').read_text(encoding='utf-8'))
             current=load(name,cfg['source_size'])
-            if name not in ('banheiro','sala'):self.assertEqual(current,original)
-            else:self.assertTrue({obj['id'] for obj in original['obstacles']}.issubset({obj['id'] for obj in current['obstacles']}))
+            if name not in ('banheiro','sala','quarto','cozinha'):
+                self.assertEqual(current,original)
+            else:
+                self.assertEqual(current['floor'],original['floor'])
+                self.assertTrue({obj['id'] for obj in original['obstacles']}.issubset({obj['id'] for obj in current['obstacles']}))
 
     def test_sofa_and_table_stop_feet_and_passage_is_free(self):
         game=self.game;scene=game.scene;self.editor.active=False
