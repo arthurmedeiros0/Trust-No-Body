@@ -54,9 +54,10 @@ class GameFlow:
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--smoke-test',action='store_true')
+    parser.add_argument('--verify-release',action='store_true',help='Confere recursos da distribuicao e encerra')
     parser.add_argument('--dev',action='store_true',help='Habilita editor de colisoes com F4')
     args=parser.parse_args()
-    if args.smoke_test:
+    if args.smoke_test or args.verify_release:
         os.environ['SDL_VIDEODRIVER']='dummy'
         os.environ['SDL_AUDIODRIVER']='dummy'
     import pygame
@@ -66,6 +67,20 @@ def main():
     try:
         screen=pygame.display.set_mode(WINDOW)
         pygame.display.set_caption('Trust No Body - exploracao da casa')
+        if args.verify_release:
+            from casa.menu import GameMenu
+            menu=GameMenu();menu.draw(screen)
+            game=House(development=False);game.draw(screen)
+            if game.visitor_session.unavailable:
+                raise RuntimeError('Recursos de visitantes ausentes: '+repr(game.visitor_session.unavailable))
+            game.news.watch(game.news.current(1))
+            if not game.visitor_session.visitors['ricardo'].arrived:
+                raise RuntimeError('Ricardo nao chegou apos o primeiro boletim')
+            for room in game.scenes:
+                game.change_room(room)
+                for period in ('dia','noite'):
+                    game.period=period;game.draw(screen)
+            return
         if args.smoke_test:
             import unittest
             suite=unittest.defaultTestLoader.discover(str(__import__('pathlib').Path(__file__).resolve().parent/'tests'))

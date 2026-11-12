@@ -17,6 +17,24 @@ python -m pip install -r requirements.txt
 python main.py
 ```
 
+### Distribuição Windows
+
+O projeto não possuía um processo de build versionado. Para gerar a distribuição
+portátil, instale as dependências de build e execute:
+
+```powershell
+python -m pip install -r requirements-build.txt
+powershell -NoProfile -ExecutionPolicy Bypass -File .\build_release.ps1
+```
+
+O arquivo `release/TrustNoBody-Windows.zip` contém o executável e todos os
+recursos necessários. O script verifica o executável antes de compactar. Para
+uma conferência isolada, extraia o ZIP em outra pasta e execute
+`TrustNoBody.exe --verify-release`.
+
+Backups, testes, documentação, versões processadas antigas e originais duplicados
+ficam no repositório para manutenção, fora da distribuição.
+
 Janela de 1280 × 720. Dependências verificadas: Python 3.12.10, Pillow 12.2.0 e Pygame 2.6.1.
 
 | Tecla | Ação |
