@@ -21,6 +21,7 @@ from .television import Television
 from .survival_ui import SurvivalUI
 from .diario_ui import JournalUI
 from .message_ui import MessageUI
+from .objectives import ObjectiveGuide
 from . import hud
 
 class House:
@@ -32,6 +33,8 @@ class House:
         self.debug=False
         self.dialog='Você acorda com uma sensação de fome. Não se lembra da última vez que fez uma refeição de verdade.'
         self.message_ui=MessageUI()
+        self.objective_ui=MessageUI()
+        self.objective_notice=''
         self.dialog_kind='narrative'
         self.sleep_option=False
         self.fade=Fade()
@@ -42,6 +45,7 @@ class House:
         self.peephole=Peephole()
         self.observing=False
         self.visitor_session=VisitorSession()
+        self.objectives=ObjectiveGuide(self.visitor_session)
         self.days=self.visitor_session.days
         self.news=self.visitor_session.news
         self.sleep_transition=SleepTransition(self.days)
@@ -50,6 +54,8 @@ class House:
         self.journal_ui=JournalUI(self.visitor_session)
         self.news.on_watch.append(self.news_seen)
         self.summary_pending=False
+        self.opening_pending=1
+        self.opening_shown=set()
         self.sleep_held=False
         self.visitor_assets={key:load_assets(v.definition) for key,v in self.visitor_session.visitors.items()
                              if key not in self.visitor_session.unavailable}
@@ -189,6 +195,7 @@ class House:
                 self.change_room('quarto',arrival,'frente')
                 self.period='dia'
                 self.summary_pending=True
+                self.opening_pending=self.days.day
         self.sleep_transition.start(wake)
 
     def close_peephole(self):
@@ -251,11 +258,20 @@ class House:
             self.show_discoveries()
             return
         if self.fade.active and not (event.type==pygame.KEYDOWN and event.key in (pygame.K_F3,pygame.K_F6)):return
+        if self.objective_notice:
+            if event.type==pygame.KEYDOWN and event.key in (pygame.K_RETURN,pygame.K_SPACE,pygame.K_ESCAPE):
+                self.objective_notice='';return
+            if event.type==pygame.KEYDOWN and event.key in (pygame.K_e,pygame.K_i,pygame.K_j):
+                self.objective_notice=''
         if self.dialog and not (event.type==pygame.KEYDOWN and event.key in (pygame.K_F3,pygame.K_F6)):
             self.prepare_message()
             action=self.message_ui.handle_event(event)
             if action=='confirm':self.confirm_sleep()
-            elif action=='close':self.dialog='';self.sleep_option=False
+            elif action=='close':
+                was_summary=self.message_ui.kind=='summary'
+                self.dialog='';self.sleep_option=False
+                if was_summary or self.opening_pending==1:
+                    self.show_opening_objective()
             return
         if self.editor and self.editor.handle_event(event): return
         if event.type!=pygame.KEYDOWN: return
@@ -318,6 +334,9 @@ class House:
             pygame.draw.ellipse(screen,'#d68bfa',shadow_rect,1)
         screen.set_clip(previous_clip)
         hud.draw(screen,self)
+        if self.objective_notice and not (self.dialog or self.television.active or self.inventory.active or self.resident_ui or self.observing):
+            self.objective_ui.prepare(self.objective_notice,kind='objective')
+            self.objective_ui.draw(screen)
         controls='WASD / Setas: mover   E: interagir   I: suprimentos   J: diário   F6: dia/noite   F3: colisoes   ESC: sair'
         screen.blit(self.small.render(controls,True,'#bbbfc4'),(20,690))
         if self.debug:
@@ -349,6 +368,14 @@ class House:
             kind='narrative' if self.days.day==1 and not self.visitor_session.intro.fridge_checked else 'info'
         self.message_ui.prepare(self.dialog,self.sleep_option,kind)
         self.dialog_kind='info'
+
+    def show_opening_objective(self):
+        day=self.opening_pending
+        if day is None or day in self.opening_shown:return
+        self.opening_shown.add(day)
+        self.opening_pending=None
+        self.objective_ui.objective_day=day
+        self.objective_notice=self.objectives.opening()
 
     def nearest_interaction(self):
         items=list(self.scene.interactions)

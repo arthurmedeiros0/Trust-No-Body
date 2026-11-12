@@ -18,7 +18,7 @@ def layout(width, journal_rect):
     """Reserva o alvo real do diário e distribui o espaço restante."""
     right=min(width-20,journal_rect.left-12)
     left_width=min(400,round(right*.35))
-    location=pygame.Rect(20,9,left_width,44)
+    location=pygame.Rect(20,9,left_width,100)
     start=location.right+12
     status=pygame.Rect(start,9,right-start,44)
     weights=(1.15,1.0,1.0,1.0)
@@ -44,10 +44,12 @@ def draw(screen,house):
     ui.panel(screen,status,alpha=248)
     period=house.period.capitalize()
     fitted_text(screen,f'{house.room.capitalize()}  /  {period}',
-                 (location.x+14,13,location.width-28,20),24,ui.PAPER)
-    objective=house.visitor_session.intro.objective
-    detail='Objetivo: '+objective if objective else 'TRUST NO BODY'
-    fitted_text(screen,detail,(location.x+14,35,location.width-28,16),18,ui.MUTED)
+                 (location.x+14,13,location.width-124,20),24,ui.PAPER)
+    fitted_text(screen,'OBJETIVO',(location.right-108,15,96,18),16,ui.MUTED)
+    objective=house.objectives.current()
+    ui.text(screen,objective.action,(location.x+14,34,location.width-28,34),ui.font(17),ui.TEXT,line_height=17)
+    if objective.hint:
+        ui.text(screen,objective.hint,(location.x+14,70,location.width-28,32),ui.font(14),ui.MUTED,line_height=15)
     for i,(cell,(label,value)) in enumerate(zip(cells,status_values(house))):
         if i:pygame.draw.line(screen,ui.BORDER,(cell.x,19),(cell.x,43))
         fitted_text(screen,label,(cell.x+14,13,cell.width-28,14),16,ui.MUTED)

@@ -44,6 +44,7 @@ class MessageUI:
         accent=ui.PAPER if self.kind in ('important','confirmation') else ui.MUTED
         ui.panel(screen,self.box,accent=accent)
         labels={'narrative':'RELATO','info':'INFORMAÇÃO','important':'ATENÇÃO','summary':'RESUMO DO DIA','confirmation':'ENCERRAR O DIA'}
+        if self.kind=='objective':labels['objective']=f'OBJETIVO — DIA {self.objective_day}'
         ui.text(screen,labels[self.kind],(204,self.box.y+20,700,24),ui.font(20),accent,line_height=22)
         ui.text(screen,self.value,self.body,ui.font(25),page=self.page)
         for rect,label in self.buttons.values():ui.button(screen,rect,label,typeface=ui.font(22))
